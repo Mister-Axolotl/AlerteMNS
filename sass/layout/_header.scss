@@ -1,0 +1,55 @@
+@import '../utils/_variables.scss';
+
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: $noir;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+
+    .left {
+        .conversation-type-div {
+            background-color: $vert-clair;
+            display: flex;
+            gap: 15px;
+            padding: 8px 15px 8px 15px;
+            border-radius: 15px;
+    
+            .conversation-type {
+                padding: 2px 15px 2px 15px;
+                cursor: pointer;
+                user-select: none;
+                background-color: $vert-clair;
+                border: none;
+                font-family: 'Poppins';
+                font-size: 15px;
+                border-radius: 15px;
+            }
+    
+            .active-type {
+                background-color: $vert-tres-clair;
+                padding: 2px 15px 2px 15px;
+                border-radius: 15px;
+            }
+        }
+    }
+
+    .right {
+        .research-bar {
+            .bar {
+
+            }
+
+            .research-bar-img {
+                background-image: url('../../images/loupe.png');
+                background-size: 50px
+            }
+        }
+    }
+}
