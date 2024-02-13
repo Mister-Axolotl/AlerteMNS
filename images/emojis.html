@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu d'émojis</title>
+
+    <!-- Inclure la bibliothèque Emojionearea -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.js"></script>
+
+    <style>
+        /* Ajouter du style à votre zone d'émoji si nécessaire */
+        #emojiInput {
+            width: 300px;
+            height: 50px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+<!-- Ajouter un champ de texte avec la classe Emojionearea -->
+<input type="text" id="emojiInput" class="emojionearea" />
+
+<script>
+    // Initialiser la zone d'émoji
+    $(document).ready(function() {
+        $("#emojiInput").emojioneArea();
+    });
+</script>
+
+</body>
+</html>
