@@ -4,15 +4,15 @@
 */
 @font-face {
   font-family: "Poppins";
-  src: url("../../fonts/Poppins/Poppins-Medium.ttf");
+  src: url("../fonts/Poppins/Poppins-Medium.ttf");
 }
 @font-face {
   font-family: "Poppins-Bold";
-  src: url("../../fonts/Poppins/Poppins-Bold.ttf");
+  src: url("../fonts/Poppins/Poppins-Bold.ttf");
 }
 @font-face {
   font-family: "Noto-Sans";
-  src: url("../../fonts/Noto_Sans/static/NotoSans-Regular.ttf");
+  src: url("../fonts/Noto_Sans/static/NotoSans-Regular.ttf");
 }
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -206,6 +206,86 @@ h2 {
 .sections {
   display: flex;
   flex-direction: column;
+}
+
+body {
+  min-height: 100vh;
+  background: url("../images/background.jpg") no-repeat bottom/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body main {
+  min-height: 60vh;
+  max-height: 75vh;
+  width: 33vw;
+  border: 3px solid rgba(87, 204, 153, 0.3);
+  border-radius: 30px;
+  background-color: rgba(254, 254, 254, 0.5);
+}
+body main form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10%;
+}
+body main form .inputs {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+body main form .inputs label {
+  margin: 0 0 0.2rem 0.6rem;
+  font-size: 1.4rem;
+}
+body main form .inputs input {
+  height: 2.5rem;
+  background-color: #22577a;
+  border: none;
+  border-radius: 14px;
+  padding-left: 15px;
+  outline: none;
+  color: white;
+  font-size: 1rem;
+}
+body main form .inputs input:focus {
+  outline: 3px solid rgba(128, 237, 153, 0.4);
+}
+body main form .inputs#input-id::after, body main form .inputs#input-password::after {
+  content: "";
+  width: 24vw;
+  height: 1px;
+  display: inline;
+  position: absolute;
+  left: 15px;
+  bottom: 6px;
+  background-color: #fefefe;
+}
+body main form .inputs#input-password::after {
+  width: 21vw;
+}
+body main form .inputs#input-stayConnected {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+body main form .inputs#input-stayConnected label {
+  font-size: 0.8rem;
+}
+body main form .inputs#input-stayConnected #stayConnected:focus {
+  outline: none;
+}
+body main form .inputs #view-password {
+  border: none;
+  background: none;
+  position: absolute;
+  bottom: 0px;
+  right: 5px;
+}
+body main form .inputs #view-password img {
+  height: 2rem;
 }
 
 /* ----- Global -----*/

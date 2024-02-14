@@ -1,0 +1,99 @@
+@import '../utils/_variables.scss';
+
+body {
+	min-height: 100vh;
+	background: url('../images/background.jpg') no-repeat bottom/cover;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+	// form frame
+	main {
+		min-height: 60vh;
+		max-height: 75vh;
+		width: 33vw;
+		border: 3px solid rgba($vert, .3);
+		border-radius: 30px;
+		background-color: rgba($blanc, .5);
+
+		form {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			margin: 10%;
+
+			// Group of each input and it's label
+			.inputs {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				position: relative;
+				
+				label {
+					margin: 0 0 .2rem .6rem;
+					font-size: 1.4rem;
+				}
+				
+				input {
+					height: 2.5rem;
+					background-color: $bleu-fonce;
+					border: none;
+					border-radius: 14px;
+					padding-left: 15px;
+					outline: none;
+					color: white;
+					font-size: 1rem;
+
+					&:focus {
+						outline: 3px solid rgba($vert-clair, .4);
+					}
+				}
+
+				// White line in each input
+				&#input-id::after, &#input-password::after {
+					content: "";
+					width: 24vw;
+					height: 1px;
+					display: inline;
+					position: absolute;
+					left: 15px;
+					bottom: 6px;
+					background-color: $blanc;
+				}
+
+				&#input-password::after {
+					width: 21vw;
+				}
+
+				&#input-stayConnected {
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+
+					label {
+						font-size: .8rem;
+					}
+
+					#stayConnected {
+						&:focus {
+							outline: none;
+						}
+					}
+				}
+				
+				#view-password {
+					border: none;
+					background: none;
+					position: absolute;
+					bottom: 0px;
+					right: 5px;
+
+					img {
+						height: 2rem;
+					}
+				}
+			}
+		}
+	}
+}

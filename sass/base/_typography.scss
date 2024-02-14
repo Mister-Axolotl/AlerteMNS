@@ -1,16 +1,16 @@
 @font-face {
     font-family: 'Poppins';
-    src: url('../../fonts/Poppins/Poppins-Medium.ttf');
+    src: url('../fonts/Poppins/Poppins-Medium.ttf');
 }
 
 @font-face {
     font-family: 'Poppins-Bold';
-    src: url('../../fonts/Poppins/Poppins-Bold.ttf');
+    src: url('../fonts/Poppins/Poppins-Bold.ttf');
 }
 
 @font-face {
     font-family: 'Noto-Sans';
-    src: url('../../fonts/Noto_Sans/static/NotoSans-Regular.ttf');
+    src: url('../fonts/Noto_Sans/static/NotoSans-Regular.ttf');
 }
 
 $font-family-poppins: 'Poppins', sans-serif;
