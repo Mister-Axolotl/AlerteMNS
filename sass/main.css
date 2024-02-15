@@ -224,14 +224,17 @@ body main {
   background-color: rgba(254, 254, 254, 0.5);
 }
 body main form {
+  box-sizing: border-box;
+  min-height: 50vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   margin: 10%;
 }
 body main form .inputs {
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -245,7 +248,7 @@ body main form .inputs input {
   background-color: #22577a;
   border: none;
   border-radius: 14px;
-  padding-left: 15px;
+  padding: 0 15px;
   outline: none;
   color: white;
   font-size: 1rem;
@@ -263,6 +266,9 @@ body main form .inputs#input-id::after, body main form .inputs#input-password::a
   bottom: 6px;
   background-color: #fefefe;
 }
+body main form .inputs #password {
+  padding-right: 3rem;
+}
 body main form .inputs#input-password::after {
   width: 21vw;
 }
@@ -270,9 +276,12 @@ body main form .inputs#input-stayConnected {
   display: flex;
   flex-direction: row;
   align-items: center;
+  height: 1.5rem;
+  margin-left: 1rem;
 }
 body main form .inputs#input-stayConnected label {
   font-size: 0.8rem;
+  margin-bottom: 0;
 }
 body main form .inputs#input-stayConnected #stayConnected:focus {
   outline: none;
@@ -283,9 +292,72 @@ body main form .inputs #view-password {
   position: absolute;
   bottom: 0px;
   right: 5px;
+  cursor: pointer;
 }
 body main form .inputs #view-password img {
   height: 2rem;
+}
+body main form #submit-button {
+  width: 75%;
+  height: 2.5rem;
+  background-color: #57cc99;
+  color: #fefefe;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: x-large;
+  cursor: pointer;
+  box-shadow: 0 4px 4px rgba(34, 31, 31, 0.25);
+}
+body main form #submit-button:hover {
+  box-shadow: 0 4px 4px rgba(128, 237, 153, 0.7);
+}
+body main form #submit-button:active {
+  box-shadow: none;
+}
+
+#input-stayConnected {
+  position: relative;
+  /* Hide the browser's default checkbox */
+  /* Create a custom checkbox */
+}
+#input-stayConnected input {
+  opacity: 0;
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0;
+  z-index: 1;
+  /* When the checkbox is checked, add a blue background */
+}
+#input-stayConnected input:checked ~ .checkmark {
+  background-color: #22577a;
+}
+#input-stayConnected input:checked ~ .checkmark:after {
+  display: block;
+}
+#input-stayConnected .checkmark {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  height: 15px;
+  width: 15px;
+  background-color: white;
+  border-radius: 2px;
+  /* Create the checkmark/indicator (hidden when not checked) */
+}
+#input-stayConnected .checkmark::after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 4px;
+  top: 0px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  border-radius: 4px 2px 3px 2px;
+  transform: rotate(45deg);
 }
 
 /* ----- Global -----*/

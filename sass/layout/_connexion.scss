@@ -17,15 +17,18 @@ body {
 		background-color: rgba($blanc, .5);
 
 		form {
+			box-sizing: border-box;
+			min-height: 50vh;
 			display: flex;
 			flex-direction: column;
-			justify-content: center;
+			justify-content: space-around;
 			align-items: center;
 			margin: 10%;
 
 			// Group of each input and it's label
 			.inputs {
 				width: 100%;
+				height: 100%;
 				display: flex;
 				flex-direction: column;
 				position: relative;
@@ -40,7 +43,7 @@ body {
 					background-color: $bleu-fonce;
 					border: none;
 					border-radius: 14px;
-					padding-left: 15px;
+					padding: 0 15px;
 					outline: none;
 					color: white;
 					font-size: 1rem;
@@ -61,7 +64,13 @@ body {
 					bottom: 6px;
 					background-color: $blanc;
 				}
+				
+				// prevent text from going under the eye icon
+				& #password {
+					padding-right: 3rem;
+				}
 
+				// prevent line from going under the eye icon
 				&#input-password::after {
 					width: 21vw;
 				}
@@ -70,9 +79,12 @@ body {
 					display: flex;
 					flex-direction: row;
 					align-items: center;
+					height: 1.5rem;
+					margin-left: 1rem;
 
-					label {
+					& label {
 						font-size: .8rem;
+						margin-bottom: 0;
 					}
 
 					#stayConnected {
@@ -81,19 +93,93 @@ body {
 						}
 					}
 				}
-				
+
 				#view-password {
 					border: none;
 					background: none;
 					position: absolute;
 					bottom: 0px;
 					right: 5px;
+					cursor: pointer;
 
 					img {
 						height: 2rem;
 					}
 				}
 			}
+
+			#submit-button {
+				width: 75%;
+				height: 2.5rem;
+				background-color: $vert;
+				color: $blanc;
+				border: none;
+				border-radius: 20px;
+				font-weight: bold;
+				font-size: x-large;
+				cursor: pointer;
+				box-shadow: 0 4px 4px rgba($noir, .25);
+
+				&:hover {
+					box-shadow: 0 4px 4px rgba($vert-clair, .7);
+				}
+
+				&:active {
+					box-shadow: none;
+				}
+			}
+		}
+	}
+}
+
+// Customized checkbox
+#input-stayConnected {
+	position: relative;
+
+	/* Hide the browser's default checkbox */
+	& input {
+		opacity: 0;
+		cursor: pointer;
+		height: 15px;
+		width: 15px;
+		margin: 0;
+		z-index: 1;
+
+		/* When the checkbox is checked, add a blue background */
+		&:checked~.checkmark {
+			background-color: $bleu-fonce;
+
+			&:after {
+				display: block;
+			}
+		}
+	}
+
+	/* Create a custom checkbox */
+	& .checkmark {
+		position: absolute;
+		top: 5px;
+		left: 0;
+		height: 15px;
+		width: 15px;
+		background-color: white;
+		border-radius: 2px;
+
+		/* Create the checkmark/indicator (hidden when not checked) */
+		&::after {
+			content: "";
+			position: absolute;
+			display: none;
+			left: 4px;
+			top: 0px;
+			width: 5px;
+			height: 10px;
+			border: solid white;
+			border-width: 0 3px 3px 0;
+			border-radius: 4px 2px 3px 2px;
+			-webkit-transform: rotate(45deg);
+			-ms-transform: rotate(45deg);
+			transform: rotate(45deg);
 		}
 	}
 }

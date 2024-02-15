@@ -9,26 +9,31 @@
 </head>
 <body>
 	<main>
-		<form action="" method="post">
+		<!-- TODO : Ajouter le fichier PHP de connexion -->
+		<form>
 			<div class="inputs" id="input-id">
 				<label for="id">Identifiant</label>
 				<input required type="text" id="id" name="id">
 			</div>
+			
 			<div class="inputs" id="input-password">
 				<label for="password">Mot de passe</label>
-				<input required type="password" id="password" name="password">
-				<button id="view-password">
-					<!-- TODO : changer l'image -->
-					<img src="images/loupe.png" alt="eye icon (to see password)">
+				<input required type="password" id="password" class="dots" name="password">
+				<button id="view-password" onclick="displayPassword()">
+					<!-- TODO : changer l'image (oeil non barré) -->
+					<img id="eyeIcon" src="images/loupe.png" alt="eye icon (to see password)">
 				</button>
 			</div>
-			<!-- TODO : customize checkmark -->
+
 			<div class="inputs" id="input-stayConnected">
 				<input type="checkbox" id="stayConnected" name="stayConnected">
 				<span class="checkmark"></span>
-				<label for="stayConnected">Se souvenir de moi</label>
+				<label for="stayConnected" id="stayConnected-label">Se souvenir de moi</label>
 			</div>
+
+			<button type="submit" id="submit-button">Connexion</button>
 		</form>
 	</main>
+	<script src="./js/password.js"></script>
 </body>
 </html>
