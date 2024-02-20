@@ -9,21 +9,55 @@ body {
 	
 	// form frame
 	main {
-		min-height: 60vh;
-		max-height: 75vh;
-		width: 33vw;
+		min-height: 30vh;
+		max-height: 55vh;
+		width: 60vw;
 		border: 3px solid rgba($vert, .3);
 		border-radius: 30px;
 		background-color: rgba($blanc, .5);
 
+		@media screen and (min-width: 768px) and (min-height: 440px), (min-width: 1280px) {
+			min-height: 35vh;
+			max-height: 55vh;
+			width: 50vw;
+		}
+
+		@media screen and (max-height: 439px) {
+			min-height: 55vh;
+			max-height: 80vh;
+			width: 33vw;
+		}
+
+		@media screen and (min-width: 1024px) {
+			min-height: 45vh;
+			max-height: 60vh;
+			width: 33vw;
+		}
+
 		form {
 			box-sizing: border-box;
-			min-height: 50vh;
+			min-height: 30vh;
 			display: flex;
 			flex-direction: column;
 			justify-content: space-around;
 			align-items: center;
 			margin: 10%;
+
+			/* @media screen and (min-width: 768px) and (min-height: 440px), (min-width: 1280px) {
+				margin: 10%;
+			} */
+
+			@media screen and (max-height: 439px) {
+				min-height: 60vh;
+			}
+
+			@media screen and (min-width: 1024px) {
+				min-height: 35vh;
+			}
+
+			@media screen and (min-width: 1280px) {
+				min-height: 40vh;
+			}
 
 			// Group of each input and it's label
 			.inputs {
@@ -35,56 +69,142 @@ body {
 				
 				label {
 					margin: 0 0 .2rem .6rem;
-					font-size: 1.4rem;
+					font-size: 1rem;
+
+					@media screen and (min-width: 768px) {
+						font-size: 1.7rem;
+					}
+
+					@media screen and (max-height: 439px) {
+						font-size: 1.2rem;
+					}
+
+					@media screen and (min-width: 1024px) {
+						font-size: 1.4rem;
+					}
+
+					@media screen and (min-width: 1280px) and (min-height: 1000px) {
+						font-size: 3rem;
+					}
 				}
-				
+
 				input {
-					height: 2.5rem;
+					height: 2rem;
 					background-color: $bleu-fonce;
 					border: none;
-					border-radius: 14px;
-					padding: 0 15px;
+					border-radius: 11px;
+					padding: 0 10px;
 					outline: none;
 					color: white;
-					font-size: 1rem;
+					font-size: .6rem;
 
 					&:focus {
 						outline: 3px solid rgba($vert-clair, .4);
+					}
+
+					// Autofill behavior (before : grey background & black text)
+					&:-webkit-autofill,
+					&:-webkit-autofill:hover,
+					&:-webkit-autofill:focus,
+					&:-webkit-autofill:active {
+						transition: background-color 5000s ease-in-out 0s;
+						-webkit-text-fill-color: $blanc;
+					}
+
+					@media screen and (min-width: 768px) {
+						height: 3rem;
+						border-radius: 17px;
+						padding: 0 15px;
+						font-size: 1.2rem;
+					}
+					
+					@media screen and (max-height: 439px) {
+						height: 2rem;
+						border-radius: 11px;
+					}
+					
+					@media screen and (min-width: 1024px) {
+						height: 2.5rem;
+						border-radius: 14px;
+						font-size: 1rem;
+					}
+
+					@media screen and (min-width: 1280px) and (min-height: 1000px) {
+						height: 4rem;
+						border-radius: 17px;
+						padding: 0 15px;
+						font-size: 1.7rem;
 					}
 				}
 
 				// White line in each input
 				&#input-id::after, &#input-password::after {
 					content: "";
-					width: 24vw;
+					width: 90%;
 					height: 1px;
 					display: inline;
 					position: absolute;
-					left: 15px;
+					left: 10px;
 					bottom: 6px;
 					background-color: $blanc;
+					
+					@media screen and (min-width: 768px), (min-width: 1280px) {
+						left: 15px;
+					}
 				}
 				
 				// prevent text from going under the eye icon
 				& #password {
-					padding-right: 3rem;
+					padding-right: 20%;
+
+					@media screen and (min-width: 768px) {
+						padding-right: 16%;
+					}
+
+					@media screen and (min-width: 1024px), (max-height: 439px) {
+						padding-right: 15%;
+					}
 				}
 
 				// prevent line from going under the eye icon
 				&#input-password::after {
-					width: 21vw;
+					width: 77%;
+
+					@media screen and (min-width: 768px), (min-width: 1280px) {
+						width: 81%;
+					}
 				}
 
 				&#input-stayConnected {
 					display: flex;
 					flex-direction: row;
 					align-items: center;
-					height: 1.5rem;
+					height: 1.3rem;
 					margin-left: 1rem;
 
+					@media screen and (min-width: 768px), (min-width: 1280px) {
+						height: 1.5rem;
+					}
+
+					@media screen and (min-height: 1000px) {
+						height: 2rem;
+					}
+
 					& label {
-						font-size: .8rem;
+						font-size: .5rem;
 						margin-bottom: 0;
+						
+						@media screen and (min-width: 768px) {
+							font-size: 1rem;
+						}
+
+						@media screen and (min-width: 1024px), (max-height: 439px) {
+							font-size: .8rem;
+						}
+						
+						@media screen and (min-width: 1280px) and (min-height: 1000px) {
+							font-size: 2rem;
+						}
 					}
 
 					#stayConnected {
@@ -94,29 +214,60 @@ body {
 					}
 				}
 
+				// Eye icon
 				#view-password {
-					border: none;
-					background: none;
 					position: absolute;
-					bottom: 0px;
-					right: 5px;
+					bottom: -1px;
+					right: 6px;
 					cursor: pointer;
 
+					@media screen and (min-width: 768px) {
+						bottom: 0;
+						right: 15px;
+					}
+					
+					@media screen  and (max-height: 439px) {
+						bottom: -2px;
+						right: 8px;
+					}
+					
+					@media screen and (min-width: 1024px) {
+						bottom: -2px;
+						right: 12px;
+					}
+
+					@media screen and (min-width: 1280px) and (min-height: 1000px) {
+						bottom: 0;
+						right: 15px;
+					}
+
 					img {
-						height: 2rem;
+						height: 1.3rem;
+						
+						@media screen and (min-width: 768px)  {
+							height: 2rem;
+						}
+
+						@media screen and (max-height: 440px) {
+							height: 1.6rem;
+						}
+						
+						@media screen and (min-width: 1280px) and (min-height: 1000px) {
+							height: 3rem;
+						}
 					}
 				}
 			}
 
 			#submit-button {
 				width: 75%;
-				height: 2.5rem;
+				height: 2rem;
 				background-color: $vert;
 				color: $blanc;
 				border: none;
-				border-radius: 20px;
+				border-radius: 15px;
 				font-weight: bold;
-				font-size: x-large;
+				font-size: large;
 				cursor: pointer;
 				box-shadow: 0 4px 4px rgba($noir, .25);
 
@@ -126,6 +277,25 @@ body {
 
 				&:active {
 					box-shadow: none;
+				}
+				
+				@media screen and (min-width: 768px) {
+					height: 3rem;
+					border-radius: 24px;
+					font-size: xx-large;
+				}
+
+				@media screen and (min-width: 1024px), (max-height: 439px) {
+					height: 2.5rem;
+					border-radius: 20px;
+					font-size: large;
+					width: 80%;
+				}
+
+				@media screen and (min-width: 1280px) and (min-height: 1000px) {
+					height: 5rem;
+					border-radius: 35px;
+					font-size: 3rem;
 				}
 			}
 		}
@@ -140,8 +310,8 @@ body {
 	& input {
 		opacity: 0;
 		cursor: pointer;
-		height: 15px;
-		width: 15px;
+		height: 10px;
+		width: 10px;
 		margin: 0;
 		z-index: 1;
 
@@ -153,6 +323,16 @@ body {
 				display: block;
 			}
 		}
+
+		@media screen and (min-width: 768px), (min-width: 1280px) {
+			height: 15px;
+			width: 15px;
+		}
+
+		@media screen and (min-height: 1000px) {
+			height: 25px;
+			width: 25px;
+		}
 	}
 
 	/* Create a custom checkbox */
@@ -160,26 +340,48 @@ body {
 		position: absolute;
 		top: 5px;
 		left: 0;
-		height: 15px;
-		width: 15px;
+		height: 10px;
+		width: 10px;
 		background-color: white;
 		border-radius: 2px;
+
+		@media screen and (min-width: 768px), (min-width: 1280px) {
+			height: 15px;
+			width: 15px;
+		}
+
+		@media screen and (min-height: 1000px) {
+			height: 25px;
+			width: 25px;
+		}
 
 		/* Create the checkmark/indicator (hidden when not checked) */
 		&::after {
 			content: "";
 			position: absolute;
 			display: none;
-			left: 4px;
+			left: 3px;
 			top: 0px;
-			width: 5px;
-			height: 10px;
-			border: solid white;
+			width: 2px;
+			height: 7px;
+			border: solid $blanc;
 			border-width: 0 3px 3px 0;
 			border-radius: 4px 2px 3px 2px;
 			-webkit-transform: rotate(45deg);
 			-ms-transform: rotate(45deg);
 			transform: rotate(45deg);
+
+			@media screen and (min-width: 768px), (min-width: 1280px) {
+				left: 4px;
+				width: 5px;
+				height: 10px;
+			}
+
+			@media screen and (min-height: 1000px) {
+				left: 4px;
+				width: 12px;
+				height: 17px;
+			}
 		}
 	}
 }

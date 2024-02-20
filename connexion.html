@@ -19,10 +19,10 @@
 			<div class="inputs" id="input-password">
 				<label for="password">Mot de passe</label>
 				<input required type="password" id="password" class="dots" name="password">
-				<button id="view-password" onclick="displayPassword()">
+				<div id="view-password">
 					<!-- TODO : changer l'image (oeil non barré) -->
-					<img id="eyeIcon" src="images/loupe.png" alt="eye icon (to see password)">
-				</button>
+					<img id="eyeIcon" src="images/loupe.png" alt="eye icon (to see password)" onclick="displayPassword()">
+				</div>
 			</div>
 
 			<div class="inputs" id="input-stayConnected">
