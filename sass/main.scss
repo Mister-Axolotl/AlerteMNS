@@ -47,3 +47,7 @@ a {
     pointer-events: none;
     z-index: 9999;
 }
+
+* {
+    -webkit-tap-highlight-color: transparent;
+}

@@ -2,9 +2,10 @@
 
 .container {
     position: absolute;
-    top: 80px;
+    top: 75px;
     bottom: 0px;
     width: 100%;
+    display: flex;
     overflow-y: auto;
     overflow-x: hidden;
     overflow-y: auto;
@@ -26,20 +27,23 @@
 
 @media only screen and (max-width: 480px) {
     .container {
-        top: 80px;
+        top: 75px;
     }
 }
 
-@media only screen and (min-width: 480px) {
-    .container {
-        top: 100px;
-    }
+.left-container {
+    background-color: $gris-fonce;
+    width: 30%;
+    text-align: center;
+    color: $blanc;
 }
 
-@media only screen and (min-width: 720px) {
-    .container {
-        top: 105px;
-    }
+.right-container {
+    background-image: url("../../images/background_blur.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    flex-grow: 1;
+    background-position: bottom;
 }
 
 .sections {

@@ -13,7 +13,7 @@
 <body>
     <div id="particle-container"></div>
     <header id="header">
-        <div class="left">
+        <div class="left-header">
             <div class="conversation-type-div" id="conversation_type">
 				<div class="active-background"></div>
                 <p class="conversation-type active-type" id="public">Public</p>
@@ -24,20 +24,35 @@
                 <p class="actual-channel-name"></p>
             </div>
         </div>
-        <div class="right">
-            <div class="research-bar">
-                <div class="bar"></div>
-                <div class="research-bar-img"></div>
-                <input type="text">
+        <div class="right-header">
+            <div id="channel-name">
+                <img src="../Images/Channel/journal.png" class="channel-image icon-header" alt="">
+                <div class="channel-name"></div>
             </div>
+
+            <div class="research-bar">
+                <div class="research-bar-img"></div>
+                <input type="text" class="bar">
+                <img src="../Images/loupe.png" class="icon-header" id="magnifying-glass" alt="">
+            </div>
+            <button>
+                <img src="../Images/bell.png" class="icon-header" id="notifications" alt="">
+            </button>
             <div class="notifications">
 
             </div>
         </div>
     </header>
+
+    <main>
+        <div class="container">
+            <div class="left-container">
+            </div>
+            <div class="right-container">
+            </div>
+        </div>
+    </main>
     
 </body>
-
-</div>
 
 </html>
