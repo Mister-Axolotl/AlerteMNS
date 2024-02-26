@@ -61,6 +61,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			activeBackgroundConversation.classList.add('activePublic');
             priveeConversation.classList.remove('active-type');
             publicConversation.classList.add('active-type');
-		}
-    })
-});
+			}
+		})
+	});
