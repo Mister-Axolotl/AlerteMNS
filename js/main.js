@@ -42,25 +42,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /* ==================== Conversation Type Switch ==================== */
 
-    const conversationTypeButtons = document.querySelector('#conversation_type');
     const activeBackgroundConversation = document.querySelector('.active-background');
     const publicConversation = document.querySelector('#public');
     const priveeConversation = document.querySelector('#privee');
 
-    conversationTypeButtons.addEventListener('click', () => {
-		// puts background behind private if public is activ	
-        if (publicConversation.classList.contains('active-type')) {
-            activeBackgroundConversation.classList.remove('activePublic');
-			activeBackgroundConversation.classList.add('activePrivate');
-            publicConversation.classList.remove('active-type');
-            priveeConversation.classList.add('active-type');
-        }
-		// puts background behind public if private is activ	
-		else if (priveeConversation.classList.contains('active-type')) {
-            activeBackgroundConversation.classList.remove('activePrivate');
-			activeBackgroundConversation.classList.add('activePublic');
-            priveeConversation.classList.remove('active-type');
-            publicConversation.classList.add('active-type');
-			}
-		})
-	});
+    publicConversation.addEventListener('click', () => {
+        toggleBackground('activePublic', 'activePrivate', priveeConversation, publicConversation);
+    });
+    
+    priveeConversation.addEventListener('click', () => {
+        toggleBackground('activePrivate', 'activePublic', publicConversation, priveeConversation);
+    });
+    
+    function toggleBackground(addClass, removeClass, activeElement, inactiveElement) {
+        activeBackgroundConversation.classList.remove(removeClass);
+        activeBackgroundConversation.classList.add(addClass);
+        activeElement.classList.remove('active-type');
+        inactiveElement.classList.add('active-type');
+    }
+});

@@ -13,68 +13,120 @@
     align-items: center;
     z-index: 1000;
 
-    .left {
+    .left-header {
+        width: 30%;
+
         .conversation-type-div {
             position: relative;
-			width: 190px;
-			height: 45px;
-			border-radius: 20px;
-			border: none;
-			background-color: $vert-clair;
-			display: flex;
-			flex-direction: row;
-			justify-content: space-evenly;
-			align-items: center;
-			cursor: pointer;
-    
-            .conversation-type {
-				z-index: 2;
-				font-family: 'Poppins';
-            }
-			
-			.active-background {
-				position: absolute;
-				z-index: 0;
-				left: 20px;
-				background-color: $vert-tres-clair;
-				padding: 2px 15px 2px 15px;
-				border-radius: 15px;
-				width: 45px;
-				height: 30px;
-			}
+            width: 190px;
+            height: 45px;
+            margin: auto;
+            border-radius: 10px;
+            border: none;
+            background-color: $vert-clair;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: center;
+            user-select: none;
+            cursor: pointer;
 
-			.activePrivate {
-				animation: .7s ease-in 0s 1 normal both running publicToPrivate;
-			}
-	
-			.activePublic {
-				animation: .7s ease-in 0s 1 normal both running privateToPublic;
-			}
-	
-			@keyframes publicToPrivate {
-				0% {
-					left: 25px;
-				}
-				100% {
-					left: 95px;
-				}
-			}
-			
-			@keyframes privateToPublic {
-				0% {
-					left: 95px;
-				}
-				100% {
-					left: 25px;
-				}
-			}
+            .conversation-type {
+                z-index: 2;
+                font-family: 'Poppins';
+                border-radius: 15px;
+                box-sizing: border-box;
+                padding: 2px 15px 2px 15px;
+
+                &:not(.active-type):hover {
+                    background-color: rgba($vert-tres-clair, 0.5);
+                }
+
+                &.active {
+                    transform: scale(1.1);
+                }
+            }
+
+            .active-background {
+                position: absolute;
+                z-index: 0;
+                left: 15px;
+                background-color: $vert-tres-clair;
+                padding: 2px 15px 2px 15px;
+                border-radius: 15px;
+                width: 45px;
+                height: 30px;
+            }
+
+            .activePrivate {
+                animation: .3s ease-in 0s 1 normal both running publicToPrivate;
+            }
+
+            .activePublic {
+                animation: .3s ease-in 0s 1 normal both running privateToPublic;
+            }
+
+            @keyframes publicToPrivate {
+                0% {
+                    left: 15px;
+                }
+
+                100% {
+                    left: 105px;
+                }
+            }
+
+            @keyframes privateToPublic {
+                0% {
+                    left: 105px;
+                }
+
+                100% {
+                    left: 15px;
+                }
+            }
         }
     }
 
-    .right {
-        .research-bar {
-            .bar {
+    .right-header {
+        width: 70%;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        justify-content: space-between;
 
+        #channel-name {
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .icon-header {
+            height: 30px;
+        }
+
+        button {
+            background-color: transparent;
+            border: none;
+        }
+
+        #magnifying-glass {
+            filter: brightness(0%);
+            margin-right: 5px;
+        }
+
+        .research-bar {
+            display: flex;
+            align-items: center;
+            background-color: $blanc;
+            border-radius: 15px;
+
+            .bar {
+                background-color: $blanc;
+                height: 40px;
+                border: none;
+                border-radius: 15px;
+                width: 200px;
+                outline: none;
             }
 
             .research-bar-img {
