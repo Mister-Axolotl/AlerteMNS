@@ -6,16 +6,28 @@
     left: 0;
     width: 100%;
     
-    padding-top: 15px;
-    padding-bottom: 15px;
     background-color: $noir;
     display: flex;
-    justify-content: space-between;
+	flex-direction: column-reverse;
+	justify-content: space-between;
     align-items: center;
     z-index: 1000;
+	
+	@media screen and (min-width: 1024px) {
+		flex-direction: row;
+		padding: 15px 0;
+	}
 
     .left-header {
-        width: 20%;
+        width: 100%;
+		background-color: $gris-fonce;
+		padding: 10px;
+
+		@media screen and (min-width: 1024px) {
+			width: 20%;
+			background-color: $noir;
+			padding: 0;
+		}
 
         .conversation-type-div {
             position: relative;
@@ -90,10 +102,24 @@
     }
 
     .right-header {
-        width: 78%;
+        width: 95%;
         display: flex;
         align-items: center;
         justify-content: space-between;
+		padding: 10px;
+
+		@media screen and (min-width: 1024px) {
+			width: 78%;
+			padding: 0;
+		}
+
+		#menu-icon {
+			display: block;
+
+			@media screen and (min-width: 1024px) {
+				display: none;
+			}
+		}
         
         .right-header-content {
             display: flex;
@@ -119,30 +145,39 @@
         }
 
         #magnifying-glass {
-            filter: brightness(0%);
             margin-right: 5px;
-        }
+			filter: invert(0);
 
+			@media screen and (min-width: 1024px) {
+				filter: invert(1);
+			}
+        }
+		
         .research-bar {
-            display: flex;
-            align-items: center;
-            background-color: $blanc;
-            border-radius: 15px;
+			display: flex;
+			align-items: center;
+			border-radius: 15px;
+
+			@media screen and (min-width: 1024px) {
+				background-color: $blanc;
+			}
 
             .bar {
                 background-color: $blanc;
                 height: 40px;
                 border: none;
                 border-radius: 15px;
-                width: 200px;
+                width: 0;
                 outline: none;
                 font-size: 1rem;
                 padding-left: 10px;
-            }
+				// Ne disparaît pas entièrement même avec width: 0 sans visibility:
+				visibility: hidden;
 
-            .research-bar-img {
-                background-image: url('../../images/magnifying_glass.png');
-                background-size: 50px
+				@media screen and (min-width: 1024px) {
+					width: 200px;
+					visibility: visible;
+				}
             }
         }
     }

@@ -1,0 +1,16 @@
+@import '../utils/_variables.scss';
+
+.writting-bar {
+	width: 75%;
+	height: 5rem;
+	border-radius: 50px;
+	background-color: $vert-clair;
+	position: relative;
+
+	#message-option {
+		position: absolute;
+		top: 8px;
+		left: 20px;
+		width: 4rem;
+	}
+}
