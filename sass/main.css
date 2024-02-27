@@ -105,16 +105,30 @@ h2 {
   top: 0;
   left: 0;
   width: 100%;
-  padding-top: 15px;
-  padding-bottom: 15px;
   background-color: #221f1f;
   display: flex;
+  flex-direction: column-reverse;
   justify-content: space-between;
   align-items: center;
   z-index: 1000;
 }
+@media screen and (min-width: 1024px) {
+  #header {
+    flex-direction: row;
+    padding: 15px 0;
+  }
+}
 #header .left-header {
-  width: 30%;
+  width: 100%;
+  background-color: #3f3f3f;
+  padding: 10px;
+}
+@media screen and (min-width: 1024px) {
+  #header .left-header {
+    width: 20%;
+    background-color: #221f1f;
+    padding: 0;
+  }
 }
 #header .left-header .conversation-type-div {
   position: relative;
@@ -179,15 +193,37 @@ h2 {
   }
 }
 #header .right-header {
-  width: 70%;
+  width: 95%;
   display: flex;
   align-items: center;
-  gap: 15px;
   justify-content: space-between;
+  padding: 10px;
+}
+@media screen and (min-width: 1024px) {
+  #header .right-header {
+    width: 78%;
+    padding: 0;
+  }
+}
+#header .right-header #menu-icon {
+  display: block;
+}
+@media screen and (min-width: 1024px) {
+  #header .right-header #menu-icon {
+    display: none;
+  }
+}
+#header .right-header .right-header-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
 }
 #header .right-header #channel-name {
   display: flex;
-  justify-content: flex-start;
+  color: #fefefe;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.5rem;
 }
 #header .right-header .icon-header {
   height: 30px;
@@ -197,26 +233,40 @@ h2 {
   border: none;
 }
 #header .right-header #magnifying-glass {
-  filter: brightness(0%);
   margin-right: 5px;
+  filter: invert(0);
+}
+@media screen and (min-width: 1024px) {
+  #header .right-header #magnifying-glass {
+    filter: invert(1);
+  }
 }
 #header .right-header .research-bar {
   display: flex;
   align-items: center;
-  background-color: #fefefe;
   border-radius: 15px;
+}
+@media screen and (min-width: 1024px) {
+  #header .right-header .research-bar {
+    background-color: #fefefe;
+  }
 }
 #header .right-header .research-bar .bar {
   background-color: #fefefe;
   height: 40px;
   border: none;
   border-radius: 15px;
-  width: 200px;
+  width: 0;
   outline: none;
+  font-size: 1rem;
+  padding-left: 10px;
+  visibility: hidden;
 }
-#header .right-header .research-bar .research-bar-img {
-  background-image: url("../../images/loupe.png");
-  background-size: 50px;
+@media screen and (min-width: 1024px) {
+  #header .right-header .research-bar .bar {
+    width: 200px;
+    visibility: visible;
+  }
 }
 
 .container {
@@ -248,9 +298,34 @@ h2 {
 }
 .left-container {
   background-color: #3f3f3f;
-  width: 30%;
+  width: 20%;
   text-align: center;
   color: #fefefe;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.left-container .calendar-div {
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+  color: #3f3f3f;
+  font-size: 1.2rem;
+  background-color: #80ed99;
+}
+.left-container .parameters-div {
+  display: flex;
+  height: 15%;
+  background-color: #c7f9cc;
+  color: #3f3f3f;
+}
+.left-container .parameters-div .left #parameters-user-profil {
+  filter: brightness(0%);
+}
+.left-container .icon {
+  height: 30px;
 }
 
 .right-container {
@@ -266,14 +341,14 @@ h2 {
   flex-direction: column;
 }
 
-body {
+#body-connexion {
   min-height: 100vh;
   background: url("../images/background.jpg") no-repeat bottom/cover;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-body main {
+#body-connexion main {
   min-height: 30vh;
   max-height: 55vh;
   width: 80vw;
@@ -282,27 +357,27 @@ body main {
   background-color: rgba(254, 254, 254, 0.5);
 }
 @media screen and (min-width: 768px) and (min-height: 440px), (min-width: 1280px) {
-  body main {
+  #body-connexion main {
     min-height: 35vh;
     max-height: 50vh;
     width: 60vw;
   }
 }
 @media screen and (max-height: 439px) {
-  body main {
+  #body-connexion main {
     min-height: 55vh;
     max-height: 80vh;
     width: 40vw;
   }
 }
 @media screen and (min-width: 1024px) {
-  body main {
+  #body-connexion main {
     min-height: 45vh;
     max-height: 60vh;
     width: 33vw;
   }
 }
-body main form {
+#body-connexion main form {
   box-sizing: border-box;
   min-height: 40vh;
   display: flex;
@@ -312,52 +387,52 @@ body main form {
   margin: 10%;
 }
 @media screen and (max-height: 439px) {
-  body main form {
+  #body-connexion main form {
     min-height: 60vh;
   }
 }
 @media screen and (min-width: 1024px) {
-  body main form {
+  #body-connexion main form {
     min-height: 35vh;
   }
 }
 @media screen and (min-width: 1280px) {
-  body main form {
+  #body-connexion main form {
     min-height: 40vh;
   }
 }
-body main form .inputs {
+#body-connexion main form .inputs {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   position: relative;
 }
-body main form .inputs label {
+#body-connexion main form .inputs label {
   margin: 0 0 0.2rem 0.6rem;
   font-size: 1.5rem;
 }
 @media screen and (min-width: 768px) {
-  body main form .inputs label {
+  #body-connexion main form .inputs label {
     font-size: 1.7rem;
   }
 }
 @media screen and (max-height: 439px) {
-  body main form .inputs label {
+  #body-connexion main form .inputs label {
     font-size: 1.2rem;
   }
 }
 @media screen and (min-width: 1024px) {
-  body main form .inputs label {
+  #body-connexion main form .inputs label {
     font-size: 1.4rem;
   }
 }
 @media screen and (min-width: 1280px) and (min-height: 1000px) {
-  body main form .inputs label {
+  #body-connexion main form .inputs label {
     font-size: 3rem;
   }
 }
-body main form .inputs input {
+#body-connexion main form .inputs input {
   height: 2.5rem;
   background-color: #22577a;
   border: none;
@@ -367,16 +442,16 @@ body main form .inputs input {
   color: white;
   font-size: 1.2rem;
 }
-body main form .inputs input:focus {
+#body-connexion main form .inputs input:focus {
   outline: 3px solid rgba(128, 237, 153, 0.4);
 }
-body main form .inputs input:-webkit-autofill, body main form .inputs input:-webkit-autofill:hover, body main form .inputs input:-webkit-autofill:focus, body main form .inputs input:-webkit-autofill:active {
+#body-connexion main form .inputs input:-webkit-autofill, #body-connexion main form .inputs input:-webkit-autofill:hover, #body-connexion main form .inputs input:-webkit-autofill:focus, #body-connexion main form .inputs input:-webkit-autofill:active {
   -webkit-transition: background-color 5000s ease-in-out 0s;
   transition: background-color 5000s ease-in-out 0s;
   -webkit-text-fill-color: #fefefe;
 }
 @media screen and (min-width: 768px) {
-  body main form .inputs input {
+  #body-connexion main form .inputs input {
     height: 3rem;
     border-radius: 17px;
     padding: 0 15px;
@@ -384,28 +459,28 @@ body main form .inputs input:-webkit-autofill, body main form .inputs input:-web
   }
 }
 @media screen and (max-height: 439px) {
-  body main form .inputs input {
+  #body-connexion main form .inputs input {
     height: 2rem;
     border-radius: 11px;
     font-size: 1rem;
   }
 }
 @media screen and (min-width: 1024px) {
-  body main form .inputs input {
+  #body-connexion main form .inputs input {
     height: 2.5rem;
     border-radius: 14px;
     font-size: 1rem;
   }
 }
 @media screen and (min-width: 1280px) and (min-height: 1000px) {
-  body main form .inputs input {
+  #body-connexion main form .inputs input {
     height: 4rem;
     border-radius: 17px;
     padding: 0 15px;
     font-size: 1.7rem;
   }
 }
-body main form .inputs#input-id::after, body main form .inputs#input-password::after {
+#body-connexion main form .inputs#input-id::after, #body-connexion main form .inputs#input-password::after {
   content: "";
   width: 90%;
   height: 1px;
@@ -416,32 +491,32 @@ body main form .inputs#input-id::after, body main form .inputs#input-password::a
   background-color: #fefefe;
 }
 @media screen and (min-width: 768px), (min-width: 1280px) {
-  body main form .inputs#input-id::after, body main form .inputs#input-password::after {
+  #body-connexion main form .inputs#input-id::after, #body-connexion main form .inputs#input-password::after {
     left: 15px;
   }
 }
-body main form .inputs #password {
+#body-connexion main form .inputs #password {
   padding-right: 20%;
 }
 @media screen and (min-width: 768px) {
-  body main form .inputs #password {
+  #body-connexion main form .inputs #password {
     padding-right: 19%;
   }
 }
 @media screen and (min-width: 1024px), (max-height: 439px) {
-  body main form .inputs #password {
+  #body-connexion main form .inputs #password {
     padding-right: 18%;
   }
 }
-body main form .inputs#input-password::after {
+#body-connexion main form .inputs#input-password::after {
   width: 77%;
 }
 @media screen and (min-width: 768px), (min-width: 1280px) {
-  body main form .inputs#input-password::after {
+  #body-connexion main form .inputs#input-password::after {
     width: 77%;
   }
 }
-body main form .inputs#input-stayConnected {
+#body-connexion main form .inputs#input-stayConnected {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -449,82 +524,82 @@ body main form .inputs#input-stayConnected {
   margin-left: 1rem;
 }
 @media screen and (min-width: 768px), (min-width: 1280px) {
-  body main form .inputs#input-stayConnected {
+  #body-connexion main form .inputs#input-stayConnected {
     height: 1.5rem;
   }
 }
 @media screen and (min-height: 1000px) {
-  body main form .inputs#input-stayConnected {
+  #body-connexion main form .inputs#input-stayConnected {
     height: 2rem;
   }
 }
-body main form .inputs#input-stayConnected label {
+#body-connexion main form .inputs#input-stayConnected label {
   font-size: 0.9rem;
   margin-bottom: 0;
 }
 @media screen and (min-width: 768px) {
-  body main form .inputs#input-stayConnected label {
+  #body-connexion main form .inputs#input-stayConnected label {
     font-size: 1rem;
   }
 }
 @media screen and (min-width: 1024px), (max-height: 439px) {
-  body main form .inputs#input-stayConnected label {
+  #body-connexion main form .inputs#input-stayConnected label {
     font-size: 0.8rem;
   }
 }
 @media screen and (min-width: 1280px) and (min-height: 1000px) {
-  body main form .inputs#input-stayConnected label {
+  #body-connexion main form .inputs#input-stayConnected label {
     font-size: 2rem;
   }
 }
-body main form .inputs#input-stayConnected #stayConnected:focus {
+#body-connexion main form .inputs#input-stayConnected #stayConnected:focus {
   outline: none;
 }
-body main form .inputs #view-password {
+#body-connexion main form .inputs #view-password {
   position: absolute;
   bottom: 1px;
   right: 11px;
   cursor: pointer;
 }
 @media screen and (min-width: 768px) {
-  body main form .inputs #view-password {
+  #body-connexion main form .inputs #view-password {
     bottom: 0;
     right: 15px;
   }
 }
 @media screen and (max-height: 439px) {
-  body main form .inputs #view-password {
+  #body-connexion main form .inputs #view-password {
     bottom: -2px;
     right: 8px;
   }
 }
 @media screen and (min-width: 1024px) {
-  body main form .inputs #view-password {
+  #body-connexion main form .inputs #view-password {
     bottom: -2px;
     right: 12px;
   }
 }
 @media screen and (min-width: 1280px) and (min-height: 1000px) {
-  body main form .inputs #view-password {
+  #body-connexion main form .inputs #view-password {
     bottom: 0;
     right: 15px;
   }
 }
-body main form .inputs #view-password img {
+#body-connexion main form .inputs #view-password img {
   height: 1.4rem;
   filter: invert(1);
 }
 @media screen and (min-width: 768px) and (min-height: 439px) {
-  body main form .inputs #view-password img {
+  #body-connexion main form .inputs #view-password img {
     height: 2rem;
   }
 }
 @media screen and (min-width: 1280px) and (min-height: 1000px) {
-  body main form .inputs #view-password img {
+  #body-connexion main form .inputs #view-password img {
     height: 3rem;
   }
 }
-body main form #submit-button {
+#body-connexion main form #submit-button {
   width: 75%;
   height: 2.5rem;
   background-color: #57cc99;
@@ -536,21 +611,21 @@ body main form #submit-button {
   cursor: pointer;
   box-shadow: 0 4px 4px rgba(34, 31, 31, 0.25);
 }
-body main form #submit-button:hover {
+#body-connexion main form #submit-button:hover {
   box-shadow: 0 4px 4px rgba(128, 237, 153, 0.7);
 }
-body main form #submit-button:active {
+#body-connexion main form #submit-button:active {
   box-shadow: none;
 }
 @media screen and (min-width: 768px) {
-  body main form #submit-button {
+  #body-connexion main form #submit-button {
     height: 3rem;
     border-radius: 24px;
     font-size: xx-large;
   }
 }
 @media screen and (min-width: 1024px), (max-height: 439px) {
-  body main form #submit-button {
+  #body-connexion main form #submit-button {
     height: 2.5rem;
     border-radius: 20px;
     font-size: large;
@@ -558,7 +633,7 @@ body main form #submit-button:active {
   }
 }
 @media screen and (min-width: 1280px) and (min-height: 1000px) {
-  body main form #submit-button {
+  #body-connexion main form #submit-button {
     height: 5rem;
     border-radius: 35px;
     font-size: 3rem;
@@ -645,6 +720,20 @@ body main form #submit-button:active {
     width: 12px;
     height: 17px;
   }
+}
+
+.writting-bar {
+  width: 75%;
+  height: 5rem;
+  border-radius: 50px;
+  background-color: #80ed99;
+  position: relative;
+}
+.writting-bar #message-option {
+  position: absolute;
+  top: 8px;
+  left: 20px;
+  width: 4rem;
 }
 
 /* ----- Global -----*/

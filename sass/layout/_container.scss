@@ -33,9 +33,40 @@
 
 .left-container {
     background-color: $gris-fonce;
-    width: 30%;
+    width: 20%;
     text-align: center;
     color: $blanc;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    .calendar-div {
+        height: 10%;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        align-items: center;
+        color: $gris-fonce;
+        font-size: 1.2rem;
+        background-color: $vert-clair;
+    }
+
+    .parameters-div {
+        display: flex;
+        height: 15%;
+        background-color: $vert-tres-clair;
+        color: $gris-fonce;
+
+        .left {
+            #parameters-user-profil {
+                filter: brightness(0%);
+            }
+        }
+    }
+
+    .icon {
+        height: 30px;
+    }
 }
 
 .right-container {
