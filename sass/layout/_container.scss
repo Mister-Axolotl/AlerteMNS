@@ -2,7 +2,7 @@
 
 .container {
     position: absolute;
-    top: 75px;
+    top: 127px;
     bottom: 0px;
     width: 100%;
     display: flex;
@@ -23,6 +23,10 @@
         background-color: #f2f2f2;
         border-radius: 5px;
     }
+
+    @media only screen and (min-width: 768px) {
+        top: 75px;
+    }
 }
 
 @media only screen and (max-width: 480px) {
@@ -40,26 +44,79 @@
     flex-direction: column;
     justify-content: flex-end;
 
+    @media screen and (max-width: 1024px) {
+        width: 200px;
+    }
+
     .calendar-div {
         height: 10%;
         display: flex;
-        justify-content: center;
-        gap: 10px;
+        justify-content: space-around;
         align-items: center;
         color: $gris-fonce;
         font-size: 1.2rem;
         background-color: $vert-clair;
+        text-align: left;
+        border: none;
+        padding: 0;
+
+        &:hover {
+            cursor: pointer;
+            background-color: $vert;
+        }
+
+        div {
+            width: 25%;
+            text-align: center;
+        }
+
+        p {
+            width: 75%;
+        }
     }
 
     .parameters-div {
         display: flex;
+        align-items: center;
         height: 15%;
         background-color: $vert-tres-clair;
         color: $gris-fonce;
 
         .left {
+            width: 25%;
+
             #parameters-user-profil {
-                filter: brightness(0%);
+                filter: invert(1);
+            }
+        }
+
+        .center {
+            width: 50%;
+            text-align: left;
+
+            p {
+                display: block;
+
+                &#parameters-role {
+                    font-size: smaller;
+                }
+            }
+        }
+
+        .right {
+            width: 25%;
+
+            button {
+                background-color: transparent;
+                border: none;
+                padding: 0;
+                height: 30px;
+                transition: transform .3s ease-in-out;
+
+                &:hover {
+                    cursor: pointer;
+                    transform: rotate(90deg);
+                }
             }
         }
     }

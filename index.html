@@ -21,10 +21,10 @@
             </div>
         </div>
         <div class="right-header">
-			<img src="./images/menu.png" alt="icon to open menu" class="icon-header" id="menu-icon">
+            <img src="./images/menu.png" alt="icon to open menu" class="icon-header" id="menu-icon">
             <div class="left-header-content">
-                <div id="channel-name">
-                    <img src="./images/channel/newspaper.png" class="channel-image icon-header" alt="newspaper icon">
+                <div id="channel-name" title="Ouvrir la liste des utilisateurs">
+                    <img src="./images/channel/newspaper.png" class="channel-image icon-header" alt="Journal">
                     <div class="channel-name">Actualités</div>
                 </div>
             </div>
@@ -32,13 +32,14 @@
             <div class="right-header-content">
                 <div class="research-bar">
                     <input type="text" class="bar">
-                    <img src="./images/magnifying_glass.png" class="icon-header" id="magnifying-glass" alt="magnifying-glass image for research">
+                    <img src="./images/magnifying_glass.png" class="icon-header" id="magnifying-glass" alt="Loupe"
+                        title="Ouvrir la barre de recherche">
                 </div>
-                <button>
-                    <img src="./images/bell.png" class="icon-header" id="notifications" alt="bell image for notifications">
+                <button class="button-image">
+                    <img src="./images/bell.png" class="icon-header" id="notifications" alt="Cloche"
+                        title="Ouvrir le centre de notifications">
                 </button>
-                <div class="notifications">
-                </div>
+                <div class="notifications"></div>
             </div>
         </div>
     </header>
@@ -46,31 +47,55 @@
     <main>
         <div class="container">
             <div class="left-container">
-                <div class="calendar-div">
-                    <img src="./images/calendar.png" class="icon" alt="">
+                <button class="calendar-div">
+                    <div>
+                        <img src="./images/calendar.png" class="icon" alt="Calendrier" title="Ouvrir l'agenda">
+                    </div>
                     <p>Agenda</p>
-                </div>
+                </button>
                 <div class="parameters-div">
                     <div class="left">
-                        <img src="./images/parameters/user.png" id="parameters-user-profil" class="icon" alt="">
+                        <img src="./images/parameters/user.png" id="parameters-user-profil" class="icon"
+                            alt="Image de profil">
                     </div>
                     <div class="center">
-
+                        <p id="parameters-name">Prénom Nom</p>
+                        <p id="parameters-role">Rôle</p>
                     </div>
                     <div class="right">
-
+                        <button>
+                            <img src="./images/parameters/setting.png" class="icon" alt="Engrenage"
+                                title="Ouvrir les paramètres">
+                        </button>
                     </div>
-                    
-                    <p id="parameters-last-name">Nom</p>
-                    <p id="parameters-first-name">Prénom</p>
-                    <p id="parameters-role">Rôle</p>
-                    <img src="./images/calendar.png" class="icon" alt="">
                 </div>
             </div>
             <div class="right-container">
-                <div class="writting-bar">
-					<!-- Image -> Button -->
-					<img src="./images/add.png" id="message-option" alt="more function">
+                <div class="writting-bar-container">
+                    <div class="writting-bar">
+                        <div class="options">
+                            <button class="button-image">
+                                <img src="./images/sondage.png" alt="Statistiques" title="Créer un sondage">
+                                <p>Sondage</p>
+                            </button>
+                            <button class="button-image">
+                                <img src="./images/file.png" alt="Fichier" title="Intégrer un fichier">
+                                <p>Fichier</p>
+                            </button>
+                        </div>
+                        <button class="button-image">
+                            <img src="./images/add.png" class="writting-image" id="message-option" alt="Plus"
+                                title="Ouvrir plus de fonctionnalités de message">
+                        </button>
+                        <input type="text">
+                        <button class="button-image">
+                            <img src="./images/emoji.png" class="writting-image" id="emoji-option"
+                                alt="Smiley qui souris" title="Ouvrir le menu des émojis">
+                        </button>
+                    </div>
+                    <button id="send-message" class="button-image">
+                        <img src="./images/send.png" class="writting-image" alt="Avion en papier" title="Envoyer le message">
+                    </button>
                 </div>
             </div>
         </div>

@@ -1,5 +1,9 @@
-.button {
-    cursor: pointer;
+button {
+    border: none;
+    background-color: transparent;
+}
+
+.button-image {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -9,10 +13,13 @@
     transition: transform 0.2s;
 }
 
-.button:hover {
-    transform: scale(1.05);
+.button-image:hover img {
+    img {
+        cursor: pointer;
+        transform: scale(1.05);
+    }
 }
 
-.button:active {
-    transform: scale(0.95);
+.button-image:active img {
+    transform: scale(0.95); //ne fonctionne pas
 }

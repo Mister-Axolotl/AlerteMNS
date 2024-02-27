@@ -83,8 +83,12 @@ h2 {
   font-family: "Poppins-Bold", sans-serif;
 }
 
-.button {
-  cursor: pointer;
+button {
+  border: none;
+  background-color: transparent;
+}
+
+.button-image {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -92,11 +96,12 @@ h2 {
   transition: transform 0.2s;
 }
 
-.button:hover {
+.button-image:hover img img {
+  cursor: pointer;
   transform: scale(1.05);
 }
 
-.button:active {
+.button-image:active img {
   transform: scale(0.95);
 }
 
@@ -112,7 +117,7 @@ h2 {
   align-items: center;
   z-index: 1000;
 }
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 768px) {
   #header {
     flex-direction: row;
     padding: 15px 0;
@@ -123,7 +128,7 @@ h2 {
   background-color: #3f3f3f;
   padding: 10px;
 }
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 768px) {
   #header .left-header {
     width: 20%;
     background-color: #221f1f;
@@ -199,16 +204,26 @@ h2 {
   justify-content: space-between;
   padding: 10px;
 }
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 768px) {
   #header .right-header {
     width: 78%;
     padding: 0;
   }
 }
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  #header .right-header {
+    width: 75%;
+  }
+}
+@media screen and (max-width: 300px) {
+  #header .right-header {
+    gap: 5px;
+  }
+}
 #header .right-header #menu-icon {
   display: block;
 }
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 768px) {
   #header .right-header #menu-icon {
     display: none;
   }
@@ -218,6 +233,15 @@ h2 {
   justify-content: space-between;
   gap: 15px;
 }
+@media screen and (max-width: 300px) {
+  #header .right-header .right-header-content {
+    gap: 0px;
+  }
+}
+#header .right-header .right-header-content button:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
 #header .right-header #channel-name {
   display: flex;
   color: #fefefe;
@@ -225,18 +249,18 @@ h2 {
   gap: 10px;
   font-size: 1.5rem;
 }
+#header .right-header #channel-name:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
 #header .right-header .icon-header {
   height: 30px;
-}
-#header .right-header button {
-  background-color: transparent;
-  border: none;
 }
 #header .right-header #magnifying-glass {
   margin-right: 5px;
   filter: invert(0);
 }
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 768px) {
   #header .right-header #magnifying-glass {
     filter: invert(1);
   }
@@ -246,7 +270,7 @@ h2 {
   align-items: center;
   border-radius: 15px;
 }
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 768px) {
   #header .right-header .research-bar {
     background-color: #fefefe;
   }
@@ -262,7 +286,7 @@ h2 {
   padding-left: 10px;
   visibility: hidden;
 }
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 768px) {
   #header .right-header .research-bar .bar {
     width: 200px;
     visibility: visible;
@@ -271,7 +295,7 @@ h2 {
 
 .container {
   position: absolute;
-  top: 75px;
+  top: 127px;
   bottom: 0px;
   width: 100%;
   display: flex;
@@ -290,6 +314,11 @@ h2 {
   background-color: #f2f2f2;
   border-radius: 5px;
 }
+@media only screen and (min-width: 768px) {
+  .container {
+    top: 75px;
+  }
+}
 
 @media only screen and (max-width: 480px) {
   .container {
@@ -305,24 +334,70 @@ h2 {
   flex-direction: column;
   justify-content: flex-end;
 }
+@media screen and (max-width: 1024px) {
+  .left-container {
+    width: 200px;
+  }
+}
 .left-container .calendar-div {
   height: 10%;
   display: flex;
-  justify-content: center;
-  gap: 10px;
+  justify-content: space-around;
   align-items: center;
   color: #3f3f3f;
   font-size: 1.2rem;
   background-color: #80ed99;
+  text-align: left;
+  border: none;
+  padding: 0;
+}
+.left-container .calendar-div:hover {
+  cursor: pointer;
+  background-color: #57cc99;
+}
+.left-container .calendar-div div {
+  width: 25%;
+  text-align: center;
+}
+.left-container .calendar-div p {
+  width: 75%;
 }
 .left-container .parameters-div {
   display: flex;
+  align-items: center;
   height: 15%;
   background-color: #c7f9cc;
   color: #3f3f3f;
 }
+.left-container .parameters-div .left {
+  width: 25%;
+}
 .left-container .parameters-div .left #parameters-user-profil {
-  filter: brightness(0%);
+  filter: invert(1);
+}
+.left-container .parameters-div .center {
+  width: 50%;
+  text-align: left;
+}
+.left-container .parameters-div .center p {
+  display: block;
+}
+.left-container .parameters-div .center p#parameters-role {
+  font-size: smaller;
+}
+.left-container .parameters-div .right {
+  width: 25%;
+}
+.left-container .parameters-div .right button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  height: 30px;
+  transition: transform 0.3s ease-in-out;
+}
+.left-container .parameters-div .right button:hover {
+  cursor: pointer;
+  transform: rotate(90deg);
 }
 .left-container .icon {
   height: 30px;
@@ -722,18 +797,87 @@ h2 {
   }
 }
 
-.writting-bar {
+.writting-bar-container {
+  position: absolute;
+  bottom: 10px;
+  left: 200px;
+  width: calc(100% - 200px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+@media screen and (min-width: 768px) {
+  .writting-bar-container {
+    left: 20%;
+    width: 80%;
+  }
+}
+.writting-bar-container .writting-bar {
   width: 75%;
-  height: 5rem;
+  height: 3.5rem;
   border-radius: 50px;
-  background-color: #80ed99;
+  background-color: #fefefe;
+  margin: auto;
+  display: flex;
   position: relative;
 }
-.writting-bar #message-option {
+.writting-bar-container .writting-bar .options {
   position: absolute;
-  top: 8px;
-  left: 20px;
-  width: 4rem;
+  bottom: calc(10px + 3.5rem + 17px);
+  left: 0;
+  background-color: #fefefe;
+  border-radius: 15px;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 0 5px;
+}
+.writting-bar-container .writting-bar .options button {
+  margin: 10px 0;
+}
+.writting-bar-container .writting-bar .options button img {
+  width: 2rem;
+}
+.writting-bar-container .writting-bar .options button p {
+  margin-left: 3px;
+}
+.writting-bar-container .writting-bar .options::after {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: 31px;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-top: 20px solid #fefefe;
+}
+.writting-bar-container .writting-bar #message-option {
+  margin-left: 20px;
+}
+.writting-bar-container .writting-bar input {
+  flex: 1;
+  border: none;
+  outline: none;
+  border-radius: 50px;
+  padding: 0 20px;
+  font-size: 1.3rem;
+}
+.writting-bar-container .writting-bar #emoji-option {
+  margin-right: 20px;
+}
+.writting-bar-container .writting-bar button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.writting-bar-container .writting-image {
+  height: 2.5rem;
+}
+.writting-bar-container .writting-image:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+.writting-bar-container #send-message {
+  height: 40px;
 }
 
 /* ----- Global -----*/

@@ -13,7 +13,7 @@
     align-items: center;
     z-index: 1000;
 	
-	@media screen and (min-width: 1024px) {
+	@media screen and (min-width: 768px) {
 		flex-direction: row;
 		padding: 15px 0;
 	}
@@ -23,7 +23,7 @@
 		background-color: $gris-fonce;
 		padding: 10px;
 
-		@media screen and (min-width: 1024px) {
+		@media screen and (min-width: 768px) {
 			width: 20%;
 			background-color: $noir;
 			padding: 0;
@@ -108,15 +108,23 @@
         justify-content: space-between;
 		padding: 10px;
 
-		@media screen and (min-width: 1024px) {
+		@media screen and (min-width: 768px) {
 			width: 78%;
 			padding: 0;
 		}
 
+        @media screen and (min-width: 768px) and (max-width: 1024px) {
+            width: 75%;
+        }
+
+        @media screen and (max-width: 300px) {
+            gap: 5px;
+        }
+
 		#menu-icon {
 			display: block;
 
-			@media screen and (min-width: 1024px) {
+			@media screen and (min-width: 768px) {
 				display: none;
 			}
 		}
@@ -125,6 +133,15 @@
             display: flex;
             justify-content: space-between;
             gap: 15px;
+
+            @media screen and (max-width: 300px) {
+                gap: 0px;
+            }
+
+            button:hover {
+                cursor: pointer;
+                opacity: 0.5;
+            }
         }
 
         #channel-name {
@@ -133,22 +150,22 @@
             align-items: center;
             gap: 10px;
             font-size: 1.5rem;
+
+            &:hover {
+                cursor: pointer;
+                text-decoration: underline;
+            }
         }
 
         .icon-header {
             height: 30px;
         }
 
-        button {
-            background-color: transparent;
-            border: none;
-        }
-
         #magnifying-glass {
             margin-right: 5px;
 			filter: invert(0);
 
-			@media screen and (min-width: 1024px) {
+			@media screen and (min-width: 768px) {
 				filter: invert(1);
 			}
         }
@@ -158,7 +175,7 @@
 			align-items: center;
 			border-radius: 15px;
 
-			@media screen and (min-width: 1024px) {
+			@media screen and (min-width: 768px) {
 				background-color: $blanc;
 			}
 
@@ -174,7 +191,7 @@
 				// Ne disparaît pas entièrement même avec width: 0 sans visibility:
 				visibility: hidden;
 
-				@media screen and (min-width: 1024px) {
+				@media screen and (min-width: 768px) {
 					width: 200px;
 					visibility: visible;
 				}

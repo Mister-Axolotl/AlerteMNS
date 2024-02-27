@@ -1,16 +1,95 @@
 @import '../utils/_variables.scss';
 
-.writting-bar {
-	width: 75%;
-	height: 5rem;
-	border-radius: 50px;
-	background-color: $vert-clair;
-	position: relative;
+.writting-bar-container {
+	position: absolute;
+	bottom: 10px;
+	left: 200px;
+	width: calc(100% - 200px);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 
-	#message-option {
-		position: absolute;
-		top: 8px;
-		left: 20px;
-		width: 4rem;
+	@media screen and (min-width: 768px) {
+		left: 20%;
+		width: 80%;
+	}
+	
+	.writting-bar {
+		width: 75%;
+		height: 3.5rem;
+		border-radius: 50px;
+		background-color: $blanc;
+		margin: auto;
+		display: flex;
+		position: relative;
+
+		.options {
+			position: absolute;
+			bottom: calc(10px + 3.5rem + 17px); // writting-bar-container bottom + writting-bar height + traingle height
+			left: 0;
+			background-color: $blanc;
+			border-radius: 15px;
+			width: fit-content;
+			padding: 0 5px;
+
+			button {
+				margin: 10px 0;
+				img {
+					width: 2rem;
+				}
+
+				p {
+					margin-left: 3px;
+				}
+			}
+
+			&::after {
+				content: "";
+				width: 0; 
+				height: 0;
+				position: absolute;
+				left: 31px;
+				border-left: 15px solid transparent;
+				border-right: 15px solid transparent;
+				
+				border-top: 20px solid $blanc;
+			}
+		}
+
+		#message-option {
+			margin-left: 20px;
+		}
+
+		input {
+			flex: 1;
+			border: none;
+			outline: none;
+			border-radius: 50px;
+			padding: 0 20px;
+			font-size: 1.3rem;
+		}
+
+		#emoji-option {
+			margin-right: 20px;
+		}
+
+		button {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+	}
+
+	.writting-image {
+		height: 2.5rem;
+
+		&:hover {
+			transform: scale(1.1);
+			cursor: pointer;
+		}
+	}
+
+	#send-message {
+		height: 40px;
 	}
 }
