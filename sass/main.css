@@ -42,7 +42,7 @@ footer, header, hgroup, menu, nav, section {
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: "Noto-Sans";
   overflow-y: hidden;
 }
 
@@ -302,7 +302,6 @@ button {
   overflow-y: auto;
   overflow-x: hidden;
   overflow-y: auto;
-  font-family: "Noto-Sans";
 }
 .container::-webkit-scrollbar {
   width: 10px;
@@ -821,26 +820,27 @@ button {
   display: flex;
   position: relative;
 }
-.writting-bar-container .writting-bar .options {
+.writting-bar-container .writting-bar #options {
   position: absolute;
-  bottom: calc(10px + 3.5rem + 17px);
+  bottom: calc(10px + 3.5rem);
   left: 0;
   background-color: #fefefe;
   border-radius: 15px;
   width: -moz-fit-content;
   width: fit-content;
   padding: 0 5px;
+  opacity: 0;
 }
-.writting-bar-container .writting-bar .options button {
+.writting-bar-container .writting-bar #options button {
   margin: 10px 0;
 }
-.writting-bar-container .writting-bar .options button img {
+.writting-bar-container .writting-bar #options button img {
   width: 2rem;
 }
-.writting-bar-container .writting-bar .options button p {
-  margin-left: 3px;
+.writting-bar-container .writting-bar #options button p {
+  margin-left: 8px;
 }
-.writting-bar-container .writting-bar .options::after {
+.writting-bar-container .writting-bar #options::after {
   content: "";
   width: 0;
   height: 0;
@@ -849,6 +849,32 @@ button {
   border-left: 15px solid transparent;
   border-right: 15px solid transparent;
   border-top: 20px solid #fefefe;
+}
+.writting-bar-container .writting-bar #options.show-up {
+  animation: 0.5s ease-in 0s 1 normal both running slideUp;
+}
+.writting-bar-container .writting-bar #options.show-down {
+  animation: 0.5s ease-in 0s 1 normal both running slideDown;
+}
+@keyframes slideUp {
+  0% {
+    bottom: calc(10px + 3.5rem);
+    opacity: 1;
+  }
+  100% {
+    bottom: calc(10px + 3.5rem + 17px);
+    opacity: 1;
+  }
+}
+@keyframes slideDown {
+  0% {
+    bottom: calc(10px + 3.5rem + 17px);
+    opacity: 1;
+  }
+  100% {
+    bottom: calc(10px + 3.5rem);
+    opacity: 0;
+  }
 }
 .writting-bar-container .writting-bar #message-option {
   margin-left: 20px;
@@ -878,8 +904,47 @@ button {
 }
 .writting-bar-container #send-message {
   height: 40px;
+  position: absolute;
+  right: 40px;
 }
 
+.others-message {
+  width: 45%;
+}
+.others-message img {
+  width: 2rem;
+}
+.others-message .message {
+  width: -moz-fit-content;
+  width: fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  background: #c7f9cc;
+  border-radius: 20px;
+  padding: 10px 15px;
+}
+.others-message .message .info {
+  display: flex;
+  flex-direction: row;
+  font-size: smaller;
+  color: #585858;
+}
+.others-message .message .info .name {
+  margin-right: 10px;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("../fonts/Poppins/Poppins-Medium.ttf");
+}
+@font-face {
+  font-family: "Poppins-Bold";
+  src: url("../fonts/Poppins/Poppins-Bold.ttf");
+}
+@font-face {
+  font-family: "Noto-Sans";
+  src: url("../fonts/Noto_Sans/static/NotoSans-Regular.ttf");
+}
 /* ----- Global -----*/
 ::-moz-selection {
   background-color: #57cc99;
@@ -926,4 +991,5 @@ a {
 
 * {
   -webkit-tap-highlight-color: transparent;
+  font-family: Noto-Sans, sans-serif;
 }/*# sourceMappingURL=main.css.map */

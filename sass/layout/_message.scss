@@ -1,0 +1,28 @@
+@import '../utils/_variables.scss';
+
+.others-message {
+	width: 45%;
+
+	img {
+		width: 2rem;
+	}
+
+	.message {
+		width: fit-content;
+		height: fit-content;
+		background: $vert-tres-clair;
+		border-radius: 20px;
+		padding: 10px 15px;
+
+		.info {
+			display: flex;
+			flex-direction: row;
+			font-size: smaller;
+			color: #585858;
+
+			.name {
+				margin-right: 10px;
+			}
+		}
+	}
+}

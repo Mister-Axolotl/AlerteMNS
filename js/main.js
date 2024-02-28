@@ -1,4 +1,4 @@
-import { openCloseMenu, ifOpenMenu, startParticleAnimation } from "../js/functions.js";
+import { openCloseMenu, ifOpenMenu, startParticleAnimation } from "./functions.js";
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -49,15 +49,50 @@ document.addEventListener('DOMContentLoaded', function () {
     publicConversation.addEventListener('click', () => {
         toggleBackground('activePublic', 'activePrivate', priveeConversation, publicConversation);
     });
-    
+
     priveeConversation.addEventListener('click', () => {
         toggleBackground('activePrivate', 'activePublic', publicConversation, priveeConversation);
     });
-    
+
     function toggleBackground(addClass, removeClass, activeElement, inactiveElement) {
         activeBackgroundConversation.classList.remove(removeClass);
         activeBackgroundConversation.classList.add(addClass);
         activeElement.classList.remove('active-type');
         inactiveElement.classList.add('active-type');
     }
+
+    /* ==================== MESSAGES OPTIONS ==================== */
+    const messageOptionsButton = document.querySelector('#messageOptionsButton');
+    const options = document.querySelector('#options');
+
+    messageOptionsButton.addEventListener('click', () => {
+        if (options.classList.contains('show-up')) {
+            options.classList.remove('show-up');
+            options.classList.add('show-down');
+        } else if (options.classList.contains('show-down')) {
+            options.classList.remove('show-down');
+            options.classList.add('show-up');
+        } else {
+            options.classList.add('show-up');
+        }
+    });
+
+    /* ==================== EMOJIS CHANGER ==================== */
+
+    const emojiButton = document.querySelector('#emoji-option'); // Sélectionnez le bouton maintenant
+    const emojiNames = ['smile', 'sad', 'cool', 'famous', 'in-love', 'mocking', 'rolling-eyes', 'tongue'];
+    let currentEmojiIndex = 1;
+
+    emojiButton.addEventListener('mouseover', (event) => {
+        const emojiImage = emojiButton.querySelector('.writting-image'); // Sélectionnez l'image à l'intérieur du bouton
+        const nextEmojiSrc = `../images/emojis/${emojiNames[currentEmojiIndex]}.png`;
+        emojiImage.src = nextEmojiSrc;
+        currentEmojiIndex = (currentEmojiIndex + 1) % emojiNames.length;
+    });
+
+    /* ==================== OPEN EMOJIS MENU ==================== */
+
+
 });
+
+

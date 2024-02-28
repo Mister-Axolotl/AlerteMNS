@@ -7,6 +7,8 @@
 @import './layout/container';
 @import './layout/connexion';
 @import './layout/writtingBar';
+@import './layout/message';
+@import './base/typography';
 
 /* ----- Global -----*/
 
@@ -52,4 +54,5 @@ a {
 
 * {
     -webkit-tap-highlight-color: transparent;
+    font-family: Noto-Sans, sans-serif;
 }

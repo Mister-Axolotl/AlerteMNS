@@ -7,7 +7,7 @@
     <title>Alerte MNS</title>
     <link rel="icon" href="./images/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="./sass/main.css">
-    <script src="./js/main.js" type="module"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css" />
 </head>
 
 <body>
@@ -23,10 +23,10 @@
         <div class="right-header">
             <img src="./images/menu.png" alt="icon to open menu" class="icon-header" id="menu-icon">
             <div class="left-header-content">
-                <div id="channel-name" title="Ouvrir la liste des utilisateurs">
+                <h1 id="channel-name" title="Ouvrir la liste des utilisateurs">
                     <img src="./images/channel/newspaper.png" class="channel-image icon-header" alt="Journal">
                     <div class="channel-name">Actualités</div>
-                </div>
+                </h1>
             </div>
 
             <div class="right-header-content">
@@ -71,9 +71,23 @@
                 </div>
             </div>
             <div class="right-container">
+                <div class="message-container">
+                    <div class="others-message">
+                        <img src="./images/badges/admin.png" alt="Image de profil utilisateur">
+                        <div class="message">
+                            <div class="info">
+                                <p class="name">Nom</p>
+                                <p class="date">Date</p>
+                            </div>
+                            <p class="content">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. lorem
+                            </p>
+                        </div>
+                    </div>
+                </div>
                 <div class="writting-bar-container">
                     <div class="writting-bar">
-                        <div class="options">
+                        <div id="options">
                             <button class="button-image">
                                 <img src="./images/sondage.png" alt="Statistiques" title="Créer un sondage">
                                 <p>Sondage</p>
@@ -83,24 +97,25 @@
                                 <p>Fichier</p>
                             </button>
                         </div>
-                        <button class="button-image">
+                        <button class="button-image" id="messageOptionsButton">
                             <img src="./images/add.png" class="writting-image" id="message-option" alt="Plus"
                                 title="Ouvrir plus de fonctionnalités de message">
                         </button>
-                        <input type="text">
-                        <button class="button-image">
-                            <img src="./images/emoji.png" class="writting-image" id="emoji-option"
-                                alt="Smiley qui souris" title="Ouvrir le menu des émojis">
+                        <input type="text" id="messageInput">
+                        <button class="button-image" id="emoji-option">
+                            <img src="./images/emojis/smile.png" class="writting-image" alt="Smiley qui souris"
+                                title="Ouvrir le menu des émojis">
                         </button>
                     </div>
                     <button id="send-message" class="button-image">
-                        <img src="./images/send.png" class="writting-image" alt="Avion en papier" title="Envoyer le message">
+                        <img src="./images/send.png" class="writting-image" alt="Avion en papier"
+                            title="Envoyer le message">
                     </button>
                 </div>
             </div>
         </div>
     </main>
-
+    <script type="module" src="./js/main.js"></script>
 </body>
 
 </html>
