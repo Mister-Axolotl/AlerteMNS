@@ -112,7 +112,7 @@ button {
   width: 100%;
   background-color: #221f1f;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   z-index: 1000;
@@ -127,12 +127,19 @@ button {
   width: 100%;
   background-color: #3f3f3f;
   padding: 10px;
+  display: none;
 }
 @media screen and (min-width: 768px) {
   #header .left-header {
-    width: 20%;
+    width: 200px;
     background-color: #221f1f;
     padding: 0;
+    display: block;
+  }
+}
+@media screen and (min-width: 1024px) {
+  #header .left-header {
+    width: 20%;
   }
 }
 #header .left-header .conversation-type-div {
@@ -202,6 +209,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   padding: 10px;
 }
 @media screen and (min-width: 768px) {
@@ -210,9 +218,9 @@ button {
     padding: 0;
   }
 }
-@media screen and (min-width: 768px) and (max-width: 1024px) {
+@media screen and (min-width: 768px) and (max-width: 1023px) {
   #header .right-header {
-    width: 75%;
+    width: 73%;
   }
 }
 @media screen and (max-width: 300px) {
@@ -228,6 +236,26 @@ button {
     display: none;
   }
 }
+#header .right-header .left-header-content {
+  max-width: 50%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+#header .right-header #channel-name {
+  display: flex;
+  color: #fefefe;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.5rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+#header .right-header #channel-name:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
 #header .right-header .right-header-content {
   display: flex;
   justify-content: space-between;
@@ -241,29 +269,6 @@ button {
 #header .right-header .right-header-content button:hover {
   cursor: pointer;
   opacity: 0.5;
-}
-#header .right-header #channel-name {
-  display: flex;
-  color: #fefefe;
-  align-items: center;
-  gap: 10px;
-  font-size: 1.5rem;
-}
-#header .right-header #channel-name:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-#header .right-header .icon-header {
-  height: 30px;
-}
-#header .right-header #magnifying-glass {
-  margin-right: 5px;
-  filter: invert(0);
-}
-@media screen and (min-width: 768px) {
-  #header .right-header #magnifying-glass {
-    filter: invert(1);
-  }
 }
 #header .right-header .research-bar {
   display: flex;
@@ -290,6 +295,53 @@ button {
   #header .right-header .research-bar .bar {
     width: 200px;
     visibility: visible;
+  }
+}
+#header .research-bar-phone {
+  width: 100vw;
+  height: 2rem;
+  background-color: #22577a;
+  display: flex;
+  padding: 5px;
+  display: none;
+}
+@media screen and (min-width: 768px) {
+  #header .research-bar-phone {
+    display: none;
+  }
+}
+#header .research-bar-phone input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fefefe;
+  font-size: 1rem;
+  position: relative;
+  width: 90%;
+}
+#header .research-bar-phone::after {
+  content: "";
+  width: 90%;
+  height: 1px;
+  display: inline;
+  position: absolute;
+  left: 42px;
+  bottom: 6px;
+  background-color: #fefefe;
+}
+#header .research-bar-phone #magnifying-glass {
+  padding-left: 5px;
+}
+#header .icon-header {
+  height: 30px;
+}
+#header #magnifying-glass {
+  margin-right: 5px;
+  filter: invert(0);
+}
+@media screen and (min-width: 768px) {
+  #header #magnifying-glass {
+    filter: invert(1);
   }
 }
 
@@ -326,20 +378,60 @@ button {
 }
 .left-container {
   background-color: #3f3f3f;
-  width: 20%;
+  width: 100%;
   text-align: center;
   color: #fefefe;
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: flex-end;
 }
-@media screen and (max-width: 1024px) {
+@media screen and (min-width: 768px) {
   .left-container {
     width: 200px;
+    display: block;
   }
 }
-.left-container .calendar-div {
-  height: 10%;
+@media screen and (min-width: 1024px) {
+  .left-container {
+    width: 20%;
+  }
+}
+.left-container .channels {
+  height: 85%;
+}
+@media screen and (max-height: 500px) {
+  .left-container .channels {
+    height: 75%;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .left-container .channels {
+    height: 75%;
+  }
+}
+.left-container .calendar-parameters {
+  height: 15%;
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+}
+@media screen and (max-height: 500px) {
+  .left-container .calendar-parameters {
+    height: 25%;
+  }
+}
+@media screen and (min-width: 768px) {
+  .left-container .calendar-parameters {
+    flex-direction: column;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .left-container .calendar-parameters {
+    height: 25%;
+  }
+}
+.left-container .calendar-parameters .calendar-div {
+  width: 25%;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -350,51 +442,77 @@ button {
   border: none;
   padding: 0;
 }
-.left-container .calendar-div:hover {
+@media screen and (min-width: 768px) {
+  .left-container .calendar-parameters .calendar-div {
+    height: 35%;
+    min-height: 2.5rem;
+    width: 100%;
+  }
+}
+.left-container .calendar-parameters .calendar-div:hover {
   cursor: pointer;
   background-color: #57cc99;
 }
-.left-container .calendar-div div {
-  width: 25%;
+.left-container .calendar-parameters .calendar-div div {
   text-align: center;
 }
-.left-container .calendar-div p {
-  width: 75%;
+@media screen and (min-width: 768px) {
+  .left-container .calendar-parameters .calendar-div div {
+    width: 25%;
+  }
 }
-.left-container .parameters-div {
+.left-container .calendar-parameters .calendar-div p {
+  width: 75%;
+  display: none;
+}
+@media screen and (min-width: 768px) {
+  .left-container .calendar-parameters .calendar-div p {
+    display: block;
+  }
+}
+.left-container .calendar-parameters .parameters-div {
   display: flex;
   align-items: center;
-  height: 15%;
+  width: 75%;
   background-color: #c7f9cc;
   color: #3f3f3f;
 }
-.left-container .parameters-div .left {
+@media screen and (min-width: 768px) {
+  .left-container .calendar-parameters .parameters-div {
+    height: 65%;
+    width: 100%;
+  }
+}
+.left-container .calendar-parameters .parameters-div .left {
   width: 25%;
 }
-.left-container .parameters-div .left #parameters-user-profil {
+.left-container .calendar-parameters .parameters-div .left #parameters-user-profil {
   filter: invert(1);
 }
-.left-container .parameters-div .center {
+.left-container .calendar-parameters .parameters-div .center {
   width: 50%;
   text-align: left;
 }
-.left-container .parameters-div .center p {
+.left-container .calendar-parameters .parameters-div .center p {
   display: block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
-.left-container .parameters-div .center p#parameters-role {
+.left-container .calendar-parameters .parameters-div .center p#parameters-role {
   font-size: smaller;
 }
-.left-container .parameters-div .right {
+.left-container .calendar-parameters .parameters-div .right {
   width: 25%;
 }
-.left-container .parameters-div .right button {
+.left-container .calendar-parameters .parameters-div .right button {
   background-color: transparent;
   border: none;
   padding: 0;
   height: 30px;
   transition: transform 0.3s ease-in-out;
 }
-.left-container .parameters-div .right button:hover {
+.left-container .calendar-parameters .parameters-div .right button:hover {
   cursor: pointer;
   transform: rotate(90deg);
 }
@@ -403,10 +521,11 @@ button {
 }
 
 .right-container {
-  background-image: url("../../images/background_blur.png");
+  background-image: url("../images/background_blur_shorter.png");
   background-repeat: no-repeat;
   background-size: cover;
   flex-grow: 1;
+  width: 80%;
   background-position: bottom;
 }
 
@@ -799,8 +918,8 @@ button {
 .writting-bar-container {
   position: absolute;
   bottom: 10px;
-  left: 200px;
-  width: calc(100% - 200px);
+  left: 0;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -809,6 +928,12 @@ button {
   .writting-bar-container {
     left: 20%;
     width: 80%;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .writting-bar-container {
+    left: 200px;
+    width: calc(100% - 200px);
   }
 }
 .writting-bar-container .writting-bar {
@@ -877,18 +1002,24 @@ button {
   }
 }
 .writting-bar-container .writting-bar #message-option {
-  margin-left: 20px;
+  margin-left: 17px;
 }
-.writting-bar-container .writting-bar input {
+.writting-bar-container .writting-bar textarea {
   flex: 1;
   border: none;
   outline: none;
-  border-radius: 50px;
-  padding: 0 20px;
-  font-size: 1.3rem;
+  margin: 8px 10px;
+  padding: 8px 0;
+  font-size: 1rem;
+  resize: none;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+.writting-bar-container .writting-bar textarea::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
 }
 .writting-bar-container .writting-bar #emoji-option {
-  margin-right: 20px;
+  margin-right: 17px;
 }
 .writting-bar-container .writting-bar button {
   display: flex;
@@ -896,7 +1027,7 @@ button {
   justify-content: center;
 }
 .writting-bar-container .writting-image {
-  height: 2.5rem;
+  height: 2.3rem;
 }
 .writting-bar-container .writting-image:hover {
   transform: scale(1.1);
@@ -905,32 +1036,78 @@ button {
 .writting-bar-container #send-message {
   height: 40px;
   position: absolute;
-  right: 40px;
+  right: 0;
+}
+@media screen and (min-width: 1024px) {
+  .writting-bar-container #send-message {
+    right: 40px;
+  }
 }
 
-.others-message {
-  width: 45%;
+.message-container {
+  display: flex;
+  flex-direction: column;
+  width: 99%;
+  height: calc(100% - 5rem);
+  margin: auto;
+  padding: 0 30px;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
-.others-message img {
+@media screen and (max-width: 768px) {
+  .message-container {
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+    padding: 0 10px;
+  }
+}
+.message-container .others-message, .message-container .my-message {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  margin: 5px 0;
+}
+@media screen and (min-width: 1024px) {
+  .message-container .others-message, .message-container .my-message {
+    width: 45%;
+  }
+}
+.message-container .others-message img, .message-container .my-message img {
   width: 2rem;
+  margin-top: 5px;
 }
-.others-message .message {
+.message-container .others-message .message, .message-container .my-message .message {
+  max-width: calc(100% - 3rem);
   width: -moz-fit-content;
   width: fit-content;
   height: -moz-fit-content;
   height: fit-content;
-  background: #c7f9cc;
+  background: #fefefe;
   border-radius: 20px;
-  padding: 10px 15px;
+  padding: 4px 15px 10px;
 }
-.others-message .message .info {
+.message-container .others-message .message .info, .message-container .my-message .message .info {
   display: flex;
   flex-direction: row;
   font-size: smaller;
   color: #585858;
+  margin-bottom: 5px;
 }
-.others-message .message .info .name {
+.message-container .others-message .message .info .name, .message-container .my-message .message .info .name {
   margin-right: 10px;
+}
+.message-container .others-message img {
+  margin-right: 0.6rem;
+}
+.message-container .my-message {
+  flex-direction: row-reverse;
+  align-self: end;
+}
+.message-container .my-message img {
+  margin-left: 0.6rem;
+}
+.message-container .my-message .info {
+  justify-content: flex-end;
 }
 
 @font-face {
@@ -968,6 +1145,28 @@ button {
 
 a {
   text-decoration: none;
+}
+
+/* ----- Scrollbar ----- */
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgba(34, 87, 122, 0.4);
+  border-radius: 10px;
+  margin-top: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #22577a;
+  border-radius: 10px;
 }
 
 /* ----- Particles -----*/

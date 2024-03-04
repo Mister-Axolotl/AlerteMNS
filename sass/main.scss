@@ -9,6 +9,7 @@
 @import './layout/writtingBar';
 @import './layout/message';
 @import './base/typography';
+@import './utils/variables';
 
 /* ----- Global -----*/
 
@@ -30,6 +31,29 @@
 
 a {
     text-decoration: none;
+}
+
+/* ----- Scrollbar ----- */
+
+/* width */
+::-webkit-scrollbar {
+	width: 10px;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: rgba($bleu-fonce, .4);
+	border-radius: 10px;
+	margin-top: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: $bleu-fonce;
+	border-radius: 10px;
 }
 
 /* ----- Particles -----*/

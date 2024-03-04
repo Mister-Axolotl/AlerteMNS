@@ -13,7 +13,7 @@
 <body>
     <div id="particle-container"></div>
     <header id="header">
-        <div class="left-header">
+        <div class="left-header" id="left-header">
             <div class="conversation-type-div" id="conversation_type">
                 <div class="active-background"></div>
                 <p class="conversation-type active-type" id="public">Public</p>
@@ -42,36 +42,47 @@
                 <div class="notifications"></div>
             </div>
         </div>
+		<div class="research-bar-phone" id="research-bar-phone">
+			<img src="./images/magnifying_glass.png" class="icon-header" id="magnifying-glass" alt="Loupe"
+				title="Ouvrir la barre de recherche">
+			<input type="text">
+		</div>
     </header>
 
     <main>
         <div class="container">
-            <div class="left-container">
-                <button class="calendar-div">
-                    <div>
-                        <img src="./images/calendar.png" class="icon" alt="Calendrier" title="Ouvrir l'agenda">
-                    </div>
-                    <p>Agenda</p>
-                </button>
-                <div class="parameters-div">
-                    <div class="left">
-                        <img src="./images/parameters/user.png" id="parameters-user-profil" class="icon"
-                            alt="Image de profil">
-                    </div>
-                    <div class="center">
-                        <p id="parameters-name">Prénom Nom</p>
-                        <p id="parameters-role">Rôle</p>
-                    </div>
-                    <div class="right">
-                        <button>
-                            <img src="./images/parameters/setting.png" class="icon" alt="Engrenage"
-                                title="Ouvrir les paramètres">
-                        </button>
-                    </div>
-                </div>
+            <div class="left-container" id="left-container">
+				<div class="channels">
+
+				</div>
+				<div class="calendar-parameters">
+					<button class="calendar-div">
+						<div>
+							<img src="./images/calendar.png" class="icon" alt="Calendrier" title="Ouvrir l'agenda">
+						</div>
+						<p>Agenda</p>
+					</button>
+					<div class="parameters-div">
+						<div class="left">
+							<img src="./images/parameters/user.png" id="parameters-user-profil" class="icon"
+								alt="Image de profil">
+						</div>
+						<div class="center">
+							<p id="parameters-name">Prénom Nom</p>
+							<p id="parameters-role">Rôle</p>
+						</div>
+						<div class="right">
+							<button>
+								<img src="./images/parameters/setting.png" class="icon" alt="Engrenage"
+									title="Ouvrir les paramètres">
+							</button>
+						</div>
+					</div>
+				</div>
             </div>
-            <div class="right-container">
+            <div class="right-container" id="right-container">
                 <div class="message-container">
+					<!-- OTHER USERS BUBBLE DESIGN -->
                     <div class="others-message">
                         <img src="./images/badges/admin.png" alt="Image de profil utilisateur">
                         <div class="message">
@@ -80,7 +91,31 @@
                                 <p class="date">Date</p>
                             </div>
                             <p class="content">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. lorem
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                            </p>
+                        </div>
+                    </div>
+					<div class="others-message">
+                        <img src="./images/badges/admin.png" alt="Image de profil utilisateur">
+                        <div class="message">
+                            <div class="info">
+                                <p class="name">Nom</p>
+                                <p class="date">Date</p>
+                            </div>
+                            <p class="content">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque omnis ex corporis quidem, voluptatum culpa sed, consectetur, nobis accusantium vel corrupti! Facere beatae vero placeat tempore, neque vel excepturi nostrum? Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga alias explicabo enim praesentium repudiandae est eveniet qui beatae ab, ut voluptates vero assumenda quas adipisci distinctio iure non libero sit. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum repellat ea debitis reprehenderit architecto fugiat facere aliquam quibusdam. Odio asperiores dolorum porro nesciunt sit eveniet voluptas excepturi et mollitia accusantium. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio voluptas neque recusandae a doloribus accusantium alias accusamus magni aliquid, cupiditate fugit perferendis similique placeat asperiores minima iste quo, ad enim?
+                            </p>
+                        </div>
+                    </div>
+					<!-- USER SESSION BUBBLE DESIGN -->
+					<div class="my-message">
+                        <img src="./images/badges/admin.png" alt="Image de profil utilisateur">
+                        <div class="message">
+                            <div class="info">
+                                <p class="date">Date</p>
+                            </div>
+                            <p class="content">
+                                Lorem ipsum dolor.
                             </p>
                         </div>
                     </div>
@@ -101,7 +136,8 @@
                             <img src="./images/add.png" class="writting-image" id="message-option" alt="Plus"
                                 title="Ouvrir plus de fonctionnalités de message">
                         </button>
-                        <input type="text" id="messageInput">
+                        <!-- <input type="text" id="messageInput"> -->
+                        <textarea id="messageInput"></textarea>
                         <button class="button-image" id="emoji-option">
                             <img src="./images/emojis/smile.png" class="writting-image" alt="Smiley qui souris"
                                 title="Ouvrir le menu des émojis">
