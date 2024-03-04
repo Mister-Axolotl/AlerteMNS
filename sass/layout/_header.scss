@@ -1,9 +1,6 @@
 @import '../utils/_variables.scss';
 
 #header {
-    position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
     
     background-color: $noir;
@@ -209,8 +206,10 @@
 		height: 2rem;
 		background-color: $bleu-fonce;
 		display: flex;
-		padding: 5px;
+		// padding: 5px;
 		display: none;
+        position: absolute;
+        top: 62px;
 
 		@media screen and (min-width: 768px) {
 			display: none;

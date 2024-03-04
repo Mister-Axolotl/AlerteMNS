@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			menuOpenClose('flex', 'none', 'block', 'column-reverse');
 		}
 		isMenuOpen = !isMenuOpen;
-	})
+	});
 
 	function menuOpenClose(leftContainerDisplay, rightContainerDisplay, leftHeaderDisplay, headerFlexDirection) {
 		leftContainer.style.display = leftContainerDisplay;

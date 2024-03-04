@@ -106,9 +106,6 @@ button {
 }
 
 #header {
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
   background-color: #221f1f;
   display: flex;
@@ -302,8 +299,9 @@ button {
   height: 2rem;
   background-color: #22577a;
   display: flex;
-  padding: 5px;
   display: none;
+  position: absolute;
+  top: 62px;
 }
 @media screen and (min-width: 768px) {
   #header .research-bar-phone {
@@ -346,10 +344,8 @@ button {
 }
 
 .container {
-  position: absolute;
-  top: 127px;
-  bottom: 0px;
   width: 100%;
+  height: calc(100vh - 62px);
   display: flex;
   overflow-y: auto;
   overflow-x: hidden;
@@ -367,13 +363,13 @@ button {
 }
 @media only screen and (min-width: 768px) {
   .container {
-    top: 75px;
+    height: calc(100vh - 75px);
   }
 }
 
 @media only screen and (max-width: 480px) {
   .container {
-    top: 75px;
+    height: calc(100vh - 62px);
   }
 }
 .left-container {
@@ -930,12 +926,6 @@ button {
     width: 80%;
   }
 }
-@media screen and (min-width: 1024px) {
-  .writting-bar-container {
-    left: 200px;
-    width: calc(100% - 200px);
-  }
-}
 .writting-bar-container .writting-bar {
   width: 75%;
   height: 3.5rem;
@@ -955,6 +945,7 @@ button {
   width: fit-content;
   padding: 0 5px;
   opacity: 0;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .writting-bar-container .writting-bar #options button {
   margin: 10px 0;
@@ -970,21 +961,21 @@ button {
   width: 0;
   height: 0;
   position: absolute;
-  left: 31px;
-  border-left: 15px solid transparent;
-  border-right: 15px solid transparent;
-  border-top: 20px solid #fefefe;
+  left: 24px;
+  border-style: solid;
+  border-width: 20px 15px 0;
+  border-color: #fefefe transparent transparent transparent;
 }
 .writting-bar-container .writting-bar #options.show-up {
-  animation: 0.5s ease-in 0s 1 normal both running slideUp;
+  animation: 0s ease-in 0s 1 normal both running slideUp;
 }
 .writting-bar-container .writting-bar #options.show-down {
-  animation: 0.5s ease-in 0s 1 normal both running slideDown;
+  animation: 0s ease-in 0s 1 normal both running slideDown;
 }
 @keyframes slideUp {
   0% {
     bottom: calc(10px + 3.5rem);
-    opacity: 1;
+    opacity: 0;
   }
   100% {
     bottom: calc(10px + 3.5rem + 17px);
@@ -1062,15 +1053,10 @@ button {
   }
 }
 .message-container .others-message, .message-container .my-message {
-  width: 100%;
+  width: 80%;
   display: flex;
   align-items: flex-start;
   margin: 5px 0;
-}
-@media screen and (min-width: 1024px) {
-  .message-container .others-message, .message-container .my-message {
-    width: 45%;
-  }
 }
 .message-container .others-message img, .message-container .my-message img {
   width: 2rem;

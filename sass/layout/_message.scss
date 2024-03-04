@@ -19,14 +19,10 @@
 	}
 
 	.others-message, .my-message {
-		width: 100%;
+		width: 80%;
 		display: flex;
 		align-items: flex-start;
 		margin: 5px 0;
-
-		@media screen and (min-width: 1024px) {
-			width: 45%;
-		}
 	
 		img {
 			width: 2rem;
