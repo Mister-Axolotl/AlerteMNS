@@ -1,28 +1,76 @@
 @import '../utils/_variables.scss';
 
-.others-message {
-	width: 45%;
+.message-container {
+	display: flex;
+	flex-direction: column;
+	width: 99%;
+	height: calc(100% - 5rem); // All height - (writing bar height + a little space)
+	margin: auto;
+	padding: 0 30px;
+	overflow-y: auto;
+	box-sizing: border-box;
+	
+	@media screen and (max-width: 768px) {
+		// Hide scrollbar but still able to scroll
+		-ms-overflow-style: none;  /* Internet Explorer 10+ */
+		scrollbar-width: none;  /* Firefox */
 
-	img {
-		width: 2rem;
+		padding: 0 10px;
 	}
 
-	.message {
-		width: fit-content;
-		height: fit-content;
-		background: $vert-tres-clair;
-		border-radius: 20px;
-		padding: 10px 15px;
+	.others-message, .my-message {
+		width: 100%;
+		display: flex;
+		align-items: flex-start;
+		margin: 5px 0;
 
-		.info {
-			display: flex;
-			flex-direction: row;
-			font-size: smaller;
-			color: #585858;
-
-			.name {
-				margin-right: 10px;
+		@media screen and (min-width: 1024px) {
+			width: 45%;
+		}
+	
+		img {
+			width: 2rem;
+			margin-top: 5px;
+		}
+	
+		.message {
+			max-width: calc(100% - 3rem);
+			width: fit-content;
+			height: fit-content;
+			background: $blanc;
+			border-radius: 20px;
+			padding: 4px 15px 10px;
+	
+			.info {
+				display: flex;
+				flex-direction: row;
+				font-size: smaller;
+				color: #585858;
+				margin-bottom: 5px;
+	
+				.name {
+					margin-right: 10px;
+				}
 			}
+		}
+	}
+	
+	.others-message {
+		img {
+			margin-right: .6rem;
+		}
+	}
+	
+	.my-message {
+		flex-direction: row-reverse;
+		align-self: end;
+	
+		img {
+			margin-left: .6rem;
+		}
+	
+		.info {
+			justify-content: flex-end;
 		}
 	}
 }

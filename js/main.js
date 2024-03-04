@@ -2,6 +2,8 @@ import { openCloseMenu, ifOpenMenu, startParticleAnimation } from "./functions.j
 
 document.addEventListener('DOMContentLoaded', function () {
 
+	const viewportWidth = window.innerWidth;
+
     /* ==================== SMOOTH TRANSITION FOR SECTION ==================== */
 
     const sections = document.querySelectorAll(".scroll-section");
@@ -40,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    /* ==================== Conversation Type Switch ==================== */
+    /* ==================== CONVERSATION TYPE SWITCH ==================== */
 
     const activeBackgroundConversation = document.querySelector('.active-background');
     const publicConversation = document.querySelector('#public');
@@ -60,6 +62,52 @@ document.addEventListener('DOMContentLoaded', function () {
         activeElement.classList.remove('active-type');
         inactiveElement.classList.add('active-type');
     }
+	
+    /* ==================== SEARCHBAR (PHONE) ==================== */
+	const searchIcon = document.querySelector('#magnifying-glass');
+	const searchBarPhone = document.querySelector('#research-bar-phone');
+	let isUserSearching = false;
+
+	// Open searchbar for phone only when user is on a phone (<768px) and not in the menu
+	searchIcon.addEventListener('click', () => {
+		isUserSearching = !isUserSearching;
+		if (isMenuOpen) {
+			searchBarPhone.style.display = 'none';
+			isUserSearching = !isUserSearching;
+		} else if (isUserSearching && viewportWidth < 768) {
+			searchBarPhone.style.display = 'flex';
+		} else {
+			searchBarPhone.style.display = 'none';
+		}
+	})
+	
+	/* ==================== MENU OPENING (PHONE) ==================== */
+	const menuIcon = document.querySelector('#menu-icon');
+	const leftContainer = document.querySelector('#left-container');
+	const rightContainer = document.querySelector('#right-container');
+	const leftHeader = document.querySelector('#left-header');
+	const header = document.querySelector('#header');
+	let isMenuOpen = false;
+
+	menuIcon.addEventListener('click', () => {
+		// Searching is not possible when the menu is open
+		searchBarPhone.style.display = 'none';
+		isUserSearching = false;
+
+		if (isMenuOpen) {
+			menuOpenClose('none', 'block', 'none', 'column');
+		} else {
+			menuOpenClose('flex', 'none', 'block', 'column-reverse');
+		}
+		isMenuOpen = !isMenuOpen;
+	})
+
+	function menuOpenClose(leftContainerDisplay, rightContainerDisplay, leftHeaderDisplay, headerFlexDirection) {
+		leftContainer.style.display = leftContainerDisplay;
+		rightContainer.style.display = rightContainerDisplay;
+		leftHeader.style.display = leftHeaderDisplay;
+		header.style.flexDirection = headerFlexDirection;
+	}
 
     /* ==================== MESSAGES OPTIONS ==================== */
     const messageOptionsButton = document.querySelector('#messageOptionsButton');

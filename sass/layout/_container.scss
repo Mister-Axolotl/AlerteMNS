@@ -36,89 +36,148 @@
 
 .left-container {
     background-color: $gris-fonce;
-    width: 20%;
+    width: 100%;
     text-align: center;
     color: $blanc;
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: flex-end;
 
-    @media screen and (max-width: 1024px) {
-        width: 200px;
+	@media screen and (min-width: 768px) {
+		width: 200px;
+		display: block;
+	}
+	
+    @media screen and (min-width: 1024px) {
+		width: 20%;
     }
 
-    .calendar-div {
-        height: 10%;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        color: $gris-fonce;
-        font-size: 1.2rem;
-        background-color: $vert-clair;
-        text-align: left;
-        border: none;
-        padding: 0;
+	.channels {
+		height: 85%;
 
-        &:hover {
-            cursor: pointer;
-            background-color: $vert;
-        }
+		@media screen and (max-height: 500px) {
+			height: 75%;
+		}
 
-        div {
-            width: 25%;
-            text-align: center;
-        }
+		@media screen and (min-width: 1024px) {
+			height: 75%;
+		}
+	}
 
-        p {
-            width: 75%;
-        }
-    }
+	.calendar-parameters {
+		height: 15%;
+		width: 100%;
+		display: flex;
+		flex-direction: row-reverse;
 
-    .parameters-div {
-        display: flex;
-        align-items: center;
-        height: 15%;
-        background-color: $vert-tres-clair;
-        color: $gris-fonce;
+		@media screen and (max-height: 500px) {
+			height: 25%;
+		}
+		
+		@media screen and (min-width: 768px) {
+			flex-direction: column;
+		}
 
-        .left {
-            width: 25%;
+		@media screen and (min-width: 1024px) {
+			height: 25%;
+		}
 
-            #parameters-user-profil {
-                filter: invert(1);
-            }
-        }
+		.calendar-div {
+			width: 25%;
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+			color: $gris-fonce;
+			font-size: 1.2rem;
+			background-color: $vert-clair;
+			text-align: left;
+			border: none;
+			padding: 0;
 
-        .center {
-            width: 50%;
-            text-align: left;
+			@media screen and (min-width: 768px) {
+				height: 35%;
+				min-height: 2.5rem;
+				width: 100%;
+			}
+	
+			&:hover {
+				cursor: pointer;
+				background-color: $vert;
+			}
+	
+			div {
+				text-align: center;
+				
+				@media screen and (min-width: 768px) {
+					width: 25%;
+				}
+			}
+	
+			p {
+				width: 75%;
+				display: none;
 
-            p {
-                display: block;
+				@media screen and (min-width: 768px) {
+					display: block;
+				}
+			}
+		}
+	
+		.parameters-div {
+			display: flex;
+			align-items: center;
+			width: 75%;
+			background-color: $vert-tres-clair;
+			color: $gris-fonce;
 
-                &#parameters-role {
-                    font-size: smaller;
-                }
-            }
-        }
-
-        .right {
-            width: 25%;
-
-            button {
-                background-color: transparent;
-                border: none;
-                padding: 0;
-                height: 30px;
-                transition: transform .3s ease-in-out;
-
-                &:hover {
-                    cursor: pointer;
-                    transform: rotate(90deg);
-                }
-            }
-        }
-    }
+			@media screen and (min-width: 768px) {
+				height: 65%;
+				width: 100%;
+			}
+	
+			.left {
+				width: 25%;
+	
+				#parameters-user-profil {
+					filter: invert(1);
+				}
+			}
+	
+			.center {
+				width: 50%;
+				text-align: left;
+	
+				p {
+					display: block;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+    				overflow: hidden;
+	
+					&#parameters-role {
+						font-size: smaller;
+					}
+				}
+			}
+	
+			.right {
+				width: 25%;
+	
+				button {
+					background-color: transparent;
+					border: none;
+					padding: 0;
+					height: 30px;
+					transition: transform .3s ease-in-out;
+	
+					&:hover {
+						cursor: pointer;
+						transform: rotate(90deg);
+					}
+				}
+			}
+		}
+	
+	}
 
     .icon {
         height: 30px;
@@ -126,10 +185,11 @@
 }
 
 .right-container {
-    background-image: url("../../images/background_blur.png");
+    background-image: url('../images/background_blur_shorter.png');
     background-repeat: no-repeat;
     background-size: cover;
     flex-grow: 1;
+	width: 80%;
     background-position: bottom;
 }
 
