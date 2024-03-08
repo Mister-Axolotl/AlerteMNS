@@ -2,8 +2,6 @@ import { openCloseMenu, ifOpenMenu, startParticleAnimation } from "./functions.j
 
 document.addEventListener('DOMContentLoaded', function () {
 
-	const viewportWidth = window.innerWidth;
-
     /* ==================== SMOOTH TRANSITION FOR SECTION ==================== */
 
     const sections = document.querySelectorAll(".scroll-section");
@@ -71,11 +69,14 @@ document.addEventListener('DOMContentLoaded', function () {
 	// Open searchbar for phone only when user is on a phone (<768px) and not in the menu
 	searchIcon.addEventListener('click', () => {
 		isUserSearching = !isUserSearching;
+		let viewportWidth = window.innerWidth;
+		console.log(isUserSearching);
 		if (isMenuOpen) {
 			searchBarPhone.style.display = 'none';
 			isUserSearching = !isUserSearching;
 		} else if (isUserSearching && viewportWidth < 768) {
 			searchBarPhone.style.display = 'flex';
+			console.log('ok');
 		} else {
 			searchBarPhone.style.display = 'none';
 		}
@@ -141,6 +142,19 @@ document.addEventListener('DOMContentLoaded', function () {
     /* ==================== OPEN EMOJIS MENU ==================== */
 
 
+    /* ==================== ON RESIZE WINDOW ==================== */
+	window.addEventListener('resize', () => {
+		let windowWidth = window.innerWidth;
+
+		if (windowWidth >= 768) {
+			menuOpenClose('flex', 'block', 'block', 'row');
+			isMenuOpen = true;
+			searchBarPhone.style.display = 'none';
+		} else {
+			menuOpenClose('none', 'block', 'none', 'column');
+			isMenuOpen = false;
+		}
+	})
 });
 
 

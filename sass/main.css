@@ -297,7 +297,7 @@ button {
 }
 #header .research-bar-phone {
   width: 100vw;
-  height: 2rem;
+  height: 2.5rem;
   background-color: #22577a;
   display: flex;
   display: none;
@@ -316,11 +316,11 @@ button {
   color: #fefefe;
   font-size: 1rem;
   position: relative;
-  width: 90%;
+  width: 87%;
 }
 #header .research-bar-phone::after {
   content: "";
-  width: 90%;
+  width: 87%;
   height: 1px;
   display: inline;
   position: absolute;
@@ -330,6 +330,7 @@ button {
 }
 #header .research-bar-phone #magnifying-glass {
   padding-left: 5px;
+  margin-top: 3px;
 }
 #header .icon-header {
   height: 30px;
