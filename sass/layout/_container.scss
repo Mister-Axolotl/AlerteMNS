@@ -196,12 +196,13 @@
 }
 
 .right-container {
+	position: relative;
     background-image: url('../images/background_blur_shorter.png');
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: bottom;
     flex-grow: 1;
 	width: 80%;
-    background-position: bottom;
 }
 
 .sections {

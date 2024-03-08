@@ -110,6 +110,20 @@ document.addEventListener('DOMContentLoaded', function () {
 		header.style.flexDirection = headerFlexDirection;
 	}
 
+    /* ==================== USER INFORMATIONS ==================== */
+	const userInfos = document.querySelector('#user-infos');
+	const closeIcon = document.querySelector('#close');
+
+	document.querySelectorAll('.user-profile-picture').forEach(picture => {
+        picture.addEventListener('click', () => {
+			userInfos.style.display = "block";
+		});
+    });
+
+	closeIcon.addEventListener('click', () => {
+		userInfos.style.display = "none";
+	})
+
     /* ==================== MESSAGES OPTIONS ==================== */
     const messageOptionsButton = document.querySelector('#messageOptionsButton');
     const options = document.querySelector('#options');
@@ -156,5 +170,3 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	})
 });
-
-

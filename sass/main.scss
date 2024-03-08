@@ -9,6 +9,7 @@
 @import './layout/writtingBar';
 @import './layout/message';
 @import './layout/channel';
+@import './layout/userInfo';
 @import './base/typography';
 @import './utils/variables';
 
@@ -51,10 +52,15 @@ a {
 	border-radius: 10px;
 	margin-top: 5px;
 
-	// AUTRES
+	// MENU
 	/* background: rgba($vert, .4);
 	border-radius: 10px;
 	margin: 15px 0; */
+
+	// USER INFO
+	background: rgba($vert, .4);
+	border-radius: 10px;
+	margin: 40px 0 25px;
 }
 
 /* Handle */
@@ -63,9 +69,13 @@ a {
 	background: $bleu-fonce;
 	border-radius: 10px;
 
-	// AUTRES
+	// MENU
 	/* background: $vert;
 	border-radius: 10px; */
+
+	// USER INFO
+	background: $vert;
+	border-radius: 10px;
 }
 
 /* ----- Particles -----*/
