@@ -35,6 +35,7 @@
 .left-container {
     background-color: $gris-fonce;
     width: 100%;
+	height: calc(100% - 65px);
     text-align: center;
     color: $blanc;
     display: none;
@@ -44,6 +45,7 @@
 	@media screen and (min-width: 768px) {
 		width: 200px;
 		display: block;
+		height: auto;
 	}
 	
     @media screen and (min-width: 1024px) {
@@ -52,9 +54,21 @@
 
 	.channels {
 		height: 85%;
+		width: 98%;
+		box-sizing: border-box;
+		padding: 10px 0;
+		overflow-y: auto;
 
 		@media screen and (max-height: 500px) {
 			height: 75%;
+		}
+
+		@media screen and (min-width: 768px) {
+			// Hide scrollbar but still able to scroll
+			-ms-overflow-style: none;  /* Internet Explorer 10+ */
+			scrollbar-width: none;  /* Firefox */
+	
+			padding: 0 10px;
 		}
 
 		@media screen and (min-width: 1024px) {

@@ -125,6 +125,7 @@ button {
   background-color: #3f3f3f;
   padding: 10px;
   display: none;
+  box-sizing: border-box;
 }
 @media screen and (min-width: 768px) {
   #header .left-header {
@@ -375,6 +376,7 @@ button {
 .left-container {
   background-color: #3f3f3f;
   width: 100%;
+  height: calc(100% - 65px);
   text-align: center;
   color: #fefefe;
   display: none;
@@ -385,6 +387,7 @@ button {
   .left-container {
     width: 200px;
     display: block;
+    height: auto;
   }
 }
 @media screen and (min-width: 1024px) {
@@ -394,10 +397,21 @@ button {
 }
 .left-container .channels {
   height: 85%;
+  width: 98%;
+  box-sizing: border-box;
+  padding: 10px 0;
+  overflow-y: auto;
 }
 @media screen and (max-height: 500px) {
   .left-container .channels {
     height: 75%;
+  }
+}
+@media screen and (min-width: 768px) {
+  .left-container .channels {
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+    padding: 0 10px;
   }
 }
 @media screen and (min-width: 1024px) {
@@ -1096,6 +1110,85 @@ button {
   justify-content: flex-end;
 }
 
+.channel {
+  height: 2rem;
+  width: 88%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 15px 0 15px 40px;
+}
+@media screen and (min-width: 768px) {
+  .channel {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+@media screen and (max-width: 300px) {
+  .channel {
+    width: 80%;
+  }
+}
+.channel .dot-container {
+  width: 50px;
+}
+.channel .dot-container .dot {
+  height: 22px;
+  width: 22px;
+  background-color: #38a3a5;
+  border-radius: 50%;
+  display: block;
+  margin: 0 10px;
+}
+@media screen and (min-width: 768px) {
+  .channel .dot-container .dot {
+    height: 17px;
+    width: 17px;
+  }
+}
+.channel img {
+  width: 1.8rem;
+}
+@media screen and (min-width: 768px) {
+  .channel img {
+    width: 1.4rem;
+  }
+}
+.channel .dash {
+  font-weight: bold;
+  margin: 0 12px;
+  font-size: 1.2rem;
+}
+@media screen and (min-width: 768px) {
+  .channel .dash {
+    margin: 0 7px;
+    font-size: 1rem;
+  }
+}
+.channel .name {
+  font-size: 1.5rem;
+  display: block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+@media screen and (min-width: 768px) {
+  .channel .name {
+    font-size: 1.2rem;
+  }
+}
+
+.separator {
+  width: 70%;
+  border: 2px solid #c7f9cc;
+  border-radius: 5px;
+}
+@media screen and (min-width: 768px) {
+  .separator {
+    width: 90%;
+  }
+}
+
 @font-face {
   font-family: "Poppins";
   src: url("../fonts/Poppins/Poppins-Medium.ttf");
@@ -1147,12 +1240,17 @@ a {
   background: rgba(34, 87, 122, 0.4);
   border-radius: 10px;
   margin-top: 5px;
+  /* background: rgba($vert, .4);
+  border-radius: 10px;
+  margin: 15px 0; */
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: #22577a;
   border-radius: 10px;
+  /* background: $vert;
+  border-radius: 10px; */
 }
 
 /* ----- Particles -----*/

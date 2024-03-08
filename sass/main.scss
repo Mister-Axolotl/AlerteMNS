@@ -8,6 +8,7 @@
 @import './layout/connexion';
 @import './layout/writtingBar';
 @import './layout/message';
+@import './layout/channel';
 @import './base/typography';
 @import './utils/variables';
 
@@ -45,15 +46,26 @@ a {
 
 /* Track */
 ::-webkit-scrollbar-track {
+	// CONVERSATION
 	background: rgba($bleu-fonce, .4);
 	border-radius: 10px;
 	margin-top: 5px;
+
+	// AUTRES
+	/* background: rgba($vert, .4);
+	border-radius: 10px;
+	margin: 15px 0; */
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
+	// CONVERSATION
 	background: $bleu-fonce;
 	border-radius: 10px;
+
+	// AUTRES
+	/* background: $vert;
+	border-radius: 10px; */
 }
 
 /* ----- Particles -----*/
