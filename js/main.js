@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		isUserSearching = !isUserSearching;
 		let viewportWidth = window.innerWidth;
 		console.log(isUserSearching);
-		if (isMenuOpen) {
+		if (isMenuChannelOpen) {
 			searchBarPhone.style.display = 'none';
 			isUserSearching = !isUserSearching;
 		} else if (isUserSearching && viewportWidth < 768) {
@@ -82,33 +82,66 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	})
 	
-	/* ==================== MENU OPENING (PHONE) ==================== */
+	/* ==================== MENU CHANNELS OPENING (PHONE) ==================== */
 	const menuIcon = document.querySelector('#menu-icon');
 	const leftContainer = document.querySelector('#left-container');
 	const rightContainer = document.querySelector('#right-container');
+	const channelMemberContainer = document.querySelector('#members-container');
 	const leftHeader = document.querySelector('#left-header');
 	const header = document.querySelector('#header');
-	let isMenuOpen = false;
+	let isMenuChannelOpen = false;
 
 	menuIcon.addEventListener('click', () => {
 		// Searching is not possible when the menu is open
 		searchBarPhone.style.display = 'none';
 		isUserSearching = false;
 
-		if (isMenuOpen) {
-			menuOpenClose('none', 'block', 'none', 'column');
+		if (isMenuChannelOpen) {
+			menuOpenClose('none', 'block', 'none', 'none', 'column');
 		} else {
-			menuOpenClose('flex', 'none', 'block', 'column-reverse');
+			menuOpenClose('block', 'none', 'none', 'block', 'column-reverse');
 		}
-		isMenuOpen = !isMenuOpen;
+
+		isMenuChannelOpen = !isMenuChannelOpen;
 	});
 
-	function menuOpenClose(leftContainerDisplay, rightContainerDisplay, leftHeaderDisplay, headerFlexDirection) {
+	function menuOpenClose(leftContainerDisplay, rightContainerDisplay, channelMemberContainerDisplay, leftHeaderDisplay, headerFlexDirection) {
 		leftContainer.style.display = leftContainerDisplay;
 		rightContainer.style.display = rightContainerDisplay;
+		channelMemberContainer.style.display = channelMemberContainerDisplay;
 		leftHeader.style.display = leftHeaderDisplay;
 		header.style.flexDirection = headerFlexDirection;
 	}
+
+	/* ==================== MENU MEMBERS OPENING ==================== */
+	const channelNameHeader = document.querySelector('#channel-name');
+	let isMembersChannelOpen = false;
+
+	channelNameHeader.addEventListener('click', () => {
+		// Searching is not possible when the menu is open
+		searchBarPhone.style.display = 'none';
+		isUserSearching = false;
+		let viewportWidth = window.innerWidth;
+
+		if (viewportWidth >= 768) {
+			if (isMembersChannelOpen) {
+				channelMemberContainer.style.display = 'none';
+			} else {
+				channelMemberContainer.style.display = 'block';
+			}
+		} else {
+			if (!isMenuChannelOpen && !isMembersChannelOpen) {
+				menuOpenClose('none', 'none', 'block', 'none', 'column');
+			} else if (!isMenuChannelOpen && isMembersChannelOpen) {
+				menuOpenClose('none', 'block', 'none', 'none', 'column');
+			}
+		}
+
+		if (!isMenuChannelOpen) {
+			isMembersChannelOpen =!isMembersChannelOpen;
+		}
+	})
+
 
     /* ==================== USER INFORMATIONS ==================== */
 	const userInfos = document.querySelector('#user-infos');
@@ -162,11 +195,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		if (windowWidth >= 768) {
 			menuOpenClose('flex', 'block', 'block', 'row');
-			isMenuOpen = true;
+			isMenuChannelOpen = true;
 			searchBarPhone.style.display = 'none';
 		} else {
 			menuOpenClose('none', 'block', 'none', 'column');
-			isMenuOpen = false;
+			isMenuChannelOpen = false;
 		}
 	})
 });

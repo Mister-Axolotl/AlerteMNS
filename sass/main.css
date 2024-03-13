@@ -374,28 +374,6 @@ button {
     height: calc(100vh - 62px);
   }
 }
-.left-container {
-  background-color: #3f3f3f;
-  width: 100%;
-  height: calc(100% - 65px);
-  text-align: center;
-  color: #fefefe;
-  display: none;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-@media screen and (min-width: 768px) {
-  .left-container {
-    width: 200px;
-    display: block;
-    height: auto;
-  }
-}
-@media screen and (min-width: 1024px) {
-  .left-container {
-    width: 20%;
-  }
-}
 .left-container .channels {
   height: 85%;
   width: 98%;
@@ -539,6 +517,42 @@ button {
   background-position: bottom;
   flex-grow: 1;
   width: 80%;
+}
+
+.left-container, .members-container {
+  background-color: #3f3f3f;
+  width: 100%;
+  height: calc(100% - 65px);
+  text-align: center;
+  color: #fefefe;
+  display: none;
+}
+@media screen and (min-width: 768px) {
+  .left-container, .members-container {
+    width: 200px;
+    display: block;
+    height: auto;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .left-container, .members-container {
+    width: 20%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .members-container {
+    display: none;
+  }
+}
+.members-container .members {
+  width: 98%;
+}
+.members-container .members .channel {
+  cursor: default;
+}
+.members-container .members .user-profile-picture {
+  cursor: pointer;
 }
 
 .sections {
@@ -1047,7 +1061,7 @@ button {
 
 .message-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   width: 99%;
   height: calc(100% - 5rem);
   margin: auto;
@@ -1071,6 +1085,7 @@ button {
 .message-container .others-message img, .message-container .my-message img {
   width: 2rem;
   margin-top: 5px;
+  cursor: pointer;
 }
 .message-container .others-message .message, .message-container .my-message .message {
   max-width: calc(100% - 3rem);
@@ -1108,11 +1123,12 @@ button {
 
 .channel {
   height: 2rem;
-  width: 88%;
+  width: 81%;
   display: flex;
   flex-direction: row;
   align-items: center;
   margin: 15px 0 15px 40px;
+  cursor: pointer;
 }
 @media screen and (min-width: 768px) {
   .channel {
@@ -1142,25 +1158,6 @@ button {
     width: 17px;
   }
 }
-.channel img {
-  width: 1.8rem;
-}
-@media screen and (min-width: 768px) {
-  .channel img {
-    width: 1.4rem;
-  }
-}
-.channel .dash {
-  font-weight: bold;
-  margin: 0 12px;
-  font-size: 1.2rem;
-}
-@media screen and (min-width: 768px) {
-  .channel .dash {
-    margin: 0 7px;
-    font-size: 1rem;
-  }
-}
 .channel .name {
   font-size: 1.5rem;
   display: block;
@@ -1172,6 +1169,46 @@ button {
   .channel .name {
     font-size: 1.2rem;
   }
+}
+
+.active-channel {
+  background-color: #6F6F6F;
+  border-radius: 10px;
+}
+
+.public-channel .dash {
+  font-weight: bold;
+  margin: 0 12px;
+  font-size: 1.2rem;
+}
+@media screen and (min-width: 768px) {
+  .public-channel .dash {
+    margin: 0 7px;
+    font-size: 1rem;
+  }
+}
+.public-channel img {
+  width: 1.8rem;
+}
+@media screen and (min-width: 768px) {
+  .public-channel img {
+    width: 1.4rem;
+  }
+}
+
+.private-channel .dot-container, .member-channel .dot-container {
+  width: 45px;
+}
+.private-channel img, .member-channel img {
+  width: 2.5rem;
+}
+@media screen and (min-width: 768px) {
+  .private-channel img, .member-channel img {
+    width: 2rem;
+  }
+}
+.private-channel .name, .member-channel .name {
+  margin-left: 7px;
 }
 
 .separator {

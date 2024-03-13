@@ -52,11 +52,11 @@
     <main>
         <div class="container">
 
-			<!-- MENU -->
+			<!-- MENU CANAL / AGENDA / PARAMETRES-->
             <div class="left-container" id="left-container">
-				<!-- CHANNELS -->
+				<!-- CANAUX -->
 				<div class="channels">
-					<div class="channel">
+					<div class="channel public-channel">
 						<div class="dot-container">
 							<span class="dot"></span>
 						</div>
@@ -64,43 +64,45 @@
 						<span class="dash">–</span>
 						<span class="name">Actualités</span>
 					</div>
-					<div class="channel">
+					<div class="channel public-channel active-channel">
 						<div class="dot-container">
 							<span class="dot" style="visibility: hidden;"></span>
 						</div>
-						<img src="./images/channel/chat_bubbles.png" alt="Actualités icône">
+						<img src="./images/channel/chat_bubbles.png" alt="Forum icône">
 						<span class="dash">–</span>
 						<span class="name">Forum</span>
 					</div>
 					<hr class="separator">
-					<div class="channel">
+					<div class="channel public-channel">
 						<div class="dot-container">
 							<span class="dot"></span>
 						</div>
-						<img src="./images/channel/team.png" alt="Actualités icône">
+						<img src="./images/channel/team.png" alt="Equipe MNS icône">
 						<span class="dash">–</span>
 						<span class="name">Equipe MNS</span>
-					</div><div class="channel">
+					</div>
+					<div class="channel public-channel">
 						<div class="dot-container">
 							<span class="dot"></span>
 						</div>
-						<img src="./images/channel/team.png" alt="Actualités icône">
+						<img src="./images/channel/team.png" alt="Equipe MNS icône">
 						<span class="dash">–</span>
 						<span class="name">Equipe MNS</span>
-					</div><div class="channel">
+					</div>
+					<div class="channel public-channel">
 						<div class="dot-container">
 							<span class="dot"></span>
 						</div>
-						<img src="./images/channel/team.png" alt="Actualités icône">
+						<img src="./images/channel/team.png" alt="Equipe MNS icône">
 						<span class="dash">–</span>
 						<span class="name">Equipe MNS</span>
-					</div><div class="channel">
+					</div>
+					<div class="channel private-channel">
 						<div class="dot-container">
 							<span class="dot"></span>
 						</div>
-						<img src="./images/channel/team.png" alt="Actualités icône">
-						<span class="dash">–</span>
-						<span class="name">Equipe MNS</span>
+						<img src="./images/profile-user.png" alt="Photo profil">
+						<span class="name">Prénom Nom</span>
 					</div>
 				</div>
 
@@ -235,6 +237,19 @@
 					</div>
 				</div>
             </div>
+
+			<!-- MENU MEMBRES CANAL -->
+			<div class="members-container" id="members-container">
+				<div class="members">
+					<div class="channel member-channel">
+						<div class="dot-container">
+							<span class="dot"></span>
+						</div>
+						<img src="./images/profile-user.png" alt="Photo profil" class="user-profile-picture">
+						<span class="name">Prénom Nom</span>
+					</div>
+				</div>
+			</div>
         </div>
     </main>
     <script type="module" src="./js/main.js"></script>

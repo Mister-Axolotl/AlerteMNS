@@ -33,25 +33,6 @@
 }
 
 .left-container {
-    background-color: $gris-fonce;
-    width: 100%;
-	height: calc(100% - 65px);
-    text-align: center;
-    color: $blanc;
-    display: none;
-    flex-direction: column;
-    justify-content: flex-end;
-
-	@media screen and (min-width: 768px) {
-		width: 200px;
-		display: block;
-		height: auto;
-	}
-	
-    @media screen and (min-width: 1024px) {
-		width: 20%;
-    }
-
 	.channels {
 		height: 85%;
 		width: 98%;
@@ -204,6 +185,44 @@
     flex-grow: 1;
 	width: 80%;
 }
+
+.left-container, .members-container {
+	background-color: $gris-fonce;
+    width: 100%;
+	height: calc(100% - 65px);
+    text-align: center;
+    color: $blanc;
+    display: none;
+
+	@media screen and (min-width: 768px) {
+		width: 200px;
+		display: block;
+		height: auto;
+	}
+	
+    @media screen and (min-width: 1024px) {
+		width: 20%;
+    }
+}
+
+.members-container {
+	@media screen and (min-width: 768px) {
+		display: none;
+	}
+
+	.members {
+		width: 98%;
+	
+		.channel {
+			cursor: default;
+		}
+	
+		.user-profile-picture {
+			cursor: pointer;
+		}
+	}
+}
+
 
 .sections {
     display: flex;
