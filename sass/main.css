@@ -125,6 +125,7 @@ button {
   background-color: #3f3f3f;
   padding: 10px;
   display: none;
+  box-sizing: border-box;
 }
 @media screen and (min-width: 768px) {
   #header .left-header {
@@ -296,7 +297,7 @@ button {
 }
 #header .research-bar-phone {
   width: 100vw;
-  height: 2rem;
+  height: 2.5rem;
   background-color: #22577a;
   display: flex;
   display: none;
@@ -315,11 +316,11 @@ button {
   color: #fefefe;
   font-size: 1rem;
   position: relative;
-  width: 90%;
+  width: 87%;
 }
 #header .research-bar-phone::after {
   content: "";
-  width: 90%;
+  width: 87%;
   height: 1px;
   display: inline;
   position: absolute;
@@ -329,6 +330,7 @@ button {
 }
 #header .research-bar-phone #magnifying-glass {
   padding-left: 5px;
+  margin-top: 3px;
 }
 #header .icon-header {
   height: 30px;
@@ -372,32 +374,23 @@ button {
     height: calc(100vh - 62px);
   }
 }
-.left-container {
-  background-color: #3f3f3f;
-  width: 100%;
-  text-align: center;
-  color: #fefefe;
-  display: none;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-@media screen and (min-width: 768px) {
-  .left-container {
-    width: 200px;
-    display: block;
-  }
-}
-@media screen and (min-width: 1024px) {
-  .left-container {
-    width: 20%;
-  }
-}
 .left-container .channels {
   height: 85%;
+  width: 98%;
+  box-sizing: border-box;
+  padding: 10px 0;
+  overflow-y: auto;
 }
 @media screen and (max-height: 500px) {
   .left-container .channels {
     height: 75%;
+  }
+}
+@media screen and (min-width: 768px) {
+  .left-container .channels {
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+    padding: 0 10px;
   }
 }
 @media screen and (min-width: 1024px) {
@@ -517,12 +510,49 @@ button {
 }
 
 .right-container {
+  position: relative;
   background-image: url("../images/background_blur_shorter.png");
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: bottom;
   flex-grow: 1;
   width: 80%;
-  background-position: bottom;
+}
+
+.left-container, .members-container {
+  background-color: #3f3f3f;
+  width: 100%;
+  height: calc(100% - 65px);
+  text-align: center;
+  color: #fefefe;
+  display: none;
+}
+@media screen and (min-width: 768px) {
+  .left-container, .members-container {
+    width: 200px;
+    display: block;
+    height: auto;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .left-container, .members-container {
+    width: 20%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .members-container {
+    display: none;
+  }
+}
+.members-container .members {
+  width: 98%;
+}
+.members-container .members .channel {
+  cursor: default;
+}
+.members-container .members .user-profile-picture {
+  cursor: pointer;
 }
 
 .sections {
@@ -920,12 +950,6 @@ button {
   align-items: center;
   justify-content: space-between;
 }
-@media screen and (min-width: 768px) {
-  .writting-bar-container {
-    left: 20%;
-    width: 80%;
-  }
-}
 .writting-bar-container .writting-bar {
   width: 75%;
   height: 3.5rem;
@@ -1037,7 +1061,7 @@ button {
 
 .message-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   width: 99%;
   height: calc(100% - 5rem);
   margin: auto;
@@ -1061,6 +1085,7 @@ button {
 .message-container .others-message img, .message-container .my-message img {
   width: 2rem;
   margin-top: 5px;
+  cursor: pointer;
 }
 .message-container .others-message .message, .message-container .my-message .message {
   max-width: calc(100% - 3rem);
@@ -1094,6 +1119,188 @@ button {
 }
 .message-container .my-message .info {
   justify-content: flex-end;
+}
+
+.channel {
+  height: 2rem;
+  width: 81%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 15px 0 15px 40px;
+  cursor: pointer;
+}
+@media screen and (min-width: 768px) {
+  .channel {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+@media screen and (max-width: 300px) {
+  .channel {
+    width: 80%;
+  }
+}
+.channel .dot-container {
+  width: 50px;
+}
+.channel .dot-container .dot {
+  height: 22px;
+  width: 22px;
+  background-color: #38a3a5;
+  border-radius: 50%;
+  display: block;
+  margin: 0 10px;
+}
+@media screen and (min-width: 768px) {
+  .channel .dot-container .dot {
+    height: 17px;
+    width: 17px;
+  }
+}
+.channel .name {
+  font-size: 1.5rem;
+  display: block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+@media screen and (min-width: 768px) {
+  .channel .name {
+    font-size: 1.2rem;
+  }
+}
+
+.active-channel {
+  background-color: #6F6F6F;
+  border-radius: 10px;
+}
+
+.public-channel .dash {
+  font-weight: bold;
+  margin: 0 12px;
+  font-size: 1.2rem;
+}
+@media screen and (min-width: 768px) {
+  .public-channel .dash {
+    margin: 0 7px;
+    font-size: 1rem;
+  }
+}
+.public-channel img {
+  width: 1.8rem;
+}
+@media screen and (min-width: 768px) {
+  .public-channel img {
+    width: 1.4rem;
+  }
+}
+
+.private-channel .dot-container, .member-channel .dot-container {
+  width: 45px;
+}
+.private-channel img, .member-channel img {
+  width: 2.5rem;
+}
+@media screen and (min-width: 768px) {
+  .private-channel img, .member-channel img {
+    width: 2rem;
+  }
+}
+.private-channel .name, .member-channel .name {
+  margin-left: 7px;
+}
+
+.separator {
+  width: 70%;
+  border: 2px solid #c7f9cc;
+  border-radius: 5px;
+}
+@media screen and (min-width: 768px) {
+  .separator {
+    width: 90%;
+  }
+}
+
+.user-infos {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+  width: -moz-max-content;
+  width: max-content;
+  max-width: 80%;
+  max-height: 90%;
+  padding: 1.5rem 1rem 1rem;
+  border-radius: 18px;
+  background-color: rgba(34, 87, 122, 0.9);
+  color: #fefefe;
+  overflow-y: scroll;
+}
+@media screen and (min-height: 500px) {
+  .user-infos {
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+.user-infos #close {
+  width: 1.5rem;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+.user-infos .user-infos-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+.user-infos .user-infos-header img {
+  width: 3rem;
+  filter: invert(1);
+}
+.user-infos .user-infos-header span {
+  font-size: 1.2rem;
+  margin: auto 25px auto 10px;
+}
+.user-infos .user-infos-separator {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 1rem;
+}
+.user-infos .user-infos-separator hr {
+  border: 2px solid #c7f9cc;
+  border-radius: 5px;
+  margin: auto 0;
+  flex: 1;
+}
+.user-infos .user-infos-separator span {
+  color: #c7f9cc;
+  text-transform: uppercase;
+  margin: 0 1rem;
+}
+.user-infos .user-infos-roles {
+  width: 85%;
+  margin: auto;
+}
+@media screen and (min-width: 768px) {
+  .user-infos .user-infos-roles {
+    width: 75%;
+  }
+}
+.user-infos .user-infos-roles .role {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.user-infos .user-infos-roles .role .role-badge {
+  width: 1.5rem;
+  margin-right: 5px;
+}
+.user-infos .user-infos-roles .role span {
+  font-size: 1.1rem;
 }
 
 @font-face {
@@ -1147,11 +1354,21 @@ a {
   background: rgba(34, 87, 122, 0.4);
   border-radius: 10px;
   margin-top: 5px;
+  /* background: rgba($vert, .4);
+  border-radius: 10px;
+  margin: 15px 0; */
+  background: rgba(87, 204, 153, 0.4);
+  border-radius: 10px;
+  margin: 40px 0 25px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: #22577a;
+  border-radius: 10px;
+  /* background: $vert;
+  border-radius: 10px; */
+  background: #57cc99;
   border-radius: 10px;
 }
 

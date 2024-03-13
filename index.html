@@ -51,10 +51,62 @@
 
     <main>
         <div class="container">
-            <div class="left-container" id="left-container">
-				<div class="channels">
 
+			<!-- MENU CANAL / AGENDA / PARAMETRES-->
+            <div class="left-container" id="left-container">
+				<!-- CANAUX -->
+				<div class="channels">
+					<div class="channel public-channel">
+						<div class="dot-container">
+							<span class="dot"></span>
+						</div>
+						<img src="./images/channel/newspaper.png" alt="Actualités icône">
+						<span class="dash">–</span>
+						<span class="name">Actualités</span>
+					</div>
+					<div class="channel public-channel active-channel">
+						<div class="dot-container">
+							<span class="dot" style="visibility: hidden;"></span>
+						</div>
+						<img src="./images/channel/chat_bubbles.png" alt="Forum icône">
+						<span class="dash">–</span>
+						<span class="name">Forum</span>
+					</div>
+					<hr class="separator">
+					<div class="channel public-channel">
+						<div class="dot-container">
+							<span class="dot"></span>
+						</div>
+						<img src="./images/channel/team.png" alt="Equipe MNS icône">
+						<span class="dash">–</span>
+						<span class="name">Equipe MNS</span>
+					</div>
+					<div class="channel public-channel">
+						<div class="dot-container">
+							<span class="dot"></span>
+						</div>
+						<img src="./images/channel/team.png" alt="Equipe MNS icône">
+						<span class="dash">–</span>
+						<span class="name">Equipe MNS</span>
+					</div>
+					<div class="channel public-channel">
+						<div class="dot-container">
+							<span class="dot"></span>
+						</div>
+						<img src="./images/channel/team.png" alt="Equipe MNS icône">
+						<span class="dash">–</span>
+						<span class="name">Equipe MNS</span>
+					</div>
+					<div class="channel private-channel">
+						<div class="dot-container">
+							<span class="dot"></span>
+						</div>
+						<img src="./images/profile-user.png" alt="Photo profil">
+						<span class="name">Prénom Nom</span>
+					</div>
 				</div>
+
+				<!-- AGENDA AND PARAMETERS -->
 				<div class="calendar-parameters">
 					<button class="calendar-div">
 						<div>
@@ -80,11 +132,14 @@
 					</div>
 				</div>
             </div>
+
+			<!-- CONVERSATIONS -->
             <div class="right-container" id="right-container">
+				<!-- MESSAGES -->
                 <div class="message-container">
 					<!-- OTHER USERS BUBBLE DESIGN -->
                     <div class="others-message">
-                        <img src="./images/badges/admin.png" alt="Image de profil utilisateur">
+                        <img class="user-profile-picture" src="./images/profile-user.png" alt="Image de profil utilisateur">
                         <div class="message">
                             <div class="info">
                                 <p class="name">Nom</p>
@@ -96,7 +151,7 @@
                         </div>
                     </div>
 					<div class="others-message">
-                        <img src="./images/badges/admin.png" alt="Image de profil utilisateur">
+                        <img class="user-profile-picture" src="./images/profile-user.png" alt="Image de profil utilisateur">
                         <div class="message">
                             <div class="info">
                                 <p class="name">Nom</p>
@@ -109,7 +164,7 @@
                     </div>
 					<!-- USER SESSION BUBBLE DESIGN -->
 					<div class="my-message">
-                        <img src="./images/badges/admin.png" alt="Image de profil utilisateur">
+                        <img src="./images/profile-user.png" alt="Image de profil utilisateur">
                         <div class="message">
                             <div class="info">
                                 <p class="date">Date</p>
@@ -120,6 +175,8 @@
                         </div>
                     </div>
                 </div>
+
+				<!-- WRITING BAR -->
                 <div class="writting-bar-container">
                     <div class="writting-bar">
                         <div id="options">
@@ -136,7 +193,6 @@
                             <img src="./images/add.png" class="writting-image" id="message-option" alt="Plus"
                                 title="Ouvrir plus de fonctionnalités de message">
                         </button>
-                        <!-- <input type="text" id="messageInput"> -->
                         <textarea id="messageInput"></textarea>
                         <button class="button-image" id="emoji-option">
                             <img src="./images/emojis/smile.png" class="writting-image" alt="Smiley qui souris"
@@ -148,7 +204,52 @@
                             title="Envoyer le message">
                     </button>
                 </div>
+
+				<!-- OTHER USER INFORMATIONS -->
+				<div class="user-infos" id="user-infos">
+					<img id="close" src="./images/close.png" alt="croix fermeture">
+					<div class="user-infos-header">
+						<img src="./images/profile-user.png" alt="image de profil de nomUtilisateur">
+						<span>Prénom Nom</span>
+					</div>
+					<div class="user-infos-separator">
+						<hr>
+						<span>ROLES</span>
+						<hr>
+					</div>
+					<div class="user-infos-roles">
+						<div class="role">
+							<img class="role-badge" src="./images/Badges/admin.png" alt="administrateur badge">
+							<span>Administrateur</span>
+						</div>
+						<div class="role">
+							<img class="role-badge" src="./images/Badges/admin.png" alt="administrateur badge">
+							<span>Administrateur</span>
+						</div>
+						<div class="role">
+							<img class="role-badge" src="./images/Badges/admin.png" alt="administrateur badge">
+							<span>Administrateur</span>
+						</div>
+						<div class="role">
+							<img class="role-badge" src="./images/Badges/admin.png" alt="administrateur badge">
+							<span>Administrateur</span>
+						</div>
+					</div>
+				</div>
             </div>
+
+			<!-- MENU MEMBRES CANAL -->
+			<div class="members-container" id="members-container">
+				<div class="members">
+					<div class="channel member-channel">
+						<div class="dot-container">
+							<span class="dot"></span>
+						</div>
+						<img src="./images/profile-user.png" alt="Photo profil" class="user-profile-picture">
+						<span class="name">Prénom Nom</span>
+					</div>
+				</div>
+			</div>
         </div>
     </main>
     <script type="module" src="./js/main.js"></script>

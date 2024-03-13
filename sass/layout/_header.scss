@@ -20,6 +20,7 @@
 		background-color: $gris-fonce;
 		padding: 10px;
 		display: none;
+		box-sizing: border-box;
 
 		@media screen and (min-width: 768px) {
 			width: 200px;
@@ -203,10 +204,9 @@
 	
 	.research-bar-phone {
 		width: 100vw;
-		height: 2rem;
+		height: 2.5rem;
 		background-color: $bleu-fonce;
 		display: flex;
-		// padding: 5px;
 		display: none;
         position: absolute;
         top: 62px;
@@ -222,12 +222,12 @@
 			color: $blanc;
 			font-size: 1rem;
 			position: relative;
-			width: 90%;
+			width: 87%;
 		}
 
 		&::after {
 			content: "";
-			width: 90%;
+			width: 87%;
 			height: 1px;
 			display: inline;
 			position: absolute;
@@ -238,6 +238,7 @@
 
 		#magnifying-glass {
 			padding-left: 5px;
+			margin-top: 3px;
 		}
 	}
 

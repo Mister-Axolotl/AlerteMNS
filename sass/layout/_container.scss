@@ -33,28 +33,23 @@
 }
 
 .left-container {
-    background-color: $gris-fonce;
-    width: 100%;
-    text-align: center;
-    color: $blanc;
-    display: none;
-    flex-direction: column;
-    justify-content: flex-end;
-
-	@media screen and (min-width: 768px) {
-		width: 200px;
-		display: block;
-	}
-	
-    @media screen and (min-width: 1024px) {
-		width: 20%;
-    }
-
 	.channels {
 		height: 85%;
+		width: 98%;
+		box-sizing: border-box;
+		padding: 10px 0;
+		overflow-y: auto;
 
 		@media screen and (max-height: 500px) {
 			height: 75%;
+		}
+
+		@media screen and (min-width: 768px) {
+			// Hide scrollbar but still able to scroll
+			-ms-overflow-style: none;  /* Internet Explorer 10+ */
+			scrollbar-width: none;  /* Firefox */
+	
+			padding: 0 10px;
 		}
 
 		@media screen and (min-width: 1024px) {
@@ -173,8 +168,7 @@
 					}
 				}
 			}
-		}
-	
+		}	
 	}
 
     .icon {
@@ -183,13 +177,52 @@
 }
 
 .right-container {
+	position: relative;
     background-image: url('../images/background_blur_shorter.png');
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: bottom;
     flex-grow: 1;
 	width: 80%;
-    background-position: bottom;
 }
+
+.left-container, .members-container {
+	background-color: $gris-fonce;
+    width: 100%;
+	height: calc(100% - 65px);
+    text-align: center;
+    color: $blanc;
+    display: none;
+
+	@media screen and (min-width: 768px) {
+		width: 200px;
+		display: block;
+		height: auto;
+	}
+	
+    @media screen and (min-width: 1024px) {
+		width: 20%;
+    }
+}
+
+.members-container {
+	@media screen and (min-width: 768px) {
+		display: none;
+	}
+
+	.members {
+		width: 98%;
+	
+		.channel {
+			cursor: default;
+		}
+	
+		.user-profile-picture {
+			cursor: pointer;
+		}
+	}
+}
+
 
 .sections {
     display: flex;

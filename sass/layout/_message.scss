@@ -2,7 +2,7 @@
 
 .message-container {
 	display: flex;
-	flex-direction: column;
+	flex-direction: column-reverse;
 	width: 99%;
 	height: calc(100% - 5rem); // All height - (writing bar height + a little space)
 	margin: auto;
@@ -27,6 +27,7 @@
 		img {
 			width: 2rem;
 			margin-top: 5px;
+			cursor: pointer;
 		}
 	
 		.message {

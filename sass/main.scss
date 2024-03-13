@@ -8,6 +8,8 @@
 @import './layout/connexion';
 @import './layout/writtingBar';
 @import './layout/message';
+@import './layout/channel';
+@import './layout/userInfo';
 @import './base/typography';
 @import './utils/variables';
 
@@ -45,14 +47,34 @@ a {
 
 /* Track */
 ::-webkit-scrollbar-track {
+	// CONVERSATION
 	background: rgba($bleu-fonce, .4);
 	border-radius: 10px;
 	margin-top: 5px;
+
+	// MENU
+	/* background: rgba($vert, .4);
+	border-radius: 10px;
+	margin: 15px 0; */
+
+	// USER INFO
+	background: rgba($vert, .4);
+	border-radius: 10px;
+	margin: 40px 0 25px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
+	// CONVERSATION
 	background: $bleu-fonce;
+	border-radius: 10px;
+
+	// MENU
+	/* background: $vert;
+	border-radius: 10px; */
+
+	// USER INFO
+	background: $vert;
 	border-radius: 10px;
 }
 
