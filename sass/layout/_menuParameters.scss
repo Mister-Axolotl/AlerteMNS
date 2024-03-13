@@ -1,0 +1,65 @@
+.menu-parameters {
+    width: 20%;
+    height: 100vh;
+    background-color: $gris-fonce;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & &-header {
+        width: 100%;
+        height: 8%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+
+        .left-arrow {
+            width: 3rem;
+        }
+
+        h1 {
+            color: $blanc;
+            font-size: 20px;
+        }
+
+        .gear-icon {
+            img {
+                width: 2rem;
+                filter: invert(1);
+                margin-top: 5px;
+            }
+        }
+    }
+
+    & &-channels {
+        height: 80%;
+        color: $blanc;
+    }
+
+    & &-deconnexion {
+        height: 7%;
+        width: 90%;
+
+        .deconnexion {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-evenly;
+
+            background-color: $vert;
+            border-radius: 15px;
+
+            font-size: large;
+            font-family: $font-family-poppins-bold;
+            color: $blanc;
+
+            img {
+                width: 1.5rem;
+            }
+        }
+    }
+
+}

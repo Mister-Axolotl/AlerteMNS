@@ -2,36 +2,36 @@
 
 #header {
     width: 100%;
-    
+
     background-color: $noir;
     display: flex;
-	flex-direction: column;
-	justify-content: space-between;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
     z-index: 1000;
-	
-	@media screen and (min-width: 768px) {
-		flex-direction: row;
-		padding: 15px 0;
-	}
+
+    @media screen and (min-width: 768px) {
+        flex-direction: row;
+        padding: 15px 0;
+    }
 
     .left-header {
         width: 100%;
-		background-color: $gris-fonce;
-		padding: 10px;
-		display: none;
-		box-sizing: border-box;
+        background-color: $gris-fonce;
+        padding: 10px;
+        display: none;
+        box-sizing: border-box;
 
-		@media screen and (min-width: 768px) {
-			width: 200px;
-			background-color: $noir;
-			padding: 0;
-			display: block;
-		}
+        @media screen and (min-width: 768px) {
+            width: 200px;
+            background-color: $noir;
+            padding: 0;
+            display: block;
+        }
 
-		@media screen and (min-width: 1024px) {
-			width: 20%;
-		}
+        @media screen and (min-width: 1024px) {
+            width: 20%;
+        }
 
         .conversation-type-div {
             position: relative;
@@ -110,13 +110,13 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-		flex-wrap: wrap;
-		padding: 10px;
+        flex-wrap: wrap;
+        padding: 10px;
 
-		@media screen and (min-width: 768px) {
-			width: 78%;
-			padding: 0;
-		}
+        @media screen and (min-width: 768px) {
+            width: 78%;
+            padding: 0;
+        }
 
         @media screen and (min-width: 768px) and (max-width: 1023px) {
             width: 73%;
@@ -126,37 +126,37 @@
             gap: 5px;
         }
 
-		#menu-icon {
-			display: block;
+        #menu-icon {
+            display: block;
 
-			@media screen and (min-width: 768px) {
-				display: none;
-			}
-		}
-        
-		.left-header-content {
-			max-width: 50%;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-			overflow: hidden;
-		}
+            @media screen and (min-width: 768px) {
+                display: none;
+            }
+        }
 
-		#channel-name {
-			display: flex;
-			color: $blanc;
-			align-items: center;
-			gap: 10px;
-			font-size: 1.5rem;
+        .left-header-content {
+            max-width: 50%;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
 
-			text-overflow: ellipsis;
-			white-space: nowrap;
-			overflow: hidden;
+        #channel-name {
+            display: flex;
+            color: $blanc;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
 
-			&:hover {
-				cursor: pointer;
-				text-decoration: underline;
-			}
-		}
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+
+            &:hover {
+                cursor: pointer;
+                text-decoration: underline;
+            }
+        }
 
         .right-header-content {
             display: flex;
@@ -172,15 +172,15 @@
                 opacity: 0.5;
             }
         }
-		
-        .research-bar {
-			display: flex;
-			align-items: center;
-			border-radius: 15px;
 
-			@media screen and (min-width: 768px) {
-				background-color: $blanc;
-			}
+        .research-bar {
+            display: flex;
+            align-items: center;
+            border-radius: 15px;
+
+            @media screen and (min-width: 768px) {
+                background-color: $blanc;
+            }
 
             .bar {
                 background-color: $blanc;
@@ -191,67 +191,68 @@
                 outline: none;
                 font-size: 1rem;
                 padding-left: 10px;
-				// Ne disparaît pas entièrement même avec width: 0 sans visibility:
-				visibility: hidden;
+                // Ne disparaît pas entièrement même avec width: 0 sans visibility:
+                visibility: hidden;
 
-				@media screen and (min-width: 768px) {
-					width: 200px;
-					visibility: visible;
-				}
+                @media screen and (min-width: 768px) {
+                    width: 200px;
+                    visibility: visible;
+                }
             }
         }
     }
-	
-	.research-bar-phone {
-		width: 100vw;
-		height: 2.5rem;
-		background-color: $bleu-fonce;
-		display: flex;
-		display: none;
+
+    .research-bar-phone {
+        width: 100vw;
+        height: 2.5rem;
+        background-color: $bleu-fonce;
+        display: flex;
+        display: none;
         position: absolute;
-        top: 62px;
+        top: 60px;
+        z-index: 1;
 
-		@media screen and (min-width: 768px) {
-			display: none;
-		}
+        @media screen and (min-width: 768px) {
+            display: none;
+        }
 
-		input {
-			background: transparent;
-			border: none;
-			outline: none;
-			color: $blanc;
-			font-size: 1rem;
-			position: relative;
-			width: 87%;
-		}
+        input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: $blanc;
+            font-size: 1rem;
+            position: relative;
+            width: 87%;
+        }
 
-		&::after {
-			content: "";
-			width: 87%;
-			height: 1px;
-			display: inline;
-			position: absolute;
-			left: 42px;
-			bottom: 6px;
-			background-color: $blanc;
-		}
+        &::after {
+            content: "";
+            width: 87%;
+            height: 1px;
+            display: inline;
+            position: absolute;
+            left: 42px;
+            bottom: 6px;
+            background-color: $blanc;
+        }
 
-		#magnifying-glass {
-			padding-left: 5px;
-			margin-top: 3px;
-		}
-	}
+        #magnifying-glass {
+            padding-left: 5px;
+            margin-top: 3px;
+        }
+    }
 
-	.icon-header {
-		height: 30px;
-	}
+    .icon-header {
+        height: 30px;
+    }
 
-	#magnifying-glass {
-		margin-right: 5px;
-		filter: invert(0);
+    #magnifying-glass {
+        margin-right: 5px;
+        filter: invert(0);
 
-		@media screen and (min-width: 768px) {
-			filter: invert(1);
-		}
-	}
+        @media screen and (min-width: 768px) {
+            filter: invert(1);
+        }
+    }
 }

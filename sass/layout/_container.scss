@@ -1,38 +1,41 @@
 @import '../utils/_variables.scss';
 
 .container {
-    width: 100%;
+	width: 100%;
 	height: calc(100vh - 62px);
-    display: flex;
-    overflow-y: auto;
-    overflow-x: hidden;
-    overflow-y: auto;
+	display: flex;
+	overflow-y: auto;
+	overflow-x: hidden;
+	overflow-y: auto;
 
-    &::-webkit-scrollbar {
-        width: 10px;
-    }
+	&::-webkit-scrollbar {
+		width: 10px;
+	}
 
-    &::-webkit-scrollbar-thumb {
-        background-color: $vert;
-    }
+	&::-webkit-scrollbar-thumb {
+		background-color: $vert;
+	}
 
-    &::-webkit-scrollbar-track {
-        background-color: #f2f2f2;
-        border-radius: 5px;
-    }
+	&::-webkit-scrollbar-track {
+		background-color: #f2f2f2;
+		border-radius: 5px;
+	}
 
-    @media only screen and (min-width: 768px) {
+	@media only screen and (min-width: 768px) {
 		height: calc(100vh - 75px);
-    }
+	}
 }
 
 @media only screen and (max-width: 480px) {
-    .container {
-        height: calc(100vh - 62px);
-    }
+	.container {
+		height: calc(100vh - 62px);
+	}
 }
 
 .left-container {
+	flex-direction: column;
+	justify-content: flex-end;
+
 	.channels {
 		height: 85%;
 		width: 98%;
@@ -46,9 +49,11 @@
 
 		@media screen and (min-width: 768px) {
 			// Hide scrollbar but still able to scroll
-			-ms-overflow-style: none;  /* Internet Explorer 10+ */
-			scrollbar-width: none;  /* Firefox */
-	
+			-ms-overflow-style: none;
+			/* Internet Explorer 10+ */
+			scrollbar-width: none;
+			/* Firefox */
+
 			padding: 0 10px;
 		}
 
@@ -66,7 +71,7 @@
 		@media screen and (max-height: 500px) {
 			height: 25%;
 		}
-		
+
 		@media screen and (min-width: 768px) {
 			flex-direction: column;
 		}
@@ -92,20 +97,20 @@
 				min-height: 2.5rem;
 				width: 100%;
 			}
-	
+
 			&:hover {
 				cursor: pointer;
 				background-color: $vert;
 			}
-	
+
 			div {
 				text-align: center;
-				
+
 				@media screen and (min-width: 768px) {
 					width: 25%;
 				}
 			}
-	
+
 			p {
 				width: 75%;
 				display: none;
@@ -115,7 +120,7 @@
 				}
 			}
 		}
-	
+
 		.parameters-div {
 			display: flex;
 			align-items: center;
@@ -127,82 +132,83 @@
 				height: 65%;
 				width: 100%;
 			}
-	
+
 			.left {
 				width: 25%;
-	
+
 				#parameters-user-profil {
 					filter: invert(1);
 				}
 			}
-	
+
 			.center {
 				width: 50%;
 				text-align: left;
-	
+
 				p {
 					display: block;
 					text-overflow: ellipsis;
 					white-space: nowrap;
-    				overflow: hidden;
-	
+					overflow: hidden;
+
 					&#parameters-role {
 						font-size: smaller;
 					}
 				}
 			}
-	
+
 			.right {
 				width: 25%;
-	
+
 				button {
 					background-color: transparent;
 					border: none;
 					padding: 0;
 					height: 30px;
 					transition: transform .3s ease-in-out;
-	
+
 					&:hover {
 						cursor: pointer;
 						transform: rotate(90deg);
 					}
 				}
 			}
-		}	
+		}
 	}
 
-    .icon {
-        height: 30px;
-    }
+	.icon {
+		height: 30px;
+	}
 }
 
 .right-container {
 	position: relative;
-    background-image: url('../images/background_blur_shorter.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: bottom;
-    flex-grow: 1;
+	background-image: url('../images/background_blur_shorter.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: bottom;
+	flex-grow: 1;
 	width: 80%;
 }
 
-.left-container, .members-container {
+.left-container,
+.members-container {
 	background-color: $gris-fonce;
-    width: 100%;
+	width: 100%;
 	height: calc(100% - 65px);
-    text-align: center;
-    color: $blanc;
-    display: none;
+	text-align: center;
+	color: $blanc;
+	display: none;
 
 	@media screen and (min-width: 768px) {
 		width: 200px;
 		display: block;
 		height: auto;
 	}
-	
-    @media screen and (min-width: 1024px) {
+
+	@media screen and (min-width: 1024px) {
 		width: 20%;
-    }
+	}
 }
 
 .members-container {
@@ -212,11 +218,11 @@
 
 	.members {
 		width: 98%;
-	
+
 		.channel {
 			cursor: default;
 		}
-	
+
 		.user-profile-picture {
 			cursor: pointer;
 		}
@@ -225,6 +231,6 @@
 
 
 .sections {
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }

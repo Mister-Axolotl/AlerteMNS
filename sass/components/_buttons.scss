@@ -23,3 +23,18 @@ button {
 .button-image:active img {
     transform: scale(0.95); //ne fonctionne pas
 }
+
+.button-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+
+    img {
+        width: 1.5rem;
+    }
+}
+
+.button-close:hover {
+    filter: invert(1);
+    cursor: pointer;
+}

@@ -8,7 +8,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	
+
 	.writting-bar {
 		width: 75%;
 		height: 3.5rem;
@@ -17,7 +17,11 @@
 		margin: auto;
 		display: flex;
 		position: relative;
-		
+
+		@media screen and (max-width: 1024px) {
+			width: 95%;
+		}
+
 		// BUBBLE AND ANIMATION FOR MESSAGE OPTIONS
 		#options {
 			position: absolute;
@@ -32,6 +36,7 @@
 
 			button {
 				margin: 10px 0;
+
 				img {
 					width: 2rem;
 				}
@@ -43,7 +48,7 @@
 
 			&::after {
 				content: "";
-				width: 0; 
+				width: 0;
 				height: 0;
 				position: absolute;
 				left: 24px;
@@ -53,37 +58,37 @@
 			}
 
 			&.show-up {
-                animation: 0s ease-in 0s 1 normal both running slideUp;
-				
-            }
+				animation: 0.1s ease-in 0s 1 normal both running slideUp;
+
+			}
 
 			&.show-down {
-                animation: 0s ease-in 0s 1 normal both running slideDown;
-            }
+				animation: 0.1s ease-in 0s 1 normal both running slideDown;
+			}
 
-            @keyframes slideUp {
-                0% {
+			@keyframes slideUp {
+				0% {
 					bottom: calc(10px + 3.5rem);
 					opacity: 0;
-                }
+				}
 
-                100% {
+				100% {
 					bottom: calc(10px + 3.5rem + 17px); // writting-bar-container bottom + writting-bar height + traingle height
 					opacity: 1;
-                }
-            }
+				}
+			}
 
 			@keyframes slideDown {
-                0% {
+				0% {
 					bottom: calc(10px + 3.5rem + 17px); // writting-bar-container bottom + writting-bar height + traingle height
 					opacity: 1;
-                }
+				}
 
-                100% {
+				100% {
 					bottom: calc(10px + 3.5rem);
 					opacity: 0;
-                }
-            }
+				}
+			}
 		}
 
 		#message-option {
@@ -100,16 +105,23 @@
 			resize: none;
 
 			// Hide scrollbar but still able to scroll
-			-ms-overflow-style: none;  /* Internet Explorer 10+ */
-    		scrollbar-width: none;  /* Firefox */
+			-ms-overflow-style: none;
+			/* Internet Explorer 10+ */
+			scrollbar-width: none;
+			/* Firefox */
 
-			&::-webkit-scrollbar { 
-				display: none;  /* Safari and Chrome */
+			&::-webkit-scrollbar {
+				display: none;
+				/* Safari and Chrome */
 			}
 		}
 
 		#emoji-option {
 			margin-right: 17px;
+
+			@media screen and (max-width: 768px) {
+				display: none;
+			}
 		}
 
 		button {
@@ -132,9 +144,19 @@
 		height: 40px;
 		position: absolute;
 		right: 0;
-		
+
+		@media screen and (max-width: 1024px) {
+			display: none;
+		}
+
 		@media screen and (min-width: 1024px) {
 			right: 40px;
 		}
 	}
+}
+
+emoji-picker {
+	position: absolute;
+	bottom: 65px;
+	right: 5px;
 }

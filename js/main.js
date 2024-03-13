@@ -2,66 +2,66 @@ import { openCloseMenu, ifOpenMenu, startParticleAnimation } from "./functions.j
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    /* ==================== SMOOTH TRANSITION FOR SECTION ==================== */
+	/* ==================== SMOOTH TRANSITION FOR SECTION ==================== */
 
-    const sections = document.querySelectorAll(".scroll-section");
+	const sections = document.querySelectorAll(".scroll-section");
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("active");
-            } else {
-                entry.target.classList.remove("active");
-            }
-        });
-    }, { threshold: 0.15 }); // 10% de l'écran
+	const observer = new IntersectionObserver((entries) => {
+		entries.forEach((entry) => {
+			if (entry.isIntersecting) {
+				entry.target.classList.add("active");
+			} else {
+				entry.target.classList.remove("active");
+			}
+		});
+	}, { threshold: 0.15 }); // 10% de l'écran
 
-    sections.forEach((section) => {
-        observer.observe(section);
-    });
+	sections.forEach((section) => {
+		observer.observe(section);
+	});
 
-    /* ==================== WHEN CLICK ON ANCHOR, SMOOTH SCROLL ==================== */
+	/* ==================== WHEN CLICK ON ANCHOR, SMOOTH SCROLL ==================== */
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
+	document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+		anchor.addEventListener('click', function (e) {
+			e.preventDefault();
 
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
-        });
-    });
+			document.querySelector(this.getAttribute('href')).scrollIntoView({
+				behavior: 'smooth'
+			});
+		});
+	});
 
-    const socialButtons = document.querySelectorAll(".particles-button");
+	const socialButtons = document.querySelectorAll(".particles-button");
 
-    socialButtons.forEach(button => {
-        button.addEventListener('mouseover', function (event) {
-            startParticleAnimation(event, button.id);
-        });
-    });
+	socialButtons.forEach(button => {
+		button.addEventListener('mouseover', function (event) {
+			startParticleAnimation(event, button.id);
+		});
+	});
 
-    /* ==================== CONVERSATION TYPE SWITCH ==================== */
+	/* ==================== CONVERSATION TYPE SWITCH ==================== */
 
-    const activeBackgroundConversation = document.querySelector('.active-background');
-    const publicConversation = document.querySelector('#public');
-    const priveeConversation = document.querySelector('#privee');
+	const activeBackgroundConversation = document.querySelector('.active-background');
+	const publicConversation = document.querySelector('#public');
+	const priveeConversation = document.querySelector('#privee');
 
-    publicConversation.addEventListener('click', () => {
-        toggleBackground('activePublic', 'activePrivate', priveeConversation, publicConversation);
-    });
+	publicConversation.addEventListener('click', () => {
+		toggleBackground('activePublic', 'activePrivate', priveeConversation, publicConversation);
+	});
 
-    priveeConversation.addEventListener('click', () => {
-        toggleBackground('activePrivate', 'activePublic', publicConversation, priveeConversation);
-    });
+	priveeConversation.addEventListener('click', () => {
+		toggleBackground('activePrivate', 'activePublic', publicConversation, priveeConversation);
+	});
 
-    function toggleBackground(addClass, removeClass, activeElement, inactiveElement) {
-        activeBackgroundConversation.classList.remove(removeClass);
-        activeBackgroundConversation.classList.add(addClass);
-        activeElement.classList.remove('active-type');
-        inactiveElement.classList.add('active-type');
-    }
-	
-    /* ==================== SEARCHBAR (PHONE) ==================== */
+	function toggleBackground(addClass, removeClass, activeElement, inactiveElement) {
+		activeBackgroundConversation.classList.remove(removeClass);
+		activeBackgroundConversation.classList.add(addClass);
+		activeElement.classList.remove('active-type');
+		inactiveElement.classList.add('active-type');
+	}
+
+	/* ==================== SEARCHBAR (PHONE) ==================== */
 	const searchIcon = document.querySelector('#magnifying-glass');
 	const searchBarPhone = document.querySelector('#research-bar-phone');
 	let isUserSearching = false;
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		isUserSearching = !isUserSearching;
 		let viewportWidth = window.innerWidth;
 		console.log(isUserSearching);
-		if (isMenuChannelOpen) {
+		if (isMenuChannelOpen || isMembersChannelOpen) {
 			searchBarPhone.style.display = 'none';
 			isUserSearching = !isUserSearching;
 		} else if (isUserSearching && viewportWidth < 768) {
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			searchBarPhone.style.display = 'none';
 		}
 	})
-	
+
 	/* ==================== MENU CHANNELS OPENING (PHONE) ==================== */
 	const menuIcon = document.querySelector('#menu-icon');
 	const leftContainer = document.querySelector('#left-container');
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		if (isMenuChannelOpen) {
 			menuOpenClose('none', 'block', 'none', 'none', 'column');
 		} else {
-			menuOpenClose('block', 'none', 'none', 'block', 'column-reverse');
+			menuOpenClose('flex', 'none', 'none', 'block', 'column-reverse');
 		}
 
 		isMenuChannelOpen = !isMenuChannelOpen;
@@ -123,6 +123,10 @@ document.addEventListener('DOMContentLoaded', function () {
 		isUserSearching = false;
 		let viewportWidth = window.innerWidth;
 
+		console.log('width : ' + viewportWidth);
+		console.log('channel : ' + isMenuChannelOpen);
+		console.log('members : ' + isMembersChannelOpen);
+
 		if (viewportWidth >= 768) {
 			if (isMembersChannelOpen) {
 				channelMemberContainer.style.display = 'none';
@@ -138,68 +142,99 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 
 		if (!isMenuChannelOpen) {
-			isMembersChannelOpen =!isMembersChannelOpen;
+			isMembersChannelOpen = !isMembersChannelOpen;
 		}
 	})
 
 
-    /* ==================== USER INFORMATIONS ==================== */
+	/* ==================== USER INFORMATIONS ==================== */
 	const userInfos = document.querySelector('#user-infos');
-	const closeIcon = document.querySelector('#close');
 
 	document.querySelectorAll('.user-profile-picture').forEach(picture => {
-        picture.addEventListener('click', () => {
+		picture.addEventListener('click', () => {
 			userInfos.style.display = "block";
 		});
-    });
+	});
 
-	closeIcon.addEventListener('click', () => {
-		userInfos.style.display = "none";
-	})
+	document.querySelectorAll('.button-close').forEach(button => {
+		button.addEventListener('click', () => {
+			userInfos.style.display = "none";
+		});
+	});
 
-    /* ==================== MESSAGES OPTIONS ==================== */
-    const messageOptionsButton = document.querySelector('#messageOptionsButton');
-    const options = document.querySelector('#options');
+	/* ==================== MESSAGES OPTIONS ==================== */
+	const messageOptionsButton = document.querySelector('#messageOptionsButton');
+	const options = document.querySelector('#options');
 
-    messageOptionsButton.addEventListener('click', () => {
-        if (options.classList.contains('show-up')) {
-            options.classList.remove('show-up');
-            options.classList.add('show-down');
-        } else if (options.classList.contains('show-down')) {
-            options.classList.remove('show-down');
-            options.classList.add('show-up');
-        } else {
-            options.classList.add('show-up');
-        }
-    });
+	messageOptionsButton.addEventListener('click', () => {
+		if (options.classList.contains('show-up')) {
+			options.classList.remove('show-up');
+			options.classList.add('show-down');
+		} else if (options.classList.contains('show-down')) {
+			options.classList.remove('show-down');
+			options.classList.add('show-up');
+		} else {
+			options.classList.add('show-up');
+		}
+	});
 
-    /* ==================== EMOJIS CHANGER ==================== */
+	/* ==================== EMOJIS CHANGER ==================== */
 
-    const emojiButton = document.querySelector('#emoji-option'); // Sélectionnez le bouton maintenant
-    const emojiNames = ['smile', 'sad', 'cool', 'famous', 'in-love', 'mocking', 'rolling-eyes', 'tongue'];
-    let currentEmojiIndex = 1;
+	const emojiButton = document.querySelector('#emoji-option'); // Sélectionnez le bouton maintenant
+	const emojiNames = ['smile', 'sad', 'cool', 'famous', 'in-love', 'mocking', 'rolling-eyes', 'tongue'];
+	const emojiAlt = ['Visage heureux', 'Visage triste', 'Visage avec des lunettes de soleil', 'Visage avec des étoiles dans les yeux', 'Visage avec des coeurs dans les yeux', 'Visage qui plisse les yeux', 'Visage avec les yeux doux', 'Visage qui tire la langue'];
+	let currentEmojiIndex = 1;
 
-    emojiButton.addEventListener('mouseover', (event) => {
-        const emojiImage = emojiButton.querySelector('.writting-image'); // Sélectionnez l'image à l'intérieur du bouton
-        const nextEmojiSrc = `../images/emojis/${emojiNames[currentEmojiIndex]}.png`;
-        emojiImage.src = nextEmojiSrc;
-        currentEmojiIndex = (currentEmojiIndex + 1) % emojiNames.length;
-    });
+	emojiButton.addEventListener('mouseover', (event) => {
+		const nextEmojiSrc = `../images/emojis/${emojiNames[currentEmojiIndex]}.png`;
+		emojiButton.src = nextEmojiSrc;
+		emojiButton.alt = emojiAlt[currentEmojiIndex];
+		currentEmojiIndex = (currentEmojiIndex + 1) % emojiNames.length;
+	});
 
-    /* ==================== OPEN EMOJIS MENU ==================== */
+	/* ==================== OPEN EMOJIS MENU ==================== */
 
+	const input = document.querySelector('#messageInput');
 
-    /* ==================== ON RESIZE WINDOW ==================== */
+	document.querySelector('emoji-picker').addEventListener('emoji-click', event => {
+		input.value += event.detail.unicode;
+	});
+
+	document.querySelector('#emoji-option').addEventListener('click', event => {
+		const emojiPicker = document.querySelector('#emoji-picker');
+
+		if (emojiPicker.style.display === 'none') {
+			emojiPicker.style.display = 'block';
+		} else {
+			emojiPicker.style.display = 'none';
+		}
+	});
+
+	adjustEmojiPicker();
+
+	window.addEventListener('resize', adjustEmojiPicker);
+
+	function adjustEmojiPicker() {
+
+		const emojiPicker = document.querySelector('#emoji-picker');
+
+		if (window.innerWidth < 768) {
+			emojiPicker.style.display = 'none';
+		}
+	}
+
+	/* ==================== ON RESIZE WINDOW ==================== */
 	window.addEventListener('resize', () => {
 		let windowWidth = window.innerWidth;
 
 		if (windowWidth >= 768) {
-			menuOpenClose('flex', 'block', 'block', 'row');
-			isMenuChannelOpen = true;
+			menuOpenClose('flex', 'block', 'none', 'block', 'row');
 			searchBarPhone.style.display = 'none';
 		} else {
-			menuOpenClose('none', 'block', 'none', 'column');
-			isMenuChannelOpen = false;
+			menuOpenClose('none', 'block', 'none', 'none', 'column');
 		}
+
+		isMenuChannelOpen = false;
+		isMembersChannelOpen = false;
 	})
 });
