@@ -1,0 +1,80 @@
+.my-account {
+	font-size: 1.2rem;
+	display: none;
+
+	@media screen and (min-width: 768px) {
+		font-size: 1.4rem;
+	}
+
+	@media screen and (max-height: 439px) {
+		font-size: .9rem;
+	}
+
+	@media screen and (min-width: 1024px) {
+		font-size: 1.1rem;
+	}
+
+	@media screen and (min-width: 1280px) and (min-height: 1000px) {
+		font-size: 2.7rem;
+	}
+
+	.user-lastname {
+		margin-bottom: 1rem;
+	}
+
+	.profile-picture {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		height: 10%;
+		margin-bottom: 1rem;
+
+		.picture-container {
+			height: 100%;
+			padding: .8rem 1.3rem;
+			margin-right: 1rem;
+			background-color: $blanc;
+			border-radius: 10px;
+
+			img {
+				width: 3.7rem;
+			}
+		}
+
+		button {
+			height: 60%;
+			width: 8rem;
+			padding: 5px 5px;
+			font-size: 16px;
+
+			display: flex;
+			flex-direction: row;
+			justify-content: space-evenly;
+
+			img {
+				margin-left: 5px;
+			}
+		}
+	}
+
+	.form-field {
+		@media screen and (min-width: 1024px) {
+			width: 50%;
+		}
+	}
+
+	.password-to-modify {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+
+		button {
+			margin: 10px 0 0 10px;
+
+			img {
+				margin: 5px auto 2px;
+				width: 1.4rem;
+			}
+		} 
+	}
+}

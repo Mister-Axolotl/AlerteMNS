@@ -1,8 +1,10 @@
 button {
     border: none;
     background-color: transparent;
+	cursor: pointer;
 }
 
+// BOUTON CONSTITUEE UNIQUEMENT D'UNE IMAGE
 .button-image {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -24,6 +26,7 @@ button {
     transform: scale(0.95); //ne fonctionne pas
 }
 
+// BOUTON CROIX DE FERMETURE
 .button-close {
     position: absolute;
     top: 8px;
@@ -37,4 +40,47 @@ button {
 .button-close:hover {
     filter: invert(1);
     cursor: pointer;
+}
+
+// BOUTON OUTLINED
+.button-outline {
+	border: 3px solid $vert;
+	border-radius: 13px;
+	color: $vert;
+	cursor: pointer;
+
+	img {
+		width: 1.5rem;
+	}
+}
+
+.button-outline:hover {
+	filter: brightness(.8);
+}
+
+// BOUTON D'ENVOIE
+.button-send {
+	background-color: $vert;
+	color: $blanc;
+	font-size: x-large;
+	border-radius: 25px;
+	width: 55%;
+	height: 6vh;
+	box-shadow: 0 5px 8px 2px $noir;
+
+	@media screen and (min-width: 768px) {
+		width: 50%;
+		height: 5vh;
+		font-size: xx-large;
+	}
+	
+	@media screen and (min-width: 1024px) {
+		height: 6vh;
+		font-size: x-large;
+	}
+}
+
+.button-send:hover {
+	box-shadow: none;
+	margin: 4px 1px 0 0;
 }
