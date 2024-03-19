@@ -7,6 +7,11 @@
 	margin: 15px 0 15px 40px;
 	cursor: pointer;
 
+	&:hover {
+		background-color: rgba($gris-clair, .5);
+		border-radius: 10px;
+	}
+
 	@media screen and (min-width: 768px) {
 		width: 100%;
 		margin-left: 0;

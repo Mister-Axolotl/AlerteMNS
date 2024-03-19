@@ -1,0 +1,170 @@
+.form-field {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	width: 100%;
+	margin-bottom: 1rem;
+
+	label {
+		margin: 0 0 .2rem .6rem;
+		font-size: 1.2rem;
+
+		@media screen and (min-width: 768px) {
+			font-size: 1.4rem;
+		}
+
+		@media screen and (max-height: 439px) {
+			font-size: 1.2rem;
+		}
+
+		@media screen and (min-width: 1024px) {
+			font-size: 1.1rem;
+		}
+
+		@media screen and (min-width: 1280px) and (min-height: 1000px) {
+			font-size: 2.7rem;
+		}
+	}
+
+	input {
+		height: 2.5rem;
+		background-color: $blanc;
+		border: none;
+		border-radius: 14px;
+		padding: 0 10px;
+		outline: none;
+		color: $noir;
+		font-size: 1.2rem;
+
+		&:focus {
+			outline: 3px solid rgba($vert-clair, .4);
+		}
+
+		// Autofill behavior (before : grey background & black text)
+		&:-webkit-autofill,
+		&:-webkit-autofill:hover,
+		&:-webkit-autofill:focus,
+		&:-webkit-autofill:active {
+			transition: background-color 5000s ease-in-out 0s;
+		}
+
+		@media screen and (min-width: 768px) {
+			height: 3rem;
+			border-radius: 17px;
+			padding: 0 15px;
+			font-size: 1.2rem;
+		}
+		
+		@media screen and (max-height: 439px) {
+			height: 2rem;
+			border-radius: 11px;
+			font-size: 1rem;
+		}
+		
+		@media screen and (min-width: 1024px) {
+			height: 2.5rem;
+			border-radius: 14px;
+			font-size: 1rem;
+		}
+
+		@media screen and (min-width: 1280px) and (min-height: 1000px) {
+			height: 4rem;
+			border-radius: 17px;
+			padding: 0 15px;
+			font-size: 1.7rem;
+		}
+	}
+
+	// prevent text from going under the eye icon
+	& #password {
+		padding-right: 20%;
+
+		@media screen and (min-width: 768px) {
+			padding-right: 19%;
+		}
+
+		@media screen and (min-width: 1024px), (max-height: 439px) {
+			padding-right: 11%;
+		}
+	}
+
+	// Eye icon
+	#view-password {
+		position: absolute;
+		bottom: 1px;
+		right: 11px;
+		cursor: pointer;
+
+		@media screen and (min-width: 768px) {
+			bottom: 0;
+			right: 15px;
+		}
+		
+		@media screen  and (max-height: 439px) {
+			bottom: -2px;
+			right: 8px;
+		}
+		
+		@media screen and (min-width: 1024px) {
+			bottom: -2px;
+			right: 12px;
+		}
+		
+		@media screen and (min-width: 1280px) and (min-height: 1000px) {
+			bottom: 0;
+			right: 15px;
+		}
+		
+		img {
+			height: 1.4rem;
+			
+			@media screen and (min-width: 768px) and (min-height: 439px)  {
+				height: 2rem;
+			}
+			
+			@media screen and (min-width: 1280px) and (min-height: 1000px) {
+				height: 3rem;
+			}
+		}
+	}
+
+	.hide {
+		display: none;
+	}
+
+	textarea {
+		flex: 1;
+		border: none;
+		outline: none;
+		border-radius: 14px;
+		padding: 8px 10px;
+		font-size: 1rem;
+		resize: none;
+
+		&:focus {
+			outline: 3px solid rgba($vert-clair, .4);
+		}
+
+		@media screen and (min-width: 768px) {
+			border-radius: 17px;
+			padding: 5px 15px;
+			font-size: 1.2rem;
+		}
+		
+		@media screen and (max-height: 439px) {
+			border-radius: 11px;
+			font-size: 1rem;
+		}
+		
+		@media screen and (min-width: 1024px) {
+			border-radius: 14px;
+			font-size: 1rem;
+		}
+
+		@media screen and (min-width: 1280px) and (min-height: 1000px) {
+			border-radius: 17px;
+			padding: 5px 15px;
+			font-size: 1.7rem;
+		}
+	}
+}

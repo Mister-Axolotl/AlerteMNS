@@ -61,6 +61,18 @@ document.addEventListener('DOMContentLoaded', function () {
 		inactiveElement.classList.add('active-type');
 	}
 
+	/* ==================== INVERT DEFAULT IMAGE FOR MENUS ==================== */
+	document.querySelectorAll('.private-channel, .member-channel').forEach(channel => {
+		let img = channel.childNodes[3];
+
+		let imgSrc = img.src.split("/");
+		let imgName = imgSrc[ imgSrc.length - 1];
+		
+		if (imgName == "profile-user.png") {
+			img.style.filter = "invert(1)";
+		}
+	});
+
 	/* ==================== SEARCHBAR (PHONE) ==================== */
 	const searchIcon = document.querySelector('#magnifying-glass');
 	const searchBarPhone = document.querySelector('#research-bar-phone');
@@ -83,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	})
 
 	/* ==================== MENU CHANNELS OPENING (PHONE) ==================== */
-	const menuIcon = document.querySelector('#menu-icon');
+	const menuMainIcon = document.querySelector('#menu-icon');
 	const leftContainer = document.querySelector('#left-container');
 	const rightContainer = document.querySelector('#right-container');
 	const channelMemberContainer = document.querySelector('#members-container');
@@ -91,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	const header = document.querySelector('#header');
 	let isMenuChannelOpen = false;
 
-	menuIcon.addEventListener('click', () => {
+	menuMainIcon.addEventListener('click', () => {
 		// Searching is not possible when the menu is open
 		searchBarPhone.style.display = 'none';
 		isUserSearching = false;
@@ -123,10 +135,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		isUserSearching = false;
 		let viewportWidth = window.innerWidth;
 
-		console.log('width : ' + viewportWidth);
-		console.log('channel : ' + isMenuChannelOpen);
-		console.log('members : ' + isMembersChannelOpen);
-
 		if (viewportWidth >= 768) {
 			if (isMembersChannelOpen) {
 				channelMemberContainer.style.display = 'none';
@@ -145,7 +153,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			isMembersChannelOpen = !isMembersChannelOpen;
 		}
 	})
-
 
 	/* ==================== USER INFORMATIONS ==================== */
 	const userInfos = document.querySelector('#user-infos');

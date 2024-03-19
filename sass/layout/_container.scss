@@ -189,6 +189,17 @@
 	background-position: bottom;
 	flex-grow: 1;
 	width: 80%;
+
+	/* Track */
+	::-webkit-scrollbar-track {
+		background: rgba($bleu-fonce, .4);
+		margin-top: 5px;
+	}
+	
+	/* Handle */
+	::-webkit-scrollbar-thumb {
+		background: $bleu-fonce;
+	}
 }
 
 .left-container,
@@ -212,12 +223,14 @@
 }
 
 .members-container {
+	padding: 0 5px;
+
 	@media screen and (min-width: 768px) {
 		display: none;
 	}
 
 	.members {
-		width: 98%;
+		width: 99%;
 
 		.channel {
 			cursor: default;
@@ -225,6 +238,10 @@
 
 		.user-profile-picture {
 			cursor: pointer;
+		}
+
+		.name {
+			margin-right: 3px;
 		}
 	}
 }
