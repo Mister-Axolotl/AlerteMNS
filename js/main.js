@@ -1,4 +1,5 @@
 import { openCloseMenu, ifOpenMenu, startParticleAnimation } from "./functions.js";
+import fr from "./fr.js";
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -62,18 +63,20 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 	/* ==================== INVERT DEFAULT IMAGE FOR MENUS ==================== */
+
 	document.querySelectorAll('.private-channel, .member-channel').forEach(channel => {
 		let img = channel.childNodes[3];
 
 		let imgSrc = img.src.split("/");
-		let imgName = imgSrc[ imgSrc.length - 1];
-		
+		let imgName = imgSrc[imgSrc.length - 1];
+
 		if (imgName == "profile-user.png") {
 			img.style.filter = "invert(1)";
 		}
 	});
 
 	/* ==================== SEARCHBAR (PHONE) ==================== */
+
 	const searchIcon = document.querySelector('#magnifying-glass');
 	const searchBarPhone = document.querySelector('#research-bar-phone');
 	let isUserSearching = false;
@@ -95,6 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	})
 
 	/* ==================== MENU CHANNELS OPENING (PHONE) ==================== */
+
 	const menuMainIcon = document.querySelector('#menu-icon');
 	const leftContainer = document.querySelector('#left-container');
 	const rightContainer = document.querySelector('#right-container');
@@ -126,6 +130,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 	/* ==================== MENU MEMBERS OPENING ==================== */
+
 	const channelNameHeader = document.querySelector('#channel-name');
 	let isMembersChannelOpen = false;
 
@@ -155,21 +160,35 @@ document.addEventListener('DOMContentLoaded', function () {
 	})
 
 	/* ==================== USER INFORMATIONS ==================== */
+
 	const userInfos = document.querySelector('#user-infos');
 
 	document.querySelectorAll('.user-profile-picture').forEach(picture => {
-		picture.addEventListener('click', () => {
-			userInfos.style.display = "block";
+		picture.addEventListener('click', (event) => {
+			if (userInfos.style.display === "block") {
+				userInfos.style.display = "none";
+			} else {
+				userInfos.style.display = "block";
+			}
+			event.stopPropagation();
 		});
 	});
 
 	document.querySelectorAll('.button-close').forEach(button => {
-		button.addEventListener('click', () => {
+		button.addEventListener('click', (event) => {
 			userInfos.style.display = "none";
+			event.stopPropagation();
 		});
 	});
 
+	document.addEventListener('click', (event) => {
+		if (!userInfos.contains(event.target) && event.target !== userInfos) {
+			userInfos.style.display = "none";
+		}
+	});
+
 	/* ==================== MESSAGES OPTIONS ==================== */
+
 	const messageOptionsButton = document.querySelector('#messageOptionsButton');
 	const options = document.querySelector('#options');
 
@@ -207,13 +226,24 @@ document.addEventListener('DOMContentLoaded', function () {
 		input.value += event.detail.unicode;
 	});
 
+	const emojiPicker = document.querySelector('#emoji-picker');
+
 	document.querySelector('#emoji-option').addEventListener('click', event => {
-		const emojiPicker = document.querySelector('#emoji-picker');
+		event.stopPropagation();
+		emojiPicker.i18n = fr;
+		emojiPicker.locale = 'fr';
+		emojiPicker.dataSource = 'https://cdn.jsdelivr.net/npm/emoji-picker-element-data@^1/fr/emojibase/data.json';
 
 		if (emojiPicker.style.display === 'none') {
 			emojiPicker.style.display = 'block';
 		} else {
 			emojiPicker.style.display = 'none';
+		}
+	});
+
+	document.addEventListener('click', (event) => {
+		if (!emojiPicker.contains(event.target) && event.target !== emojiPicker) {
+			emojiPicker.style.display = "none";
 		}
 	});
 
@@ -231,6 +261,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 	/* ==================== ON RESIZE WINDOW ==================== */
+
 	window.addEventListener('resize', () => {
 		let windowWidth = window.innerWidth;
 
@@ -243,5 +274,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		isMenuChannelOpen = false;
 		isMembersChannelOpen = false;
-	})
+	});
+
+	/* ==================== MENU PARAMETERS OPENING ==================== */
+
+	if (window.location.pathname === '/pages/interface.admin.html') {
+		const menuParametersIcon = document.querySelectorAll('#menu-parameters-icon');
+		const menuParameters = document.querySelector('#menu-parameters');
+		const contentPageParameters = document.querySelector('#channel-content');
+		let isMenuParametersOpen = false;
+
+		menuParametersIcon.addEventListener('click', () => {
+			if (isMenuParametersOpen) {
+				menuParameters.style.display = 'none';
+				contentPageParameters.style.display = 'block';
+			} else {
+				menuParameters.style.display = 'flex';
+				contentPageParameters.style.display = 'none';
+			}
+
+			isMenuParametersOpen = !isMenuParametersOpen;
+		});
+	}
 });

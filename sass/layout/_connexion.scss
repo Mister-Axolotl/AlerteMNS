@@ -6,7 +6,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	
+
 	// form frame
 	main {
 		min-height: 30vh;
@@ -16,7 +16,8 @@
 		border-radius: 30px;
 		background-color: rgba($blanc, .5);
 
-		@media screen and (min-width: 768px) and (min-height: 440px), (min-width: 1280px) {
+		@media screen and (min-width: 768px) and (min-height: 440px),
+		(min-width: 1280px) {
 			min-height: 35vh;
 			max-height: 50vh;
 			width: 60vw;
@@ -59,7 +60,7 @@
 			.form-field {
 				height: 100%;
 				margin: 0;
-				
+
 				label {
 					font-size: 1.5rem;
 
@@ -94,8 +95,13 @@
 					}
 				}
 
+				#login::placeholder {
+					color: rgba($blanc, .5);
+				}
+
 				// White line in each input
-				&#input-id::after, &#input-password::after {
+				&#input-login::after,
+				&#input-password::after {
 					content: "";
 					width: 90%;
 					height: 1px;
@@ -104,12 +110,13 @@
 					left: 10px;
 					bottom: 6px;
 					background-color: $blanc;
-					
-					@media screen and (min-width: 768px), (min-width: 1280px) {
+
+					@media screen and (min-width: 768px),
+					(min-width: 1280px) {
 						left: 15px;
 					}
 				}
-				
+
 				// prevent text from going under the eye icon
 				& #password {
 					padding-right: 20%;
@@ -118,7 +125,8 @@
 						padding-right: 19%;
 					}
 
-					@media screen and (min-width: 1024px), (max-height: 439px) {
+					@media screen and (min-width: 1024px),
+					(max-height: 439px) {
 						padding-right: 18%;
 					}
 				}
@@ -127,47 +135,9 @@
 				&#input-password::after {
 					width: 77%;
 
-					@media screen and (min-width: 768px), (min-width: 1280px) {
+					@media screen and (min-width: 768px),
+					(min-width: 1280px) {
 						width: 77%;
-					}
-				}
-
-				&#input-stayConnected {
-					display: flex;
-					flex-direction: row;
-					align-items: center;
-					height: 1.5rem;
-					margin-left: 1rem;
-
-					@media screen and (min-width: 768px), (min-width: 1280px) {
-						height: 1.5rem;
-					}
-
-					@media screen and (min-height: 1000px) {
-						height: 2rem;
-					}
-
-					& label {
-						font-size: .9rem;
-						margin-bottom: 0;
-						
-						@media screen and (min-width: 768px) {
-							font-size: 1rem;
-						}
-
-						@media screen and (min-width: 1024px), (max-height: 439px) {
-							font-size: .8rem;
-						}
-						
-						@media screen and (min-width: 1280px) and (min-height: 1000px) {
-							font-size: 2rem;
-						}
-					}
-
-					#stayConnected {
-						&:focus {
-							outline: none;
-						}
 					}
 				}
 
@@ -188,117 +158,38 @@
 				font-size: larger;
 				cursor: pointer;
 				box-shadow: 0 4px 4px rgba($noir, .25);
-				
+
 				&:hover {
 					box-shadow: 0 4px 4px rgba($vert-clair, .7);
 				}
-				
+
 				&:active {
 					box-shadow: none;
 				}
-				
+
 				@media screen and (min-width: 768px) {
 					height: 3rem;
 					border-radius: 24px;
 					font-size: xx-large;
 				}
-				
-				@media screen and (min-width: 1024px), (max-height: 439px) {
+
+				@media screen and (min-width: 1024px),
+				(max-height: 439px) {
 					height: 2.5rem;
 					border-radius: 20px;
 					font-size: large;
 					width: 80%;
 				}
-				
+
 				@media screen and (min-width: 1280px) and (min-height: 1000px) {
 					height: 5rem;
 					border-radius: 35px;
 					font-size: 3rem;
 				}
 			}
-		}
-	}
-}
 
-// Customized checkbox
-#input-stayConnected {
-	position: relative;
-
-	/* Hide the browser's default checkbox */
-	& input {
-		opacity: 0;
-		cursor: pointer;
-		height: 15px;
-		width: 15px;
-		margin: 0;
-		z-index: 1;
-
-		/* When the checkbox is checked, add a blue background */
-		&:checked~.checkmark {
-			background-color: $bleu-fonce;
-
-			&:after {
-				display: block;
-			}
-		}
-
-		@media screen and (min-width: 768px), (min-width: 1280px) {
-			height: 15px;
-			width: 15px;
-		}
-
-		@media screen and (min-height: 1000px) {
-			height: 25px;
-			width: 25px;
-		}
-	}
-
-	/* Create a custom checkbox */
-	& .checkmark {
-		position: absolute;
-		top: 5px;
-		left: 0;
-		height: 15px;
-		width: 15px;
-		background-color: white;
-		border-radius: 2px;
-
-		@media screen and (min-width: 768px), (min-width: 1280px) {
-			height: 15px;
-			width: 15px;
-		}
-
-		@media screen and (min-height: 1000px) {
-			height: 25px;
-			width: 25px;
-		}
-
-		/* Create the checkmark/indicator (hidden when not checked) */
-		&::after {
-			content: "";
-			position: absolute;
-			display: none;
-			left: 4px;
-			top: 0px;
-			width: 5px;
-			height: 10px;
-			border: solid $blanc;
-			border-width: 0 3px 3px 0;
-			border-radius: 4px 2px 3px 2px;
-			-webkit-transform: rotate(45deg);
-			-ms-transform: rotate(45deg);
-			transform: rotate(45deg);
-
-			@media screen and (min-width: 768px), (min-width: 1280px) {
-				left: 4px;
-				width: 5px;
-				height: 10px;
-			}
-
-			@media screen and (min-height: 1000px) {
-				left: 4px;
-				width: 12px;
-				height: 17px;
+			.error-message {
+				color: red;
 			}
 		}
 	}

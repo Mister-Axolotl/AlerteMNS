@@ -1,45 +1,67 @@
 button {
-    border: none;
-    background-color: transparent;
+	background-color: transparent;
+	border: none;
+}
+
+.button {
 	cursor: pointer;
+	-webkit-touch-callout: none !important;
+	-webkit-user-select: none !important;
+	-khtml-user-select: none !important;
+	-moz-user-select: none !important;
+	-ms-user-select: none !important;
+	user-select: none !important;
+	transition: transform 0.2s;
+	box-shadow: 3px 8px 0px 0px rgba(0, 0, 0, 0.500);
+	border: none;
+	transition: all .2s ease-in-out;
+}
+
+.button:hover {
+	transform: scale(1.02);
+}
+
+.button:active {
+	transform: scale(0.95);
+	box-shadow: 3px 3px 0px 0px rgba(0, 0, 0, 0.500);
 }
 
 // BOUTON CONSTITUEE UNIQUEMENT D'UNE IMAGE
 .button-image {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    transition: transform 0.2s;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	transition: transform 0.2s;
 }
 
 .button-image:hover img {
-    img {
-        cursor: pointer;
-        transform: scale(1.05);
-    }
+	img {
+		cursor: pointer;
+		transform: scale(1.05);
+	}
 }
 
 .button-image:active img {
-    transform: scale(0.95); //ne fonctionne pas
+	transform: scale(0.95); //ne fonctionne pas
 }
 
 // BOUTON CROIX DE FERMETURE
 .button-close {
-    position: absolute;
-    top: 8px;
-    right: 8px;
+	position: absolute;
+	top: 8px;
+	right: 8px;
 
-    img {
-        width: 1.5rem;
-    }
+	img {
+		width: 1.5rem;
+	}
 }
 
 .button-close:hover {
-    filter: invert(1);
-    cursor: pointer;
+	filter: invert(1);
+	cursor: pointer;
 }
 
 // BOUTON OUTLINED
@@ -66,21 +88,15 @@ button {
 	border-radius: 25px;
 	width: 55%;
 	height: 6vh;
-	box-shadow: 0 5px 8px 2px $noir;
 
 	@media screen and (min-width: 768px) {
 		width: 50%;
 		height: 5vh;
 		font-size: xx-large;
 	}
-	
+
 	@media screen and (min-width: 1024px) {
 		height: 6vh;
 		font-size: x-large;
 	}
-}
-
-.button-send:hover {
-	box-shadow: none;
-	margin: 4px 1px 0 0;
 }
