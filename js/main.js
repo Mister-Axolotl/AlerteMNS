@@ -296,4 +296,18 @@ document.addEventListener('DOMContentLoaded', function () {
 			isMenuParametersOpen = !isMenuParametersOpen;
 		});
 	}
+
+	/* ==================== SEND MESSAGE ==================== */
+
+	document.querySelector('#send-message').addEventListener('click', function () {
+		const messageInput = document.querySelector('#messageInput');
+		var message = messageInput.value;
+		messageInput.value = '';
+
+		var xhr = new XMLHttpRequest();
+
+		xhr.open("POST", "/public/message/process.php", true);
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.send("message=" + encodeURIComponent(message));
+	});
 });

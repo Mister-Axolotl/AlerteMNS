@@ -18,8 +18,18 @@
 		display: flex;
 		position: relative;
 
+		@media screen and (min-width: 768px) {
+			margin-left: 260px;
+			margin-right: 10px;
+		}
+
 		@media screen and (max-width: 1024px) {
 			width: 95%;
+		}
+
+		@media screen and (min-width: 1024px) {
+			margin-left: 21%;
+			margin-right: auto;
 		}
 
 		// BUBBLE AND ANIMATION FOR MESSAGE OPTIONS
@@ -147,16 +157,13 @@
 
 	#send-message {
 		height: 40px;
-		position: absolute;
-		right: 0;
+		padding: 0 25px 0 20px;
 
 		@media screen and (max-width: 1024px) {
 			display: none;
 		}
 
-		@media screen and (min-width: 1024px) {
-			right: 40px;
-		}
+		@media screen and (min-width: 1024px) {}
 	}
 }
 

@@ -828,7 +828,6 @@ button {
 }
 .left-container .channels {
   height: 85%;
-  width: 98%;
   box-sizing: border-box;
   padding: 10px 0;
   overflow-y: auto;
@@ -1012,7 +1011,7 @@ button {
 @media screen and (min-width: 1024px) {
   .left-container,
   .members-container {
-    width: 25%;
+    width: 20%;
   }
 }
 
@@ -1061,9 +1060,21 @@ button {
   display: flex;
   position: relative;
 }
+@media screen and (min-width: 768px) {
+  .writting-bar-container .writting-bar {
+    margin-left: 260px;
+    margin-right: 10px;
+  }
+}
 @media screen and (max-width: 1024px) {
   .writting-bar-container .writting-bar {
     width: 95%;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .writting-bar-container .writting-bar {
+    margin-left: 21%;
+    margin-right: auto;
   }
 }
 .writting-bar-container .writting-bar #options {
@@ -1169,20 +1180,13 @@ button {
 }
 .writting-bar-container #send-message {
   height: 40px;
-  position: absolute;
-  right: 0;
+  padding: 0 25px 0 20px;
 }
 @media screen and (max-width: 1024px) {
   .writting-bar-container #send-message {
     display: none;
   }
 }
-@media screen and (min-width: 1024px) {
-  .writting-bar-container #send-message {
-    right: 40px;
-  }
-}
-
 emoji-picker {
   position: absolute;
   bottom: 65px;
@@ -1201,23 +1205,28 @@ emoji-picker {
 }
 @media screen and (max-width: 768px) {
   .message-container {
-    -ms-overflow-style: none; /* Internet Explorer 10+ */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    /* Internet Explorer 10+ */
+    scrollbar-width: none;
+    /* Firefox */
     padding: 0 10px;
   }
 }
-.message-container .others-message, .message-container .my-message {
+.message-container .others-message,
+.message-container .my-message {
   width: 80%;
   display: flex;
   align-items: flex-start;
   margin: 5px 0;
 }
-.message-container .others-message img, .message-container .my-message img {
+.message-container .others-message img,
+.message-container .my-message img {
   width: 2rem;
   margin-top: 5px;
   cursor: pointer;
 }
-.message-container .others-message .message, .message-container .my-message .message {
+.message-container .others-message .message,
+.message-container .my-message .message {
   max-width: calc(100% - 3rem);
   width: -moz-fit-content;
   width: fit-content;
@@ -1227,14 +1236,16 @@ emoji-picker {
   border-radius: 20px;
   padding: 4px 15px 10px;
 }
-.message-container .others-message .message .info, .message-container .my-message .message .info {
+.message-container .others-message .message .info,
+.message-container .my-message .message .info {
   display: flex;
   flex-direction: row;
   font-size: smaller;
   color: #585858;
   margin-bottom: 5px;
 }
-.message-container .others-message .message .info .name, .message-container .my-message .message .info .name {
+.message-container .others-message .message .info .name,
+.message-container .my-message .message .info .name {
   margin-right: 10px;
 }
 .message-container .others-message img {
@@ -1343,7 +1354,8 @@ emoji-picker {
 }
 @media screen and (min-width: 768px) {
   .channel {
-    width: 75%;
+    margin: 10px 5px 10px 5px;
+    width: 85%;
   }
 }
 @media screen and (max-width: 300px) {
@@ -1533,6 +1545,7 @@ emoji-picker {
 .menu-parameters .menu-parameters-deconnexion {
   height: 7%;
   width: 90%;
+  margin-bottom: 15px;
 }
 .menu-parameters .menu-parameters-deconnexion .deconnexion {
   width: 100%;

@@ -9,27 +9,30 @@
 	padding: 0 30px;
 	overflow-y: auto;
 	box-sizing: border-box;
-	
+
 	@media screen and (max-width: 768px) {
 		// Hide scrollbar but still able to scroll
-		-ms-overflow-style: none;  /* Internet Explorer 10+ */
-		scrollbar-width: none;  /* Firefox */
+		-ms-overflow-style: none;
+		/* Internet Explorer 10+ */
+		scrollbar-width: none;
+		/* Firefox */
 
 		padding: 0 10px;
 	}
 
-	.others-message, .my-message {
+	.others-message,
+	.my-message {
 		width: 80%;
 		display: flex;
 		align-items: flex-start;
 		margin: 5px 0;
-	
+
 		img {
 			width: 2rem;
 			margin-top: 5px;
 			cursor: pointer;
 		}
-	
+
 		.message {
 			max-width: calc(100% - 3rem);
 			width: fit-content;
@@ -37,35 +40,35 @@
 			background: $blanc;
 			border-radius: 20px;
 			padding: 4px 15px 10px;
-	
+
 			.info {
 				display: flex;
 				flex-direction: row;
 				font-size: smaller;
 				color: #585858;
 				margin-bottom: 5px;
-	
+
 				.name {
 					margin-right: 10px;
 				}
 			}
 		}
 	}
-	
+
 	.others-message {
 		img {
 			margin-right: .6rem;
 		}
 	}
-	
+
 	.my-message {
 		flex-direction: row-reverse;
 		align-self: end;
-	
+
 		img {
 			margin-left: .6rem;
 		}
-	
+
 		.info {
 			justify-content: flex-end;
 		}

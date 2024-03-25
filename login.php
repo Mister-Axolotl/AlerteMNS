@@ -13,19 +13,19 @@ if (isset ($_POST['login']) && isset ($_POST['password'])) {
             $_SESSION['user_name'] = $row["user_firstname"];
 
             // on récupère l'id du rôle de l'utilisateur
-			$sql = "SELECT user_role_role_id FROM table_user_role
+            $sql = "SELECT user_role_role_id FROM table_user_role
 					INNER JOIN table_user ON table_user_role.user_role_user_id = table_user.user_id";
-    		$stmt = $db->prepare($sql);
-    		$stmt->execute();
+            $stmt = $db->prepare($sql);
+            $stmt->execute();
 
-			if ($recordset = $stmt->fetchAll()) {
-				$_SESSION['user_role_id'] = [];
-				foreach ($recordset as $row) {
-					array_push($_SESSION['user_role_id'], $row['user_role_role_id']);
-				}
-			}
+            if ($recordset = $stmt->fetchAll()) {
+                $_SESSION['user_role_id'] = [];
+                foreach ($recordset as $row) {
+                    array_push($_SESSION['user_role_id'], $row['user_role_role_id']);
+                }
+            }
 
-            header("Location:index.html");
+            header("Location:index.php");
             exit(); // Bloque le script 
         }
     }
