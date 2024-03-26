@@ -24,8 +24,10 @@ $search_query = "";
         <div class="page-header">
             <h1>Liste des rôles</h1>
             <button class="button add-button">
-                <img src="../../images/add.png" alt="plus">
-                <a href="form.php" title="Ajouter un rôle">Ajouter</a>
+                <a href="form.php" title="Ajouter un rôle">
+                    <img src="../../images/add.png" alt="plus">
+                    Ajouter
+                </a>
             </button>
         </div>
 

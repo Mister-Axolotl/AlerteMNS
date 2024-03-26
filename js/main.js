@@ -1,13 +1,12 @@
-import { openCloseMenu, ifOpenMenu, startParticleAnimation } from "./functions.js";
+import { openCloseMenu, ifOpenMenu, startParticleAnimation, renderMessages, getUserId, getChannels, renderChannels } from "./functions.js";
 import fr from "./fr.js";
 
 document.addEventListener('DOMContentLoaded', function () {
 
 	/* ==================== SMOOTH TRANSITION FOR SECTION ==================== */
 
-	const sections = document.querySelectorAll(".scroll-section");
-
-	const observer = new IntersectionObserver((entries) => {
+	// Fonction pour gérer les changements d'intersection
+	function handleIntersection(entries) {
 		entries.forEach((entry) => {
 			if (entry.isIntersecting) {
 				entry.target.classList.add("active");
@@ -15,11 +14,27 @@ document.addEventListener('DOMContentLoaded', function () {
 				entry.target.classList.remove("active");
 			}
 		});
-	}, { threshold: 0.15 }); // 10% de l'écran
+	}
 
-	sections.forEach((section) => {
-		observer.observe(section);
+	// Créer un nouvel observer
+	const observer = new IntersectionObserver(handleIntersection, { threshold: 0.15 });
+
+	// Observer un conteneur parent pour les nouvelles sections ajoutées dynamiquement
+	const container = document.querySelector(".container");
+
+	// Créer un observateur de mutation pour surveiller les changements dans le conteneur
+	const mutationObserver = new MutationObserver((mutations) => {
+		mutations.forEach((mutation) => {
+			mutation.addedNodes.forEach((node) => {
+				if (node.nodeType === 1 && node.classList.contains("scroll-section")) {
+					observer.observe(node);
+				}
+			});
+		});
 	});
+
+	// Démarrer l'observation des mutations dans le conteneur
+	mutationObserver.observe(container, { childList: true, subtree: true });
 
 	/* ==================== WHEN CLICK ON ANCHOR, SMOOTH SCROLL ==================== */
 
@@ -33,9 +48,9 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	});
 
-	const socialButtons = document.querySelectorAll(".particles-button");
+	const particlesButtons = document.querySelectorAll(".particles-button");
 
-	socialButtons.forEach(button => {
+	particlesButtons.forEach(button => {
 		button.addEventListener('mouseover', function (event) {
 			startParticleAnimation(event, button.id);
 		});
@@ -302,12 +317,93 @@ document.addEventListener('DOMContentLoaded', function () {
 	document.querySelector('#send-message').addEventListener('click', function () {
 		const messageInput = document.querySelector('#messageInput');
 		var message = messageInput.value;
+
+		if (message.length === 0) {
+			return;
+		}
+
+		var channelId = 1; // TODO à changer
 		messageInput.value = '';
 
 		var xhr = new XMLHttpRequest();
 
 		xhr.open("POST", "/public/message/process.php", true);
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		xhr.send("message=" + encodeURIComponent(message));
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState === XMLHttpRequest.DONE) {
+				if (xhr.status === 200) {
+					// console.log(xhr.responseText);
+				} else {
+					console.error("Erreur: " + xhr.status);
+				}
+			}
+		};
+
+		xhr.send("message=" + encodeURIComponent(message) + "&channelId=" + encodeURIComponent(channelId));
 	});
+
+	/* ==================== CHANNELS ==================== */
+
+	if (window.location.pathname === '/index.php') {
+		getChannels().then(channels => {
+			renderChannels(channels); // Rendre les canaux dans le DOM
+			attachChannelClickEvent(); // Attacher l'événement de clic une fois que les canaux sont rendus
+		}).catch(error => {
+			console.error(error);
+		});
+	}
+
+	function attachChannelClickEvent() {
+		const channels = document.querySelectorAll('.channel');
+		channels.forEach(channel => {
+			channel.addEventListener('click', event => {
+				const clickedChannel = event.currentTarget;
+				const channelId = clickedChannel.dataset.channelId;
+
+				// Supprimer la classe "active" de tous les éléments
+				channels.forEach(channel => {
+					if (channel !== clickedChannel) {
+						channel.classList.remove("active");
+					}
+				});
+
+				clickedChannel.classList.add("active");
+				var xhr = new XMLHttpRequest();
+
+				// Définir le channel dans la session
+				xhr.open("POST", "/public/scripts/setSessionChannelId.php");
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.onreadystatechange = function () {
+					if (xhr.readyState === XMLHttpRequest.DONE) {
+						if (xhr.status === 200) {
+
+						} else {
+							console.error("Erreur lors de la session channel ID");
+						}
+					}
+				};
+				xhr.send("channelId=" + channelId);
+
+				var xhr2 = new XMLHttpRequest();
+				// Effectuez une requête AJAX pour récupérer les messages du canal
+				xhr2.open("POST", "/public/message/getMessages.php", true);
+				xhr2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr2.onreadystatechange = function () {
+					if (xhr2.readyState === XMLHttpRequest.DONE) {
+						if (xhr2.status === 200) {
+							const messages = JSON.parse(xhr2.responseText);
+							let channeldId = getUserId();
+							channeldId.then(userId => {
+								renderMessages(messages, userId);
+							});
+
+						} else {
+							console.error("Erreur lors de la récupération des messages");
+						}
+					}
+				};
+				xhr2.send("channelId=" + encodeURIComponent(channelId));
+			});
+		});
+	}
 });

@@ -21,6 +21,11 @@
 		width: 80%;
 	}
 
+	&.active {
+		background-color: $gris-clair;
+		border-radius: 10px;
+	}
+
 	.dot-container {
 		width: 50px;
 
@@ -50,11 +55,6 @@
 			font-size: 1.2rem;
 		}
 	}
-}
-
-.active-channel {
-	background-color: $gris-clair;
-	border-radius: 10px;
 }
 
 .public-channel,

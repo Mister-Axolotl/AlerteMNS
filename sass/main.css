@@ -969,6 +969,7 @@ button {
   background-size: cover;
   background-position: bottom;
   padding-left: 0;
+  flex: 1;
   /* Track */
   /* Handle */
 }
@@ -981,7 +982,7 @@ button {
 }
 @media screen and (min-width: 1024px) {
   .right-container {
-    padding-left: 25%;
+    padding-left: 20%;
   }
 }
 .right-container ::-webkit-scrollbar-track {
@@ -1363,6 +1364,10 @@ emoji-picker {
     width: 80%;
   }
 }
+.channel.active {
+  background-color: #6F6F6F;
+  border-radius: 10px;
+}
 .channel .dot-container {
   width: 50px;
 }
@@ -1391,11 +1396,6 @@ emoji-picker {
   .channel .name {
     font-size: 1.2rem;
   }
-}
-
-.active-channel {
-  background-color: #6F6F6F;
-  border-radius: 10px;
 }
 
 .public-channel .dash,
@@ -1659,6 +1659,36 @@ emoji-picker {
   width: 1.4rem;
 }
 
+.admin-content {
+  background-color: #22577a;
+  color: #fefefe;
+  min-height: 100vh;
+}
+.admin-content .page-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.admin-content .page-header .add-button {
+  display: flex;
+  align-items: center;
+  border: 3px solid #fefefe;
+  border-radius: 13px;
+  color: #fefefe;
+  cursor: pointer;
+}
+.admin-content .page-header .add-button img {
+  width: 1.5rem;
+  margin-right: 5px;
+  filter: grayscale(1) brightness(50);
+}
+.admin-content .page-header .add-button a {
+  color: #fefefe;
+}
+.admin-content .temp img {
+  width: 2rem;
+}
+
 /* ----- Global -----*/
 ::-moz-selection {
   background-color: #57cc99;
@@ -1703,7 +1733,8 @@ img {
 }
 
 /* track & handler */
-::-webkit-scrollbar-track, ::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-thumb {
   border-radius: 10px;
 }
 

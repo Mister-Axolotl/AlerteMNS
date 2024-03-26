@@ -23,6 +23,8 @@
 @import './layout/menuParameters';
 @import './layout/myAccount';
 
+// ADMIN
+@import './layout/admin';
 
 /* ----- Global -----*/
 
@@ -65,7 +67,8 @@ img {
 }
 
 /* track & handler */
-::-webkit-scrollbar-track, ::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-thumb {
 	border-radius: 10px;
 }
 

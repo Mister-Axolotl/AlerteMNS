@@ -1,13 +1,15 @@
+<?php require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/protect.php"; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alerte MNS</title>
-    <link rel="icon" href="./images/logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="./sass/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Alerte MNS</title>
+	<link rel="icon" href="./images/logo.png" type="image/x-icon">
+	<link rel="stylesheet" href="./sass/main.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css" />
 </head>
 
 <body>
@@ -18,7 +20,8 @@
 			<div class="menu-parameters-header">
 				<button>
 					<a href="index.php">
-						<img class="left-arrow" src="./images/parameters/left_arrow.png" alt="flèche de retour" title="retourner aux conversations">
+						<img class="left-arrow" src="./images/parameters/left_arrow.png" alt="flèche de retour"
+							title="retourner aux conversations">
 					</a>
 				</button>
 				<h1>Paramètres</h1>
@@ -26,7 +29,7 @@
 					<img class="gear" src="./images/parameters/setting.png" alt="engrenage">
 				</div>
 			</div>
-	
+
 			<!-- CHANNELS -->
 			<div class="menu-parameters-channels channels">
 				<div class="channel parameter-channel active-channel">
@@ -57,16 +60,18 @@
 					<span class="name">RGPD</span>
 				</div>
 			</div>
-	
+
 			<!-- DECONNEXION BUTTON -->
 			<div class="menu-parameters-deconnexion">
-				<button class="button deconnexion">
-					Déconnexion
-					<img src="./images/parameters/close.png" alt="bouton on/off" title="se déconnecter">
-				</button>
+				<a href="./logout.php">
+					<button class="button deconnexion">
+						Déconnexion
+						<img src="./images/parameters/close.png" alt="bouton on/off" title="se déconnecter">
+					</button>
+				</a>
 			</div>
 		</div>
-	
+
 		<!-- PAGE CONTENT -->
 		<div class="channel-content" id="channel-content">
 			<h2>Mon compte</h2>
@@ -75,7 +80,7 @@
 			<div class="my-account">
 				<div class="user-firstname">Prénom</div>
 				<div class="user-lastname">Nom</div>
-	
+
 				<div class="profile-picture">
 					<div class="picture-container">
 						<img src="./images/profile-user.png" alt="photo de profil">
@@ -91,13 +96,14 @@
 						<label for="email">Adresse email</label>
 						<input type="text" id="email" name="email">
 					</div>
-	
+
 					<div class="password-to-modify">
 						<div class="form-field" id="input-password">
 							<label for="password">Mot de passe</label>
 							<input type="password" id="password" class="dots" name="password">
 							<div id="view-password">
-								<img id="eyeIcon" src="images/opened_eye.png" alt="eye icon (to see password)" onclick="displayPassword()">
+								<img id="eyeIcon" src="images/opened_eye.png" alt="eye icon (to see password)"
+									onclick="displayPassword()">
 							</div>
 						</div>
 						<button class="button-outline">
@@ -105,7 +111,7 @@
 							<img src="./images/parameters/pen.png" alt="stylo icône" id="passwordModify">
 						</button>
 					</div>
-	
+
 					<div class="form-field">
 						<label for="password2">Verification</label>
 						<input type="text" id="password2" name="password2">

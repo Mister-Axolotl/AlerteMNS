@@ -9,10 +9,27 @@ if (isset ($_POST['login']) && isset ($_POST['password'])) {
     if ($row = $stmt->fetch()) {
         if (password_verify($_POST['password'], $row["user_password"])) {
             session_start();
-            $_SESSION['user_connected'] = "ok"; // Pour éviter le hack, il faudrait mettre des valeurs plus complexes
+            $_SESSION['user_connected'] = "ok";
+            $_SESSION['user_id'] = $row["user_id"];
             $_SESSION['user_name'] = $row["user_firstname"];
+            $_SESSION['user_channel_active_id'] = 1;
 
-            // on récupère l'id du rôle de l'utilisateur
+            function storeUserInJson($userId)
+            {
+                $file = "connected_users.json";
+                $currentData = file_get_contents($file);
+                $data = json_decode($currentData, true);
+                if (!$data) {
+                    $data = [];
+                }
+                $parisTime = new DateTime("now", new DateTimeZone("Europe/Paris")); // Obtenir l'heure actuelle de Paris
+                $data[$userId] = $parisTime->format('Y-m-d H:i:s'); // Formater l'heure selon le fuseau horaire de Paris
+                file_put_contents($file, json_encode($data));
+            }
+
+            storeUserInJson($row["user_id"]);
+
+            // On récupère l'id du rôle de l'utilisateur
             $sql = "SELECT user_role_role_id FROM table_user_role
 					INNER JOIN table_user ON table_user_role.user_role_user_id = table_user.user_id";
             $stmt = $db->prepare($sql);
