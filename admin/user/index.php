@@ -1,7 +1,6 @@
 <?php require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/connect.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/protect.php";
 
-// $sql = "SELECT * FROM table_user ORDER BY user_lastname";
 $sql = "SELECT table_user.*, GROUP_CONCAT(table_role.role_name) AS user_roles FROM table_user_role
 		RIGHT JOIN table_user ON table_user_role.user_role_user_id = table_user.user_id
 		INNER JOIN table_role ON table_user_role.user_role_role_id = table_role.role_id
@@ -9,7 +8,6 @@ $sql = "SELECT table_user.*, GROUP_CONCAT(table_role.role_name) AS user_roles FR
 $stmt = $db->prepare($sql);
 $stmt->execute();
 $recordset = $stmt->fetchAll();
-$search_query = "";
 ?>
 
 <!DOCTYPE html>

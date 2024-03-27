@@ -256,6 +256,7 @@ export function renderMessages(messages, userId) {
         profilePictureImg.src = './images/profile-user.png';
         profilePictureImg.classList.add('user-profile-picture');
         profilePictureImg.alt = 'Image de profil utilisateur';
+        profilePictureImg.setAttribute('data-user-id', message.message_user_id);
 
         const messageContentDiv = document.createElement('div');
         messageContentDiv.classList.add('message');
@@ -291,5 +292,27 @@ export function renderMessages(messages, userId) {
         messageDiv.appendChild(messageContentDiv);
 
         messageContainer.appendChild(messageDiv);
+    });
+}
+
+function sendMessage(userId, message) {
+    console.log(userId, message);
+    const messageContainer = document.querySelector('.message-container');
+    const messageDiv = document.createElement('div');
+
+    if (userId == message[0]) {
+        console.log(userId);
+        messageDiv.classList.add('my-message');
+    } else {
+        console.log(userId);
+        messageDiv.classList.add('others-message');
+    }
+
+    messageContainer.prepend(messageDiv);
+}
+
+export function broadcastMessage(usersIds, message) {
+    usersIds.forEach(userId => {
+        sendMessage(userId, message);
     });
 }

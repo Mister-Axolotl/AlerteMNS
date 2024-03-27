@@ -41,11 +41,11 @@ if (!isset ($_POST['role_name'])) {
 
 if (isset ($_POST['role_id']) && $_POST['role_id'] > 0) {
     $sql = "UPDATE table_role 
-SET role_name = :name
-WHERE role_id=:id";
+    SET role_name = :name
+    WHERE role_id=:id";
 } else {
     $sql = "INSERT INTO table_role (role_name)
-VALUES (:name)";
+    VALUES (:name)";
 }
 
 $stmt = $db->prepare($sql);
@@ -68,10 +68,12 @@ if (isset ($_FILES['role_badge']) && $_FILES['role_badge']['name'] != "") {
         exit();
     }
 
+    $role_id = $db->lastInsertId();
+
     $sql = "SELECT role_badge FROM table_role
-WHERE role_id = :role_id";
+    WHERE role_id = :role_id";
     $stmt = $db->prepare($sql);
-    $stmt->bindValue(":role_id", $_POST['role_id'] > 0 ? $_POST['role_id'] : $db->lastInsertId());
+    $stmt->bindValue(":role_id", $_POST['role_id'] > 0 ? $_POST['role_id'] : $role_id);
     $stmt->execute();
 
     if ($row = $stmt->fetch()) {
@@ -92,11 +94,11 @@ WHERE role_id = :role_id";
     // Requête pour ajouter l'image dans la BDD
 
     $sql = "UPDATE table_role SET role_badge=:role_badge 
-WHERE role_id = :role_id";
+    WHERE role_id = :role_id";
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(":role_badge", $filename . "." . $extension); // Value prend la valeur là où on la déclare Param prend en compte les modifications
-    $stmt->bindValue(":role_id", $_POST['role_id'] > 0 ? $_POST['role_id'] : $db->lastInsertId());
+    $stmt->bindValue(":role_id", $_POST['role_id'] > 0 ? $_POST['role_id'] : $role_id);
     $stmt->execute();
 
     $filename = $filename . "." . $extension;
@@ -125,10 +127,10 @@ WHERE role_id = :role_id";
                 unlink($uploadPath . $filename);
                 showError("Format de fichier non autorisé");
                 $sql = "UPDATE table_role SET role_badge=null
-        WHERE role_id = :role_id";
+                WHERE role_id = :role_id";
 
                 $stmt = $db->prepare($sql);
-                $stmt->bindValue(":role_id", $_POST['role_id'] > 0 ? $_POST['role_id'] : $db->lastInsertId());
+                $stmt->bindValue(":role_id", $_POST['role_id'] > 0 ? $_POST['role_id'] : $role_id);
                 $stmt->execute();
                 exit();
         }

@@ -1,5 +1,8 @@
 <?php require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/protect.php"; ?>
 
+<!-- TODO requête si l'utilisateur à au moins un rôle sinon il est redirigé vers une page qui lui dit de contacter
+l'administrateur. -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -58,46 +61,59 @@
                 <!-- CANAUX -->
                 <div class="channels">
                     <!--
-					<div class="channel public-channel active-channel">
-						<div class="dot-container">
-							<span class="dot" style="visibility: hidden;"></span>
-						</div>
-						<img src="./images/channel/chat_bubbles.png" alt="Forum icône">
-						<span class="dash">–</span>
-						<span class="name">Forum</span>
-					</div>
-					<hr class="separator">
-					<div class="channel public-channel">
-						<div class="dot-container">
-							<span class="dot"></span>
-						</div>
-						<img src="./images/channel/team.png" alt="Equipe MNS icône">
-						<span class="dash">–</span>
-						<span class="name">Equipe MNS</span>
-					</div>
-					<div class="channel public-channel">
-						<div class="dot-container">
-							<span class="dot"></span>
-						</div>
-						<img src="./images/channel/team.png" alt="Equipe MNS icône">
-						<span class="dash">–</span>
-						<span class="name">Equipe MNS</span>
-					</div>
-					<div class="channel public-channel">
-						<div class="dot-container">
-							<span class="dot"></span>
-						</div>
-						<img src="./images/channel/team.png" alt="Equipe MNS icône">
-						<span class="dash">–</span>
-						<span class="name">Equipe MNS</span>
-					</div>
-					<div class="channel private-channel">
-						<div class="dot-container">
-							<span class="dot"></span>
-						</div>
-						<img src="./images/profile-user.png" alt="Photo profil">
-						<span class="name">Prénom Nom</span>
-					</div> -->
+                    <div class="channel public-channel active-channel">
+                        <div class="dot-container">
+                            <span class="dot" style="visibility: hidden;"></span>
+                        </div>
+                        <img src="./images/channel/chat_bubbles.png" alt="Forum icône">
+                        <span class="dash">–</span>
+                        <span class="name">Forum</span>
+                    </div>
+                    <hr class="separator">
+                    <div class="channel public-channel">
+                        <div class="dot-container">
+                            <span class="dot"></span>
+                        </div>
+                        <img src="./images/channel/team.png" alt="Equipe MNS icône">
+                        <span class="dash">–</span>
+                        <span class="name">Equipe MNS</span>
+                    </div>
+                    <div class="channel public-channel">
+                        <div class="dot-container">
+                            <span class="dot"></span>
+                        </div>
+                        <img src="./images/channel/team.png" alt="Equipe MNS icône">
+                        <span class="dash">–</span>
+                        <span class="name">Equipe MNS</span>
+                    </div>
+                    <div class="channel public-channel">
+                        <div class="dot-container">
+                            <span class="dot"></span>
+                        </div>
+                        <img src="./images/channel/team.png" alt="Equipe MNS icône">
+                        <span class="dash">–</span>
+                        <span class="name">Equipe MNS</span>
+                    </div>
+                    <div class="channel private-channel">
+                        <div class="dot-container">
+                            <span class="dot"></span>
+                        </div>
+                        <img src="./images/profile-user.png" alt="Photo profil">
+                        <span class="name">Prénom Nom</span>
+                    </div> -->
+                </div>
+
+                <!-- ADMIN PAGE LINK -->
+                <div class="admin-link">
+                    <button class="admin-div">
+                        <a href="/admin/index.php">
+                            <div>
+                                <img src="./images/parameters/RGPD.png" class="icon" alt="Administrateur"
+                                    title="Ouvrir la page administrateur">
+                            </div>
+                            <p>Administrateur</p>
+                        </a>
+                    </button>
                 </div>
 
                 <!-- AGENDA AND PARAMETERS -->
@@ -202,13 +218,13 @@
             <!-- MENU MEMBRES CANAL -->
             <div class="members-container" id="members-container">
                 <div class="members">
-                    <div class="channel member-channel user-profile-picture">
+                    <!-- <div class="channel member-channel user-profile-picture">
                         <div class="dot-container">
                             <span class="dot"></span>
                         </div>
                         <img src="./images/profile-user.png" alt="Photo profil">
                         <span class="name">Prénom Nom</span>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

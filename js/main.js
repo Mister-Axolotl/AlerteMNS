@@ -1,5 +1,7 @@
-import { openCloseMenu, ifOpenMenu, startParticleAnimation, renderMessages, getUserId, getChannels, renderChannels } from "./functions.js";
+import { openCloseMenu, ifOpenMenu, startParticleAnimation, renderMessages, broadcastMessage, getUserId, getChannels, renderChannels, getActualChannelId } from "./functions.js";
 import fr from "./fr.js";
+const newMessageEvent = new Event('newMessage');
+
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -17,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 	// Créer un nouvel observer
-	const observer = new IntersectionObserver(handleIntersection, { threshold: 0.15 });
+	const observer = new IntersectionObserver(handleIntersection, { threshold: 0.5 });
 
 	// Observer un conteneur parent pour les nouvelles sections ajoutées dynamiquement
 	const container = document.querySelector(".container");
@@ -172,35 +174,68 @@ document.addEventListener('DOMContentLoaded', function () {
 		if (!isMenuChannelOpen) {
 			isMembersChannelOpen = !isMembersChannelOpen;
 		}
-	})
+	});
 
 	/* ==================== USER INFORMATIONS ==================== */
 
-	const userInfos = document.querySelector('#user-infos');
+	function setupUserInfos() {
+		const userInfos = document.querySelector('#user-infos');
+		const userInfosHeader = document.querySelector('.user-infos-header');
+		const pictures = document.querySelectorAll('.user-profile-picture')
 
-	document.querySelectorAll('.user-profile-picture').forEach(picture => {
-		picture.addEventListener('click', (event) => {
-			if (userInfos.style.display === "block") {
+		pictures.forEach(picture => {
+			picture.addEventListener('click', (event) => {
+				if (userInfos.style.display === "block") {
+					userInfos.style.display = "none";
+				} else {
+					const userId = picture.getAttribute('data-user-id');
+					var xhr = new XMLHttpRequest();
+					xhr.open("POST", "/public/scripts/getUserInformations.php");
+					xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+					xhr.onreadystatechange = function () {
+						if (xhr.readyState === XMLHttpRequest.DONE) {
+							if (xhr.status === 200) {
+								const userInfos = JSON.parse(xhr.responseText);
+								const userFirstname = userInfos.user_firstname;
+								const userLastname = userInfos.user_lastname;
+								const userPicture = userInfos.user_picture;
+
+								const userInfosHeader = document.querySelector('.user-infos-header');
+
+								const imgElement = userInfosHeader.querySelector('img');
+								const spanElement = userInfosHeader.querySelector('span');
+
+								if (userPicture != null) {
+									imgElement.src = userPicture;
+								}
+
+								spanElement.textContent = `${userFirstname} ${userLastname}`;
+							} else {
+								console.error("Erreur lors de la session channel ID");
+							}
+						}
+					};
+					xhr.send("userId=" + userId);
+
+					userInfos.style.display = "block";
+				}
+				event.stopPropagation();
+			});
+		});
+
+		document.querySelectorAll('.button-close').forEach(button => {
+			button.addEventListener('click', (event) => {
 				userInfos.style.display = "none";
-			} else {
-				userInfos.style.display = "block";
+				event.stopPropagation();
+			});
+		});
+
+		document.addEventListener('click', (event) => {
+			if (!userInfos.contains(event.target) && event.target !== userInfos) {
+				userInfos.style.display = "none";
 			}
-			event.stopPropagation();
 		});
-	});
-
-	document.querySelectorAll('.button-close').forEach(button => {
-		button.addEventListener('click', (event) => {
-			userInfos.style.display = "none";
-			event.stopPropagation();
-		});
-	});
-
-	document.addEventListener('click', (event) => {
-		if (!userInfos.contains(event.target) && event.target !== userInfos) {
-			userInfos.style.display = "none";
-		}
-	});
+	}
 
 	/* ==================== MESSAGES OPTIONS ==================== */
 
@@ -318,28 +353,34 @@ document.addEventListener('DOMContentLoaded', function () {
 		const messageInput = document.querySelector('#messageInput');
 		var message = messageInput.value;
 
+		// Annule l'envoi du message si le message est vide
 		if (message.length === 0) {
 			return;
 		}
 
-		var channelId = 1; // TODO à changer
-		messageInput.value = '';
+		getActualChannelId().then(channelId => {
+			messageInput.value = '';
 
-		var xhr = new XMLHttpRequest();
+			var xhr = new XMLHttpRequest();
 
-		xhr.open("POST", "/public/message/process.php", true);
-		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		xhr.onreadystatechange = function () {
-			if (xhr.readyState === XMLHttpRequest.DONE) {
-				if (xhr.status === 200) {
-					// console.log(xhr.responseText);
-				} else {
-					console.error("Erreur: " + xhr.status);
+			xhr.open("POST", "/public/message/process.php", true);
+			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState === XMLHttpRequest.DONE) {
+					if (xhr.status === 200) {
+						console.log(JSON.parse(xhr.responseText));
+						var responseData = JSON.parse(xhr.responseText);
+						var usersIds = responseData.userIds;
+						var message = responseData.message;
+						broadcastMessage(usersIds, message);
+					} else {
+						console.error("Erreur: " + xhr.status);
+					}
 				}
-			}
-		};
+			};
 
-		xhr.send("message=" + encodeURIComponent(message) + "&channelId=" + encodeURIComponent(channelId));
+			xhr.send("message=" + encodeURIComponent(message) + "&channelId=" + encodeURIComponent(channelId));
+		});
 	});
 
 	/* ==================== CHANNELS ==================== */
@@ -347,18 +388,34 @@ document.addEventListener('DOMContentLoaded', function () {
 	if (window.location.pathname === '/index.php') {
 		getChannels().then(channels => {
 			renderChannels(channels); // Rendre les canaux dans le DOM
-			attachChannelClickEvent(); // Attacher l'événement de clic une fois que les canaux sont rendus
+			attachChannelClickEvent(channels); // Attacher l'événement de clic une fois que les canaux sont rendus
 		}).catch(error => {
 			console.error(error);
 		});
 	}
 
-	function attachChannelClickEvent() {
+	//TODO Vérifier si l'utilisateur a la permission d'aller dans le channel car il peut modifier l'html
+
+	function attachChannelClickEvent(channelsList) {
 		const channels = document.querySelectorAll('.channel');
+		const channelName = document.querySelector('#channel-name');
+
+
 		channels.forEach(channel => {
 			channel.addEventListener('click', event => {
 				const clickedChannel = event.currentTarget;
 				const channelId = clickedChannel.dataset.channelId;
+
+				// Modifier le nom et l'image du canal dans le DOM
+				channelsList.forEach(channelDb => {
+					if (channelDb.channel_id == channel.getAttribute('data-channel-id')) {
+						const imageElement = channelName.querySelector('.channel-image');
+						imageElement.src = '/images/channel/' + channelDb.channel_icon;
+
+						const nameElement = channelName.querySelector('.channel-name');
+						nameElement.textContent = channelDb.channel_name;
+					}
+				});
 
 				// Supprimer la classe "active" de tous les éléments
 				channels.forEach(channel => {
@@ -395,6 +452,7 @@ document.addEventListener('DOMContentLoaded', function () {
 							let channeldId = getUserId();
 							channeldId.then(userId => {
 								renderMessages(messages, userId);
+								setupUserInfos();
 							});
 
 						} else {
@@ -406,4 +464,10 @@ document.addEventListener('DOMContentLoaded', function () {
 			});
 		});
 	}
+
+	document.addEventListener('newMessage', function (event) {
+		console.log('New message received:', event);
+		// Logique pour mettre à jour l'interface utilisateur avec le nouveau message
+		// Par exemple, vous pourriez ajouter le nouveau message à une liste de messages dans votre interface utilisateur
+	});
 });

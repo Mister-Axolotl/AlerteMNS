@@ -5,7 +5,6 @@ $sql = "SELECT * FROM table_role ORDER BY role_name";
 $stmt = $db->prepare($sql);
 $stmt->execute();
 $recordset = $stmt->fetchAll();
-$search_query = "";
 ?>
 
 <!DOCTYPE html>

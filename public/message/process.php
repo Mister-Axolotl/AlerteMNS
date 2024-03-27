@@ -22,28 +22,33 @@ $lastMessage = $stmt->fetch(PDO::FETCH_ASSOC);
 
 function getConnectedUsers()
 {
-    $file = "connected_users.json";
-    $currentData = file_get_contents($file);
-    $data = json_decode($currentData, true);
-    return $data;
+    $file = "../../connected_users.json";
+    if (file_exists($file)) {
+        $currentData = file_get_contents($file);
+        $data = json_decode($currentData, true);
+        return $data;
+    }
 }
 
 $connectedUsers = getConnectedUsers();
 
-$userIds = array_keys($connectedUsers);
+$usersIds = array_keys($connectedUsers);
+$newData = array(
+    'userIds' => array(),
+    'message' => array()
+);
 
-foreach ($userIds as $userId) {
+$newData['message'][0] = "$_SESSION[user_id]";
+$newData['message'][1] = "$lastMessage[message_content]";
+$newData['message'][2] = "$lastMessage[message_date]";
+
+foreach ($connectedUsers as $userId => $userTimestamp) {
     if ($channelId == $_SESSION['user_channel_active_id']) {
-        echo "<script>
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
-                        // Traitement en fonction de la réponse
-                    }
-                };
-                xhttp.open('GET', 'script_js.php', true);
-                xhttp.send();
-              </script>";
-        //TODO faire en sorte que ça envoie un message à tous les userId
+        $newData['userIds'][] = $userId;
+    } else {
+        //TODO pastille bleue
     }
 }
+
+$newDataJson = json_encode($newData);
+echo $newDataJson;
