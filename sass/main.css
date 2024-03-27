@@ -1737,6 +1737,11 @@ emoji-picker {
   width: 2rem;
 }
 
+.roles, .channels {
+  display: flex;
+  flex-direction: row;
+}
+
 /* ----- Global -----*/
 ::-moz-selection {
   background-color: #57cc99;

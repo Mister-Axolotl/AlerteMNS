@@ -1,3 +1,4 @@
+// INDEX
 .admin-content {
     background-color: $bleu-fonce;
     color: $blanc;
@@ -34,4 +35,10 @@
             width: 2rem;
         }
     }
+}
+
+// FORM
+.roles, .channels {
+	display: flex;
+	flex-direction: row;
 }

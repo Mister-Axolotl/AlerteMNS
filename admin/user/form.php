@@ -5,12 +5,19 @@ $user_lastname = "";
 $user_firstname = "";
 $user_email = "";
 $user_roles = "";
-$roles = [];
+$user_channels = "";
+$roles = "";
+$channels = "";
 
 if (isset ($_GET['id']) && $_GET['id'] > 0) {
-    $sql = "SELECT table_user.*, GROUP_CONCAT(table_role.role_name) AS user_roles FROM table_user_role
+    $sql = "SELECT table_user.*,
+	GROUP_CONCAT(table_role.role_name) AS user_roles,
+	GROUP_CONCAT(DISTINCT table_channel.channel_name) AS user_channels
+	FROM table_user_role
 	RIGHT JOIN table_user ON table_user_role.user_role_user_id = table_user.user_id
-	INNER JOIN table_role ON table_user_role.user_role_role_id = table_role.role_id
+	LEFT JOIN table_user_channel ON table_user_channel.user_channel_user_id = table_user.user_id
+	LEFT JOIN table_channel ON table_channel.channel_id = table_user_channel.user_channel_channel_id
+	LEFT JOIN table_role ON table_user_role.user_role_role_id = table_role.role_id
 	WHERE user_id = :id";
     $stmt = $db->prepare($sql);
     $stmt->execute([":id" => $_GET['id']]);
@@ -20,13 +27,22 @@ if (isset ($_GET['id']) && $_GET['id'] > 0) {
         $user_firstname = $row["user_firstname"];
         $user_email = $row["user_email"];
         $user_roles = $row['user_roles'];
+        $user_channels = $row['user_channels'];
     }
 }
 
+// ROLES
 $sql = "SELECT role_id, role_name FROM table_role";
 $stmt = $db->prepare($sql);
 $stmt->execute();
 $roles = $stmt->fetchAll();
+
+// CHANNELS
+$sql = "SELECT channel_id, channel_name FROM table_channel";
+$stmt = $db->prepare($sql);
+$stmt->execute();
+$channels = $stmt->fetchAll();
+
 ?>
 
 <!DOCTYPE html>
@@ -63,7 +79,7 @@ $roles = $stmt->fetchAll();
                 <input required type="email" name="user_email" id="user_email"
                     placeholder="Entrez l'email de l'utilisateur" value="<?= $user_email; ?>">
             </div>
-            <div>
+            <div class="roles">
                 <?php
                 foreach ($roles as $role) {
                     if (str_contains($user_roles, $role['role_name'])) {
@@ -84,6 +100,33 @@ $roles = $stmt->fetchAll();
                             </label>
                             <input type="checkbox" id="<?= $role['role_name'] ?>" name="<?= $role['role_name'] ?>"
                                 value="<?= $role['role_id'] ?>">
+                        </div>
+                        <?php
+                    }
+                }
+                ?>
+            </div>
+			<div class="channels">
+                <?php
+                foreach ($channels as $channel) {
+                    if (str_contains($user_channels, $channel['channel_name'])) {
+                        ?>
+                        <div class="form-field">
+                            <label for="<?= $channel['channel_name'] ?>">
+                                <?= $channel['channel_name'] ?>
+                            </label>
+                            <input type="checkbox" id="<?= $channel['channel_name'] ?>" name="<?= $channel['channel_name'] ?>"
+                                value="<?= $channel['channel_id'] ?>" checked>
+                        </div>
+                        <?php
+                    } else {
+                        ?>
+                        <div class="form-field">
+                            <label for="<?= $channel['channel_name'] ?>">
+                                <?= $channel['channel_name'] ?>
+                            </label>
+                            <input type="checkbox" id="<?= $channel['channel_name'] ?>" name="<?= $channel['channel_name'] ?>"
+                                value="<?= $channel['channel_id'] ?>">
                         </div>
                         <?php
                     }

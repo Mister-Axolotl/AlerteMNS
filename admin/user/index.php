@@ -1,9 +1,14 @@
 <?php require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/connect.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/protect.php";
 
-$sql = "SELECT table_user.*, GROUP_CONCAT(table_role.role_name) AS user_roles FROM table_user_role
+$sql = "SELECT table_user.*,
+		GROUP_CONCAT(table_role.role_name) AS user_roles,
+		GROUP_CONCAT(DISTINCT table_channel.channel_name) AS user_channels
+		FROM table_user_role
 		RIGHT JOIN table_user ON table_user_role.user_role_user_id = table_user.user_id
-		INNER JOIN table_role ON table_user_role.user_role_role_id = table_role.role_id
+		LEFT JOIN table_user_channel ON table_user_channel.user_channel_user_id = table_user.user_id
+		LEFT JOIN table_channel ON table_channel.channel_id = table_user_channel.user_channel_channel_id
+		LEFT JOIN table_role ON table_user_role.user_role_role_id = table_role.role_id
 		GROUP BY table_user.user_id";
 $stmt = $db->prepare($sql);
 $stmt->execute();
@@ -42,6 +47,8 @@ $recordset = $stmt->fetchAll();
                 <th scope="col">Prénom</th>
                 <th scope="col">Email</th>
                 <th scope="col">Création</th>
+                <th scope="col">Rôles</th>
+                <th scope="col">Canaux</th>
                 <th scope="col">Supprimer</th>
                 <th scope="col">Modifier</th>
             </tr>
@@ -63,6 +70,10 @@ $recordset = $stmt->fetchAll();
                     <td>
                         <?= $row["user_creation_date"]; ?>
                     </td>
+					<!-- Liste déroulante des rôles s'il l'utilisateur en a -->
+					<?php
+					if (isset($row['user_roles'])) {
+					?>
                     <td>
                         <select name="roles">
                             <?php
@@ -76,6 +87,37 @@ $recordset = $stmt->fetchAll();
                             ?>
                         </select>
                     </td>
+					<?php
+					} else {
+					?>
+					<td>Aucun</td>
+					<?php
+					}
+					?>
+					<!-- Liste déroulante des canaux auxquels l'utilisateur a accé (s'il en a) -->
+					<?php
+					if (isset($row['user_channels'])) {
+					?>
+                    <td>
+                        <select name="channels">
+                            <?php
+                            foreach (explode(',', $row['user_channels']) as $channel) {
+                                ?>
+                                <option value="<?= $channel ?>">
+                                    <?= $channel ?>
+                                </option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                    </td>
+					<?php
+					} else {
+					?>
+					<td>Aucun</td>
+					<?php
+					}
+					?>
                     <td>
                         <a href="delete.php?id=<?= $row["user_id"]; ?>" title="Supprimer le rôle" class="temp">
                             <img src="../../images/parameters/bin.png" alt="poubelle" title="supprimer l'utilisateur">
