@@ -1,4 +1,4 @@
-import { openCloseMenu, ifOpenMenu, startParticleAnimation, renderMessages, broadcastMessage, getUserId, getChannels, renderChannels, getActualChannelId } from "./functions.js";
+import { openCloseMenu, ifOpenMenu, startParticleAnimation, renderMessages, broadcastMessage, getUserId, getChannels, renderChannels, getActualChannelId, getMembers, renderMembers } from "./functions.js";
 import fr from "./fr.js";
 const newMessageEvent = new Event('newMessage');
 
@@ -102,7 +102,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	searchIcon.addEventListener('click', () => {
 		isUserSearching = !isUserSearching;
 		let viewportWidth = window.innerWidth;
-		console.log(isUserSearching);
 		if (isMenuChannelOpen || isMembersChannelOpen) {
 			searchBarPhone.style.display = 'none';
 			isUserSearching = !isUserSearching;
@@ -146,6 +145,85 @@ document.addEventListener('DOMContentLoaded', function () {
 		header.style.flexDirection = headerFlexDirection;
 	}
 
+	/* ==================== MENU CHANNELS USER ==================== */
+	const parametersUserName = document.querySelector('#parameters-name');
+	const parametersUserRole = document.querySelector('#parameters-role');
+	const parametersUserPicture = document.querySelector('#parameters-user-profil');
+	const adminLinkDiv = document.querySelector('#admin-link');
+	const channelsDiv = leftContainer.querySelector('.channels');
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", "/public/scripts/getUserRoleAndName.php");
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xhr.send();
+	xhr.onreadystatechange = function () {
+		if (xhr.readyState === XMLHttpRequest.DONE) {
+			if (xhr.status === 200) {
+				const userRoleAndName = JSON.parse(xhr.responseText);
+				const userPicture = userRoleAndName.user_picture;
+				const userRoles = userRoleAndName.user_roles.split(",");
+				parametersUserName.textContent = `${userRoleAndName.user_firstname} ${userRoleAndName.user_lastname}`;
+				parametersUserName.title = `${userRoleAndName.user_firstname} ${userRoleAndName.user_lastname}`;
+				parametersUserRole.textContent = userRoles[0];
+				parametersUserRole.title = userRoles;
+
+				// Display profile picture if there is one otherwise default picture
+				if (userPicture != "") {
+					parametersUserPicture.src = `/upload/${userPicture}`;
+				} else {
+					parametersUserPicture.src = "/images/parameters/user.png";
+				}
+
+				// Display roles
+				if (userRoles[0] == "administrateur") {
+					channelMenuAdmin();
+				}
+				
+				for (let i = 1; i < userRoles.length; i++) {
+					parametersUserRole.textContent += `, ${userRoles[i]}`;
+					
+					if (userRoles[i] == "administrateur") {
+						channelMenuAdmin();
+					}
+					
+				}
+			}
+		}
+	}
+
+	function channelMenuAdmin() {
+		// Admin button
+		adminLinkDiv.style.display = "block";
+		const adminButtonLink = adminLinkDiv.querySelector('a');
+		const adminButtonText = adminLinkDiv.querySelector('p');
+		adminButtonLink.style.justifyContent = "center";
+		
+		// Calendar & parameters buttons
+		const calendarParamDiv = document.querySelector('.calendar-parameters');
+		
+		if (window.innerWidth < 768) {
+			channelsDiv.style.height = '80%';
+			adminButtonText.style.width = "fit-content";
+			calendarParamDiv.style.marginBottom = "4rem";
+		} else if (window.innerHeight < 500) {
+			channelsDiv.style.height = '60%';
+			adminButtonText.style.width = "75%";
+			calendarParamDiv.style.marginBottom = "1rem";
+		} else {
+			channelsDiv.style.height = '70%';
+		}
+	}
+
+	/* ==================== GET/DISPLAY MEMBERS ==================== */
+	function members() {
+		getMembers().then(members => {
+			renderMembers(members); // Rendre les canaux dans le DOM
+			setupUserInfos(); // Attacher l'événement de clic une fois que les membres sont rendus
+		}).catch(error => {
+			console.error(error);
+		});
+	}
+
 	/* ==================== MENU MEMBERS OPENING ==================== */
 
 	const channelNameHeader = document.querySelector('#channel-name');
@@ -162,10 +240,12 @@ document.addEventListener('DOMContentLoaded', function () {
 				channelMemberContainer.style.display = 'none';
 			} else {
 				channelMemberContainer.style.display = 'block';
+				members();
 			}
 		} else {
 			if (!isMenuChannelOpen && !isMembersChannelOpen) {
 				menuOpenClose('none', 'none', 'block', 'none', 'column');
+				members();
 			} else if (!isMenuChannelOpen && isMembersChannelOpen) {
 				menuOpenClose('none', 'block', 'none', 'none', 'column');
 			}
@@ -181,44 +261,79 @@ document.addEventListener('DOMContentLoaded', function () {
 	function setupUserInfos() {
 		const userInfos = document.querySelector('#user-infos');
 		const userInfosHeader = document.querySelector('.user-infos-header');
-		const pictures = document.querySelectorAll('.user-profile-picture')
+		const pictures = document.querySelectorAll('.user-profile-picture');
 
 		pictures.forEach(picture => {
 			picture.addEventListener('click', (event) => {
-				if (userInfos.style.display === "block") {
-					userInfos.style.display = "none";
+				userInfos.style.display = "none";
+				var userId;
+				// Member
+				if (picture.hasChildNodes()) {
+					userId = picture.querySelector('img').getAttribute('data-user-id');
 				} else {
-					const userId = picture.getAttribute('data-user-id');
-					var xhr = new XMLHttpRequest();
-					xhr.open("POST", "/public/scripts/getUserInformations.php");
-					xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-					xhr.onreadystatechange = function () {
-						if (xhr.readyState === XMLHttpRequest.DONE) {
-							if (xhr.status === 200) {
-								const userInfos = JSON.parse(xhr.responseText);
-								const userFirstname = userInfos.user_firstname;
-								const userLastname = userInfos.user_lastname;
-								const userPicture = userInfos.user_picture;
-
-								const userInfosHeader = document.querySelector('.user-infos-header');
-
-								const imgElement = userInfosHeader.querySelector('img');
-								const spanElement = userInfosHeader.querySelector('span');
-
-								if (userPicture != null) {
-									imgElement.src = userPicture;
-								}
-
-								spanElement.textContent = `${userFirstname} ${userLastname}`;
-							} else {
-								console.error("Erreur lors de la session channel ID");
-							}
-						}
-					};
-					xhr.send("userId=" + userId);
-
-					userInfos.style.display = "block";
+					// Message
+					userId = picture.getAttribute('data-user-id');
 				}
+				var xhr = new XMLHttpRequest();
+				xhr.open("POST", "/public/scripts/getUserInformations.php");
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.onreadystatechange = function () {
+					if (xhr.readyState === XMLHttpRequest.DONE) {
+						if (xhr.status === 200) {
+							const userInfos = JSON.parse(xhr.responseText);
+							const userFirstname = userInfos.user_firstname;
+							const userLastname = userInfos.user_lastname;
+							const userPicture = userInfos.user_picture;
+							const userBadgeRole = userInfos.roles_badge.split(",");
+							const userRoleName = userInfos.roles_name.split(",");
+							
+							const imgElement = userInfosHeader.querySelector('img');
+							const spanElement = userInfosHeader.querySelector('span');
+							
+							const userInfosRoles = document.querySelector('.user-infos-roles');
+
+							if (userPicture != "") {
+								imgElement.src = userPicture;
+							} else {
+								imgElement.src = "/images/profile-user.png";
+							}
+							
+							// User lastname and firstname
+							spanElement.textContent = `${userFirstname} ${userLastname}`;
+							
+							// User roles
+							// delete all roles before displaying user's role(s)
+							while (userInfosRoles.hasChildNodes()) {
+								userInfosRoles.removeChild(userInfosRoles.lastChild);
+							}
+
+							// display user's roles
+							for (let i = 0; i < userRoleName.length; i++) {
+								const divRole = document.createElement('div');
+								divRole.classList.add('role');
+								
+								const imgRoleBadge = document.createElement('img');
+								imgRoleBadge.classList.add('role-badge');
+								imgRoleBadge.src = `/images/Badges/${userBadgeRole[i]}`;
+								imgRoleBadge.alt = userRoleName[i] + 'badge';
+								divRole.appendChild(imgRoleBadge);
+
+								const spanRoleName = document.createElement('span');
+								spanRoleName.textContent = userRoleName[i];
+								divRole.appendChild(spanRoleName);
+
+								userInfosRoles.appendChild(divRole);
+							}
+
+						} else {
+							console.error("Erreur lors de la session channel ID");
+						}
+					}
+				};
+				xhr.send("userId=" + userId);
+
+				userInfos.style.display = "block";
+				
 				event.stopPropagation();
 			});
 		});
@@ -322,6 +437,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			menuOpenClose('none', 'block', 'none', 'none', 'column');
 		}
 
+		channelMenuAdmin();
 		isMenuChannelOpen = false;
 		isMembersChannelOpen = false;
 	});
@@ -400,7 +516,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		const channels = document.querySelectorAll('.channel');
 		const channelName = document.querySelector('#channel-name');
 
-
 		channels.forEach(channel => {
 			channel.addEventListener('click', event => {
 				const clickedChannel = event.currentTarget;
@@ -461,6 +576,11 @@ document.addEventListener('DOMContentLoaded', function () {
 					}
 				};
 				xhr2.send("channelId=" + encodeURIComponent(channelId));
+
+				// récupérer tous les membres du channel si celui-ci est ouvert
+				if (isMembersChannelOpen) {
+					members();
+				}
 			});
 		});
 	}

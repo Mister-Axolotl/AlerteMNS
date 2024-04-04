@@ -190,6 +190,7 @@ export function renderChannels(channels) {
     channels.forEach(channel => {
         var channelDiv = document.createElement('div');
         channelDiv.classList.add('channel', 'public-channel');
+		channelDiv.title = channel.channel_name;
 
         // Ajouter un attribut de données avec l'ID du canal
         channelDiv.setAttribute('data-channel-id', channel.channel_id);
@@ -314,5 +315,74 @@ function sendMessage(userId, message) {
 export function broadcastMessage(usersIds, message) {
     usersIds.forEach(userId => {
         sendMessage(userId, message);
+    });
+}
+
+export function getMembers() {
+	return new Promise((resolve, reject) => {
+		var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+			if (xhr.readyState === XMLHttpRequest.DONE) {
+				if (xhr.status === 200) {
+					var members = JSON.parse(xhr.responseText);
+                    resolve(members); 
+                } else {
+                    reject("Erreur lors de la récupération des membres");
+                }
+            }
+        };
+        xhr.open("GET", "/public/scripts/getChannelMembers.php", true);
+        xhr.send();
+    });
+}
+
+export function renderMembers(members) {
+    var MembersContainer = document.querySelector('#members-container');
+
+	// Détruit tous les membres qui avaient déjà été affichés pour mettre les bons membres
+	while (MembersContainer.hasChildNodes()) {
+		MembersContainer.removeChild(MembersContainer.lastChild);
+	}
+
+    members.forEach(member => {
+        var memberDiv = document.createElement('div');
+        memberDiv.classList.add('channel', 'member-channel', 'user-profile-picture');
+		memberDiv.title = `${member.user_firstname} ${member.user_lastname}`;
+
+        // Créer un conteneur pour le point
+		// Pour l'instant hidden jusqu'à ce qu'on implémente la fonctionnalité qui regarde si un utilisateur est connecté ou pas
+        var dotContainer = document.createElement('div');
+        dotContainer.classList.add('dot-container');
+		dotContainer.style.display = 'none';
+        var dot = document.createElement('span');
+        dot.classList.add('dot');
+        dotContainer.appendChild(dot);
+		
+		// Créer une balise img pour la photo de profil
+		const userPicture = member.user_picture;
+		var userImg = document.createElement('img');
+		if (userPicture != "") {
+			userImg.src = '/upload' + member.user_picture;
+		} else {
+			userImg.src = "/images/profile-user.png";
+			userImg.style.filter = "invert(1)";
+		}
+        userImg.alt = `photo de profil ${member.user_firstname} ${member.user_lastname}`;
+		
+		// Ajouter un attribut de données avec l'ID du membre
+		userImg.setAttribute('data-user-id', member.user_id);
+		
+        // Créer une balise span pour le nom/prénom du membre
+        var nameSpan = document.createElement('span');
+        nameSpan.classList.add('name');
+        nameSpan.textContent = `${member.user_firstname} ${member.user_lastname}`;
+
+        // Ajouter les éléments au membre
+        memberDiv.appendChild(dotContainer);
+        memberDiv.appendChild(userImg);
+        memberDiv.appendChild(nameSpan);
+
+        // Ajouter le membre au conteneur des membres
+        MembersContainer.appendChild(memberDiv);
     });
 }

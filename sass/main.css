@@ -851,52 +851,42 @@ button {
     height: 75%;
   }
 }
-.left-container .admin-div {
-  width: 25%;
+.left-container #admin-link {
+  display: none;
+}
+.left-container #admin-link .admin-div {
+  width: 100%;
   font-size: 1.2rem;
   background-color: #38a3a5;
   text-align: left;
   border: none;
-  padding: 0;
+  padding: 2px 0;
 }
-@media screen and (min-width: 768px) {
-  .left-container .admin-div {
-    height: 35%;
-    min-height: 2.5rem;
-    width: 100%;
-  }
-}
-.left-container .admin-div:hover {
+.left-container #admin-link .admin-div:hover {
   cursor: pointer;
   background-color: #57cc99;
 }
-.left-container .admin-div a {
+.left-container #admin-link .admin-div a {
   display: flex;
   justify-content: space-around;
   align-items: center;
   color: #3f3f3f;
 }
-.left-container .admin-div a div {
+.left-container #admin-link .admin-div a div {
   text-align: center;
 }
 @media screen and (min-width: 768px) {
-  .left-container .admin-div a div {
+  .left-container #admin-link .admin-div a div {
     width: 25%;
   }
 }
-.left-container .admin-div a div img {
+.left-container #admin-link .admin-div a div img {
   filter: invert(1);
 }
-.left-container .admin-div a p {
+.left-container #admin-link .admin-div a p {
   width: 75%;
-  display: none;
 }
-@media screen and (min-width: 768px) {
-  .left-container .admin-div a p {
-    display: block;
-  }
-}
-.left-container .admin-div a:visited {
+.left-container #admin-link .admin-div a:visited {
   color: #3f3f3f;
 }
 .left-container .calendar-parameters {
@@ -1336,6 +1326,16 @@ emoji-picker {
     /* Firefox */
   }
 }
+@media screen and (min-width: 768px) {
+  .user-infos {
+    left: 65%;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .user-infos {
+    left: 60%;
+  }
+}
 .user-infos .user-infos-header {
   display: flex;
   align-items: center;
@@ -1381,7 +1381,7 @@ emoji-picker {
   margin-bottom: 10px;
 }
 .user-infos .user-infos-roles .role .role-badge {
-  width: 1.5rem;
+  width: 1.7rem;
   margin-right: 5px;
 }
 .user-infos .user-infos-roles .role span {
@@ -1737,7 +1737,7 @@ emoji-picker {
   width: 2rem;
 }
 
-.roles, .channels {
+.roles, .form-channels {
   display: flex;
   flex-direction: row;
 }

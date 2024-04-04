@@ -106,7 +106,7 @@ $channels = $stmt->fetchAll();
                 }
                 ?>
             </div>
-			<div class="channels">
+			<div class="form-channels">
                 <?php
                 foreach ($channels as $channel) {
                     if (str_contains($user_channels, $channel['channel_name'])) {

@@ -3,11 +3,15 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/connect.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/protect.php";
 
 if (isset ($_POST['userId'])) {
-    $user_id = $_POST['userId'];
-
-    $sql = "SELECT user_firstname, user_lastname, user_picture FROM table_user WHERE user_id= :id";
+	$sql = "SELECT user_firstname, user_lastname, user_picture,
+			GROUP_CONCAT(role_badge) AS roles_badge,
+			GROUP_CONCAT(role_name) AS roles_name
+			FROM table_user
+			INNER JOIN table_user_role ON table_user.user_id = table_user_role.user_role_user_id
+			INNER JOIN table_role ON table_user_role.user_role_role_id = table_role.role_id
+			WHERE user_id = :id";
     $stmt = $db->prepare($sql);
-    $stmt->execute([":id" => $user_id]);
+    $stmt->execute([":id" => $_POST['userId']]);
 
     $user_info = $stmt->fetch(PDO::FETCH_ASSOC);
 

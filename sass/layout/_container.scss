@@ -63,54 +63,47 @@
 		}
 	}
 
-	.admin-div {
-		width: 25%;
-		font-size: 1.2rem;
-		background-color: $bleu-turquoise;
-		text-align: left;
-		border: none;
-		padding: 0;
+	#admin-link {
+		display: none;
 
-		@media screen and (min-width: 768px) {
-			height: 35%;
-			min-height: 2.5rem;
+		.admin-div {
 			width: 100%;
-		}
-
-		&:hover {
-			cursor: pointer;
-			background-color: $vert;
-		}
-
-		a {
-			display: flex;
-			justify-content: space-around;
-			align-items: center;
-			color: $gris-fonce;
-
-			div {
-				text-align: center;
-
-				@media screen and (min-width: 768px) {
-					width: 25%;
-				}
-
-				img {
-					filter: invert(1);
-				}
+			font-size: 1.2rem;
+			background-color: $bleu-turquoise;
+			text-align: left;
+			border: none;
+			padding: 2px 0;
+	
+			&:hover {
+				cursor: pointer;
+				background-color: $vert;
 			}
-
-			p {
-				width: 75%;
-				display: none;
-
-				@media screen and (min-width: 768px) {
-					display: block;
-				}
-			}
-
-			&:visited {
+	
+			a {
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
 				color: $gris-fonce;
+	
+				div {
+					text-align: center;
+	
+					@media screen and (min-width: 768px) {
+						width: 25%;
+					}
+	
+					img {
+						filter: invert(1);
+					}
+				}
+	
+				p {
+					width: 75%;
+				}
+	
+				&:visited {
+					color: $gris-fonce;
+				}
 			}
 		}
 	}
