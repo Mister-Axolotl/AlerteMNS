@@ -100,11 +100,11 @@ if (isset ($_POST['user_id']) && $_POST['user_id'] > 0) {
 }
 
 if (isset ($_POST['user_lastname'])) {
-    $stmt->bindParam(':lastname', $_POST['user_lastname']);
+    $stmt->bindParam(':lastname', strtoupper($_POST['user_lastname']));
 }
 
 if (isset ($_POST['user_firstname'])) {
-    $stmt->bindParam(':firstname', $_POST['user_firstname']);
+    $stmt->bindParam(':firstname', ucfirst($_POST['user_firstname']));
 }
 
 if (isset ($_POST['user_email'])) {

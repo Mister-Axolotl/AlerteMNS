@@ -1,6 +1,5 @@
 .my-account {
 	font-size: 1.2rem;
-	display: none;
 
 	@media screen and (min-width: 768px) {
 		font-size: 1.4rem;
@@ -31,13 +30,27 @@
 
 		.picture-container {
 			height: 100%;
+			width: max-content;
 			padding: .8rem 1.3rem;
 			margin-right: 1rem;
 			background-color: $blanc;
 			border-radius: 10px;
 
 			img {
-				width: 3.7rem;
+				height: 3.7rem;
+			}
+		}
+
+		#submit-picture {
+			display: none;
+
+			label, input {
+				display: none;
+			}
+			
+			button {
+				padding: .5rem 5px;
+				font-size: 16px;
 			}
 		}
 

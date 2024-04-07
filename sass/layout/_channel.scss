@@ -6,6 +6,7 @@
 	align-items: center;
 	margin: 15px 0 15px 40px;
 	cursor: pointer;
+	text-transform: capitalize;
 
 	&:hover {
 		background-color: rgba($gris-clair, .5);

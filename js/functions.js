@@ -254,9 +254,15 @@ export function renderMessages(messages, userId) {
         messageDiv.classList.add('scroll-section');
 
         const profilePictureImg = document.createElement('img');
-        profilePictureImg.src = './images/profile-user.png';
-        profilePictureImg.classList.add('user-profile-picture');
-        profilePictureImg.alt = 'Image de profil utilisateur';
+		const userPicture = message.user_picture;
+		if (userPicture != "") {
+			profilePictureImg.src = '/upload/sm_' + message.user_picture;
+		} else {
+			profilePictureImg.src = "/images/profile-user.png";
+			profilePictureImg.style.filter = "invert(1)";
+		}
+        profilePictureImg.alt = `photo de profil ${message.user_firstname} ${message.user_lastname}`;
+		profilePictureImg.classList.add('user-profile-picture');
         profilePictureImg.setAttribute('data-user-id', message.message_user_id);
 
         const messageContentDiv = document.createElement('div');
@@ -362,7 +368,7 @@ export function renderMembers(members) {
 		const userPicture = member.user_picture;
 		var userImg = document.createElement('img');
 		if (userPicture != "") {
-			userImg.src = '/upload' + member.user_picture;
+			userImg.src = '/upload/sm_' + member.user_picture;
 		} else {
 			userImg.src = "/images/profile-user.png";
 			userImg.style.filter = "invert(1)";
@@ -385,4 +391,18 @@ export function renderMembers(members) {
         // Ajouter le membre au conteneur des membres
         MembersContainer.appendChild(memberDiv);
     });
+}
+
+export function getUserRoleAndName() {
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", "/public/scripts/getUserRoleAndName.php");
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xhr.send();
+	xhr.onreadystatechange = function () {
+		if (xhr.readyState === XMLHttpRequest.DONE) {
+			if (xhr.status === 200) {
+				return JSON.parse(xhr.responseText);
+			}
+		}
+	}
 }

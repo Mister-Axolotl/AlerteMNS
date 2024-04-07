@@ -181,10 +181,6 @@
 
 			.left {
 				width: 25%;
-
-				#parameters-user-profil {
-					filter: invert(1);
-				}
 			}
 
 			.center {
@@ -199,6 +195,7 @@
 
 					&#parameters-role {
 						font-size: smaller;
+						text-transform: capitalize;
 					}
 				}
 			}

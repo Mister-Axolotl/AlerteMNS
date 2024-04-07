@@ -32,29 +32,29 @@
 
 			<!-- CHANNELS -->
 			<div class="menu-parameters-channels channels">
-				<div class="channel parameter-channel active-channel">
+				<div class="channel parameter-channel active" title="Mon compte">
 					<img src="./images/parameters/user.png" alt="mon compte icône">
 					<span class="dash">–</span>
 					<span class="name">Mon compte</span>
 				</div>
-				<div class="channel parameter-channel">
+				<div class="channel parameter-channel" title="Un problème ?">
 					<img src="./images/parameters/warning.png" alt="danger icône">
 					<span class="dash">–</span>
 					<span class="name">Un problème ?</span>
 				</div>
 				<hr class="separator">
-				<div class="channel parameter-channel">
+				<div class="channel parameter-channel" title="FAQ">
 					<img src="./images/parameters/faq.png" alt="FAQ icône">
 					<span class="dash">–</span>
 					<span class="name">FAQ</span>
 				</div>
-				<div class="channel parameter-channel">
+				<div class="channel parameter-channel" title="Suggestions ?">
 					<img src="./images/parameters/question.png" alt="ampoule avec point d'interrogation icône">
 					<span class="dash">–</span>
 					<span class="name">Suggestions ?</span>
 				</div>
 				<hr class="separator">
-				<div class="channel parameter-channel">
+				<div class="channel parameter-channel" title="RGPD">
 					<img src="./images/parameters/RGPD.png" alt="bouclier icône">
 					<span class="dash">–</span>
 					<span class="name">RGPD</span>
@@ -83,18 +83,23 @@
 
 				<div class="profile-picture">
 					<div class="picture-container">
-						<img src="./images/profile-user.png" alt="photo de profil">
+						<img src="./images/profile-user.png" alt="photo de profil" class="user-profile-picture">
 					</div>
-					<button class="button-outline">
+					<button class="button-outline" id="modify-profile-picture">
 						Mofifier
 						<img src="./images/parameters/pen.png" alt="stylo icône">
 					</button>
+					<form id="submit-picture" action="./public/scripts/updateUserPicture.php" method="post" enctype="multipart/form-data">
+						<label for="user-picture">Modifier l'image de profil</label>
+						<input type="file" name="user_picture" id="user-picture">
+						<button type="submit" class="button-outline">Submit</button>
+					</form>
 				</div>
 
 				<form>
 					<div class="form-field">
 						<label for="email">Adresse email</label>
-						<input type="text" id="email" name="email">
+						<input type="text" id="email" name="email" readonly>
 					</div>
 
 					<div class="password-to-modify">
@@ -107,8 +112,7 @@
 							</div>
 						</div>
 						<button class="button-outline">
-							<label for="passwordModify" class="hide"></label>
-							<img src="./images/parameters/pen.png" alt="stylo icône" id="passwordModify">
+							<img src="./images/parameters/pen.png" alt="stylo icône">
 						</button>
 					</div>
 
@@ -128,16 +132,23 @@
 					</div>
 
 					<div class="form-field">
-						<label for="detail">Description du problème</label>
+						<label for="detail" id="description-label">Description</label>
 						<textarea required name="detail" id="detail" rows="15"></textarea>
 					</div>
 
 					<button type="submit" class="button-send button">Envoyer</button>
 				</form>
 			</div>
+
+			<!-- FAQ -->
+			<div class="faq"></div>
+
+			<!-- RGPD -->
+			<div class="rgpd"></div>
 		</div>
 	</div>
 </body>
+<script type="module" src="./js/main.js"></script>
 <script src="./js/password.js"></script>
 
 </html>
