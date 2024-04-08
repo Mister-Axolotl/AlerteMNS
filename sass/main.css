@@ -364,6 +364,10 @@ button {
   }
 }
 
+form .error-message {
+  color: red;
+}
+
 #body-connexion {
   min-height: 100vh;
   background: url("../images/background.jpg") no-repeat bottom/cover;
@@ -544,9 +548,6 @@ button {
     border-radius: 35px;
     font-size: 3rem;
   }
-}
-#body-connexion main form .error-message {
-  color: red;
 }
 
 #header {
@@ -1469,6 +1470,10 @@ emoji-picker {
   }
 }
 
+.private-channel,
+.member-channel {
+  padding: 5px;
+}
 .private-channel .dot-container,
 .member-channel .dot-container {
   width: 45px;
@@ -1690,16 +1695,17 @@ emoji-picker {
   padding: 0.5rem 5px;
   font-size: 16px;
 }
-.my-account .profile-picture button {
+.my-account .profile-picture button, .my-account #button-modify-password {
   height: 60%;
-  width: 8rem;
-  padding: 5px 5px;
+  width: -moz-max-content;
+  width: max-content;
+  padding: 5px 15px;
   font-size: 16px;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
 }
-.my-account .profile-picture button img {
+.my-account .profile-picture button img, .my-account #button-modify-password img {
   margin-left: 5px;
 }
 @media screen and (min-width: 1024px) {
@@ -1707,17 +1713,21 @@ emoji-picker {
     width: 50%;
   }
 }
-.my-account .password-to-modify {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+.my-account #modify-password {
+  display: none;
 }
-.my-account .password-to-modify button {
-  margin: 10px 0 0 10px;
+.my-account #modify-password .form-buttons button {
+  width: -moz-max-content;
+  width: max-content;
+  font-size: 16px;
+  padding: 5px 15px;
 }
-.my-account .password-to-modify button img {
-  margin: 5px auto 2px;
-  width: 1.4rem;
+.my-account #modify-password .form-buttons .button-send {
+  height: 5.2vh;
+  border-radius: 13px;
+}
+.my-account .error-message {
+  color: red;
 }
 
 .admin-content {

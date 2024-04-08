@@ -48,10 +48,7 @@ foreach ($roles as $role) {
 }
 
 if (!$hasARole) {
-    echo (
-        '<script>alert("Un utilisateur doit avoir minimum un rôle.")</script>
-		<a href="../user/index.php">Retourner sur la liste</a>'
-    );
+	showError("Un utilisateur doit avoir minimum un rôle.");
     exit();
 }
 
@@ -71,10 +68,7 @@ foreach ($channels as $channel) {
 }
 
 if (!$hasAChannel) {
-    echo (
-        '<script>alert("Un utilisateur doit avoir accès au minimum à un canal.")</script>
-		<a href="../user/index.php">Retourner sur la liste</a>'
-    );
+	showError("Un utilisateur doit avoir accès au minimum à un canal.");
     exit();
 }
 
@@ -86,6 +80,18 @@ if (isset ($_POST['user_id']) && $_POST['user_id'] > 0) {
 				user_email = :email
 			WHERE user_id=:id";
 } else {
+	$sqlEmails = "SELECT user_email FROM table_user";
+	$stmtEmails = $db->prepare($sqlEmails);
+	$stmtEmails->execute();
+	$emails = $stmtEmails->fetchAll();
+
+	foreach ($emails as $email) {
+		if ($email[0] == htmlspecialchars($_POST['user_email'])) {
+			showError('Identifiants déjà existants');
+			exit();
+		}
+	}
+
     $password = generatePassword();
     // TODO : Donner le mot de passe à l'administrateur
     $password_hash = password_hash($password, PASSWORD_DEFAULT);

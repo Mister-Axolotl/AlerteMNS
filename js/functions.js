@@ -392,17 +392,3 @@ export function renderMembers(members) {
         MembersContainer.appendChild(memberDiv);
     });
 }
-
-export function getUserRoleAndName() {
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", "/public/scripts/getUserRoleAndName.php");
-	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	xhr.send();
-	xhr.onreadystatechange = function () {
-		if (xhr.readyState === XMLHttpRequest.DONE) {
-			if (xhr.status === 200) {
-				return JSON.parse(xhr.responseText);
-			}
-		}
-	}
-}

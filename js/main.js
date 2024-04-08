@@ -118,7 +118,6 @@ document.addEventListener('DOMContentLoaded', function () {
 				isUserSearching = !isUserSearching;
 			} else if (isUserSearching && viewportWidth < 768) {
 				searchBarPhone.style.display = 'flex';
-				console.log('ok');
 			} else {
 				searchBarPhone.style.display = 'none';
 			}
@@ -609,13 +608,15 @@ document.addEventListener('DOMContentLoaded', function () {
 		const problemSuggestionDescription = document.querySelector('#description-label');
 		const channelToDivName = {'Mon compte': 'my-account', 'Un problème ?': 'problem-suggestion', 'FAQ': 'faq', 'Suggestions ?': 'problem-suggestion', 'RGPD': 'rgpd'};
 		let activeDivName = 'my-account';
+		let activeChannel = parameterChannels[0];
 	
 		parameterChannels.forEach(channel => {
 			channel.addEventListener('click', event => {
 				// The channel that was open should no longer be visible
 				let activeDiv = document.querySelector(`.${activeDivName}`);
 				activeDiv.style.display = 'none';
-
+				activeChannel.classList.remove('active');
+				
 				// Display content of the channel that was clicked and change title
 				activeDivName = channelToDivName[channel.title];
 				parameterTitle.textContent = channel.title;
@@ -625,9 +626,11 @@ document.addEventListener('DOMContentLoaded', function () {
 				} else if (channel.title === "Suggestions ?") {
 					problemSuggestionDescription.textContent = "Description de la suggestion";
 				}
-
+				
+				activeChannel = channel;
 				activeDiv = document.querySelector(`.${activeDivName}`);
 				activeDiv.style.display = 'block';
+				channel.classList.add('active');
 			});
 		});
 
@@ -648,8 +651,6 @@ document.addEventListener('DOMContentLoaded', function () {
 					accountDiv.querySelector('#email').value = userAccount.user_email;
 					const image = accountDiv.querySelector('.user-profile-picture');
 
-					console.log(userAccount);
-
 					if (userAccount.user_picture != "") {
 						image.src = `/upload/sm_${userAccount.user_picture}`;
 					} else {
@@ -668,6 +669,30 @@ document.addEventListener('DOMContentLoaded', function () {
 			inputPicture.click();
 			modifyPictureButton.style.display = 'none';
 			formPicture.style.display = 'block';
-		})
+		});
+
+		// CHANGE PASSWORD
+		const modifyPasswordButton = document.querySelector('#button-modify-password');
+		const cancelPasswordModify = document.querySelector('#cancel-password-change');
+		const passwordForm = document.querySelector('#modify-password');
+
+		// Display form to modify password on button-modify-password's click
+		modifyPasswordButton.addEventListener('click', () => {
+			displayFormPassword('none', 'block');
+		});
+		
+		// Hide form to modify password on cancel-password-change button's click and reset values to empty strings 
+		cancelPasswordModify.addEventListener('click', () => {
+			displayFormPassword('block', 'none');
+		});
+
+		function displayFormPassword(buttonDisplay, formDisplay) {
+			modifyPasswordButton.style.display = buttonDisplay;
+			passwordForm.style.display = formDisplay;
+
+			passwordForm.querySelectorAll('input').forEach(input => {
+				input.value = "";
+			})
+		}
 	}
 });

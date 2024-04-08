@@ -53,20 +53,20 @@
 				font-size: 16px;
 			}
 		}
+	}
 
-		button {
-			height: 60%;
-			width: 8rem;
-			padding: 5px 5px;
-			font-size: 16px;
+	.profile-picture button, #button-modify-password {
+		height: 60%;
+		width: max-content;
+		padding: 5px 15px;
+		font-size: 16px;
 
-			display: flex;
-			flex-direction: row;
-			justify-content: space-evenly;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-evenly;
 
-			img {
-				margin-left: 5px;
-			}
+		img {
+			margin-left: 5px;
 		}
 	}
 
@@ -76,18 +76,24 @@
 		}
 	}
 
-	.password-to-modify {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
+	#modify-password {
+		display: none;
 
-		button {
-			margin: 10px 0 0 10px;
-
-			img {
-				margin: 5px auto 2px;
-				width: 1.4rem;
+		.form-buttons {
+			button {
+				width: max-content;
+				font-size: 16px;
+				padding: 5px 15px;
 			}
-		} 
+			
+			.button-send {
+				height: 5.2vh;
+				border-radius: 13px;
+			}
+		}
+	}
+
+	.error-message {
+		color: red;
 	}
 }

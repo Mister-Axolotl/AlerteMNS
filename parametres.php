@@ -1,4 +1,40 @@
-<?php require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/protect.php"; ?>
+<?php
+require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/connect.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/protect.php";
+
+$user_id = $_SESSION['user_id'];
+$error = "";
+
+if (isset($_POST['actualPassword']) && $user_id > 0) {
+	
+	// vérifier si le nouveau mot de passe et sa confirmation sont les mêmes 
+	if (isset($_POST['password']) && isset($_POST['passwordVerification']) && $_POST['password'] != " ") {
+		if (htmlspecialchars($_POST['password']) == htmlspecialchars($_POST['passwordVerification'])) {
+
+			// vérifier si l'utilisateur a bien renseigné le bon mot de passe actuel
+			$sql = "SELECT user_password FROM table_user
+					WHERE user_id = $user_id";
+			$stmt = $db->prepare($sql);
+			$stmt->execute();
+			$row = $stmt->fetch();
+		
+			if (password_verify(htmlspecialchars($_POST['actualPassword']), $row["user_password"])) {
+				$sql = "UPDATE table_user
+						SET user_password = :password
+						WHERE user_id = $user_id";
+				$stmt = $db->prepare($sql);
+				$password = password_hash(htmlspecialchars($_POST['password']), PASSWORD_DEFAULT);
+				$stmt->bindParam(':password', $password);
+				$stmt->execute();
+			} else {
+				$error = "Mot de passe actuel incorrect.";
+			}
+		} else {
+			$error = "Le nouveau mot de passe et sa confirmation ne correspondent pas !";
+		}
+	}
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -89,36 +125,54 @@
 						Mofifier
 						<img src="./images/parameters/pen.png" alt="stylo icône">
 					</button>
-					<form id="submit-picture" action="./public/scripts/updateUserPicture.php" method="post" enctype="multipart/form-data">
+					<form id="submit-picture" action="parametres.php" method="post" enctype="multipart/form-data">
 						<label for="user-picture">Modifier l'image de profil</label>
 						<input type="file" name="user_picture" id="user-picture">
 						<button type="submit" class="button-outline">Submit</button>
 					</form>
 				</div>
 
-				<form>
+				<div class="form-field">
+					<label for="email">Adresse email</label>
+					<input type="text" id="email" name="email" readonly>
+				</div>
+
+				<button class="button-outline" id="button-modify-password">
+					<span>Modifier le mot de passe</span>
+					<img src="./images/parameters/pen.png" alt="stylo icône">
+				</button>
+
+				<!-- Message d'erreur mot de passe -->
+				<?php if ($error!="") {
+				?>
+				<div class="error-message"><?=$error?></div>
+				<?php
+				}
+				?>
+
+				<form id="modify-password" action="parametres.php" method="post">
 					<div class="form-field">
-						<label for="email">Adresse email</label>
-						<input type="text" id="email" name="email" readonly>
+						<label for="actual-password">Mot de passe actuel</label>
+						<input required type="text" id="actual-password" name="actualPassword">
 					</div>
 
-					<div class="password-to-modify">
-						<div class="form-field" id="input-password">
-							<label for="password">Mot de passe</label>
-							<input type="password" id="password" class="dots" name="password">
-							<div id="view-password">
-								<img id="eyeIcon" src="images/opened_eye.png" alt="eye icon (to see password)"
-									onclick="displayPassword()">
-							</div>
+					<div class="form-field" id="input-password">
+						<label for="password">Nouveau mot de passe</label>
+						<input required type="password" id="password" class="dots" name="password">
+						<div id="view-password">
+							<img id="eyeIcon" src="images/opened_eye.png" alt="eye icon (to see password)"
+								onclick="displayPassword()">
 						</div>
-						<button class="button-outline">
-							<img src="./images/parameters/pen.png" alt="stylo icône">
-						</button>
+					</div>
+					
+					<div class="form-field">
+						<label for="password-verification">Confirmer le nouveau mot de passe</label>
+						<input required type="password" id="password-verification" name="passwordVerification">
 					</div>
 
-					<div class="form-field">
-						<label for="password2">Verification</label>
-						<input type="text" id="password2" name="password2">
+					<div class="form-buttons">
+						<button type="button" class="button-outline" id="cancel-password-change">Annuler</button>
+						<button type="submit" class="button-send button">Enregistrer</button>
 					</div>
 				</form>
 			</div>
