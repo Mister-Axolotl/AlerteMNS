@@ -1,4 +1,4 @@
-import { openCloseMenu, ifOpenMenu, startParticleAnimation, renderMessages, broadcastMessage, getUserId, getChannels, renderChannels, getActualChannelId, getMembers, renderMembers } from "./functions.js";
+import { openCloseMenu, ifOpenMenu, startParticleAnimation, renderMessages, broadcastMessage, getUserId, getChannels, renderChannels, getActualChannelId, getMembers, renderMembers, removeChild } from "./functions.js";
 import fr from "./fr.js";
 const newMessageEvent = new Event('newMessage');
 
@@ -77,10 +77,12 @@ document.addEventListener('DOMContentLoaded', function () {
 	
 		publicConversation.addEventListener('click', () => {
 			toggleBackground('activePublic', 'activePrivate', priveeConversation, publicConversation);
+			getRenderClickChannel("public");
 		});
-	
+		
 		priveeConversation.addEventListener('click', () => {
 			toggleBackground('activePrivate', 'activePublic', publicConversation, priveeConversation);
+			getRenderClickChannel("private");
 		});
 	
 		function toggleBackground(addClass, removeClass, activeElement, inactiveElement) {
@@ -313,9 +315,7 @@ document.addEventListener('DOMContentLoaded', function () {
 								
 								// User roles
 								// delete all roles before displaying user's role(s)
-								while (userInfosRoles.hasChildNodes()) {
-									userInfosRoles.removeChild(userInfosRoles.lastChild);
-								}
+								removeChild(userInfosRoles);
 	
 								// display user's roles
 								for (let i = 0; i < userRoleName.length; i++) {
@@ -490,12 +490,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		/* ==================== CHANNELS ==================== */
 
-		getChannels().then(channels => {
-			renderChannels(channels); // Rendre les canaux dans le DOM
-			attachChannelClickEvent(channels); // Attacher l'événement de clic une fois que les canaux sont rendus
-		}).catch(error => {
-			console.error(error);
-		});
+		function getRenderClickChannel(type) {
+			getChannels(type).then(channels => {
+				renderChannels(channels); // Rendre les canaux dans le DOM
+				attachChannelClickEvent(channels); // Attacher l'événement de clic une fois que les canaux sont rendus
+			}).catch(error => {
+				console.error(error);
+			});
+		}
+
+		getRenderClickChannel("public");
 
 		//TODO Vérifier si l'utilisateur a la permission d'aller dans le channel car il peut modifier l'html
 

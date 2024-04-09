@@ -127,6 +127,14 @@ function getRandomColor(color) {
     return colors[randomIndex];
 }
 
+
+/* ==================== REMOVE ALL CHILD ==================== */
+export function removeChild(container) {
+	while (container.hasChildNodes()) {
+		container.removeChild(container.lastChild);
+	}
+}
+
 export async function getActualChannelId() {
     return new Promise((resolve, reject) => {
         var xhr = new XMLHttpRequest();
@@ -165,7 +173,7 @@ export async function getUserId() {
     });
 }
 
-export function getChannels() {
+export function getChannels(type) {
     return new Promise((resolve, reject) => {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
@@ -178,13 +186,18 @@ export function getChannels() {
                 }
             }
         };
-        xhr.open("GET", "/public/scripts/getChannels.php", true);
+		if (type == "public") {
+			xhr.open("GET", "/public/scripts/getPublicChannels.php", true);
+		} else if (type == "private") {
+			xhr.open("GET", "/public/scripts/getPrivateChannels.php", true);
+		}
         xhr.send();
     });
 }
 
 export function renderChannels(channels) {
     var channelsContainer = document.querySelector('.channels');
+	removeChild(channelsContainer);
     var count = 0; // Variable de comptage pour suivre le nombre de canaux ajoutés
 
     channels.forEach(channel => {
@@ -346,9 +359,7 @@ export function renderMembers(members) {
     var MembersContainer = document.querySelector('#members-container');
 
 	// Détruit tous les membres qui avaient déjà été affichés pour mettre les bons membres
-	while (MembersContainer.hasChildNodes()) {
-		MembersContainer.removeChild(MembersContainer.lastChild);
-	}
+	removeChild(MembersContainer);
 
     members.forEach(member => {
         var memberDiv = document.createElement('div');
