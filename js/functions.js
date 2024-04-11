@@ -127,6 +127,14 @@ function getRandomColor(color) {
     return colors[randomIndex];
 }
 
+
+/* ==================== REMOVE ALL CHILD ==================== */
+export function removeChild(container) {
+	while (container.hasChildNodes()) {
+		container.removeChild(container.lastChild);
+	}
+}
+
 export async function getActualChannelId() {
     return new Promise((resolve, reject) => {
         var xhr = new XMLHttpRequest();
@@ -165,7 +173,7 @@ export async function getUserId() {
     });
 }
 
-export function getChannels() {
+export function getChannels(type) {
     return new Promise((resolve, reject) => {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
@@ -178,18 +186,24 @@ export function getChannels() {
                 }
             }
         };
-        xhr.open("GET", "/public/scripts/getChannels.php", true);
+		if (type == "public") {
+			xhr.open("GET", "/public/scripts/getPublicChannels.php", true);
+		} else if (type == "private") {
+			xhr.open("GET", "/public/scripts/getPrivateChannels.php", true);
+		}
         xhr.send();
     });
 }
 
-export function renderChannels(channels) {
+export function renderPublicChannels(channels) {
     var channelsContainer = document.querySelector('.channels');
+	removeChild(channelsContainer);
     var count = 0; // Variable de comptage pour suivre le nombre de canaux ajoutés
 
     channels.forEach(channel => {
         var channelDiv = document.createElement('div');
-        channelDiv.classList.add('channel', 'public-channel');
+		channelDiv.classList.add('channel', 'public-channel');
+		channelDiv.title = channel.channel_name;
 
         // Ajouter un attribut de données avec l'ID du canal
         channelDiv.setAttribute('data-channel-id', channel.channel_id);
@@ -237,6 +251,59 @@ export function renderChannels(channels) {
     });
 }
 
+export function renderPrivateChannels(channels) {
+    var channelsContainer = document.querySelector('.channels');
+	removeChild(channelsContainer);
+
+    channels.forEach(channel => {
+		// Récupérer les informations des utilisateurs avec qui le compte a une discussion privée
+		const xhr = new XMLHttpRequest();
+		xhr.open("POST", "/public/scripts/getOtherUserInfo.php");
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState === XMLHttpRequest.DONE) {
+				if (xhr.status === 200) {
+					const otherUserInfo = JSON.parse(xhr.responseText);
+					
+					var channelDiv = document.createElement('div');
+					channelDiv.classList.add('channel', 'private-channel');
+					channelDiv.title = `${otherUserInfo.user_firstname} ${otherUserInfo.user_lastname}`;
+
+					// Ajouter un attribut de données avec l'ID du canal
+					channelDiv.setAttribute('data-channel-id', channel.channel_id);
+
+					// Créer une balise img pour l'icône
+					var iconImg = document.createElement('img');
+					var userPicture = otherUserInfo.user_picture;
+					if (userPicture != "") {
+						iconImg.src = '/upload/sm_' + userPicture;
+					} else {
+						iconImg.src = "/images/profile-user.png";
+						iconImg.style.filter = "invert(1)";
+					}
+					iconImg.alt = `${otherUserInfo.user_firstname} ${otherUserInfo.user_lastname}`;
+
+					// Créer une balise span pour le nom du canal
+					var nameSpan = document.createElement('span');
+					nameSpan.classList.add('name');
+					nameSpan.textContent = `${otherUserInfo.user_firstname} ${otherUserInfo.user_lastname}`;
+
+					// Ajouter les éléments au canal
+					channelDiv.appendChild(iconImg);
+					channelDiv.appendChild(nameSpan);
+
+					// Ajouter le canal au conteneur des canaux
+					channelsContainer.appendChild(channelDiv);
+
+				} else {
+					console.error("Erreur lors de la session channel ID");
+				}
+			}
+		};
+		xhr.send("channelName=" + channel.channel_name);
+    });
+}
+
 export function renderMessages(messages, userId) {
     const messageContainer = document.querySelector('.message-container');
     messageContainer.innerHTML = ''; // Effacer les anciens messages
@@ -253,9 +320,15 @@ export function renderMessages(messages, userId) {
         messageDiv.classList.add('scroll-section');
 
         const profilePictureImg = document.createElement('img');
-        profilePictureImg.src = './images/profile-user.png';
-        profilePictureImg.classList.add('user-profile-picture');
-        profilePictureImg.alt = 'Image de profil utilisateur';
+		const userPicture = message.user_picture;
+		if (userPicture != "") {
+			profilePictureImg.src = '/upload/sm_' + message.user_picture;
+		} else {
+			profilePictureImg.src = "/images/profile-user.png";
+			profilePictureImg.style.filter = "invert(1)";
+		}
+        profilePictureImg.alt = `photo de profil ${message.user_firstname} ${message.user_lastname}`;
+		profilePictureImg.classList.add('user-profile-picture');
         profilePictureImg.setAttribute('data-user-id', message.message_user_id);
 
         const messageContentDiv = document.createElement('div');
@@ -314,5 +387,72 @@ function sendMessage(userId, message) {
 export function broadcastMessage(usersIds, message) {
     usersIds.forEach(userId => {
         sendMessage(userId, message);
+    });
+}
+
+export function getMembers() {
+	return new Promise((resolve, reject) => {
+		var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+			if (xhr.readyState === XMLHttpRequest.DONE) {
+				if (xhr.status === 200) {
+					var members = JSON.parse(xhr.responseText);
+                    resolve(members); 
+                } else {
+                    reject("Erreur lors de la récupération des membres");
+                }
+            }
+        };
+        xhr.open("GET", "/public/scripts/getChannelMembers.php", true);
+        xhr.send();
+    });
+}
+
+export function renderMembers(members) {
+    var MembersContainer = document.querySelector('#members-container');
+
+	// Détruit tous les membres qui avaient déjà été affichés pour mettre les bons membres
+	removeChild(MembersContainer);
+
+    members.forEach(member => {
+        var memberDiv = document.createElement('div');
+        memberDiv.classList.add('channel', 'member-channel', 'user-profile-picture');
+		memberDiv.title = `${member.user_firstname} ${member.user_lastname}`;
+
+        // Créer un conteneur pour le point
+		// Pour l'instant hidden jusqu'à ce qu'on implémente la fonctionnalité qui regarde si un utilisateur est connecté ou pas
+        var dotContainer = document.createElement('div');
+        dotContainer.classList.add('dot-container');
+		dotContainer.style.display = 'none';
+        var dot = document.createElement('span');
+        dot.classList.add('dot');
+        dotContainer.appendChild(dot);
+		
+		// Créer une balise img pour la photo de profil
+		const userPicture = member.user_picture;
+		var userImg = document.createElement('img');
+		if (userPicture != "") {
+			userImg.src = '/upload/sm_' + member.user_picture;
+		} else {
+			userImg.src = "/images/profile-user.png";
+			userImg.style.filter = "invert(1)";
+		}
+        userImg.alt = `photo de profil ${member.user_firstname} ${member.user_lastname}`;
+		
+		// Ajouter un attribut de données avec l'ID du membre
+		userImg.setAttribute('data-user-id', member.user_id);
+		
+        // Créer une balise span pour le nom/prénom du membre
+        var nameSpan = document.createElement('span');
+        nameSpan.classList.add('name');
+        nameSpan.textContent = `${member.user_firstname} ${member.user_lastname}`;
+
+        // Ajouter les éléments au membre
+        memberDiv.appendChild(dotContainer);
+        memberDiv.appendChild(userImg);
+        memberDiv.appendChild(nameSpan);
+
+        // Ajouter le membre au conteneur des membres
+        MembersContainer.appendChild(memberDiv);
     });
 }

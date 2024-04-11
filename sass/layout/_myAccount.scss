@@ -1,6 +1,5 @@
 .my-account {
 	font-size: 1.2rem;
-	display: none;
 
 	@media screen and (min-width: 768px) {
 		font-size: 1.4rem;
@@ -31,29 +30,43 @@
 
 		.picture-container {
 			height: 100%;
+			width: max-content;
 			padding: .8rem 1.3rem;
 			margin-right: 1rem;
 			background-color: $blanc;
 			border-radius: 10px;
 
 			img {
-				width: 3.7rem;
+				height: 3.7rem;
 			}
 		}
 
-		button {
-			height: 60%;
-			width: 8rem;
-			padding: 5px 5px;
-			font-size: 16px;
+		#submit-picture {
+			display: none;
 
-			display: flex;
-			flex-direction: row;
-			justify-content: space-evenly;
-
-			img {
-				margin-left: 5px;
+			label, input {
+				display: none;
 			}
+			
+			button {
+				padding: .5rem 5px;
+				font-size: 16px;
+			}
+		}
+	}
+
+	.profile-picture button, #button-modify-password {
+		height: 60%;
+		width: max-content;
+		padding: 5px 15px;
+		font-size: 16px;
+
+		display: flex;
+		flex-direction: row;
+		justify-content: space-evenly;
+
+		img {
+			margin-left: 5px;
 		}
 	}
 
@@ -63,18 +76,24 @@
 		}
 	}
 
-	.password-to-modify {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
+	#modify-password {
+		display: none;
 
-		button {
-			margin: 10px 0 0 10px;
-
-			img {
-				margin: 5px auto 2px;
-				width: 1.4rem;
+		.form-buttons {
+			button {
+				width: max-content;
+				font-size: 16px;
+				padding: 5px 15px;
 			}
-		} 
+			
+			.button-send {
+				height: 5.2vh;
+				border-radius: 13px;
+			}
+		}
+	}
+
+	.error-message {
+		color: red;
 	}
 }

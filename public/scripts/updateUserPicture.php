@@ -1,5 +1,7 @@
-<?php require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/connect.php";
+<?php
+require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/connect.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/protect.php";
+
 $uploadPath = $_SERVER['DOCUMENT_ROOT'] . "/upload/";
 $prefix = "sm_";
 
@@ -23,84 +25,37 @@ function generateFileName($str, $ext, $uploadPath, $prefix)
     return $result;
 }
 
-function showError($error)
-{
-    ?>
-    <a href="index.php" title="Retour">Retour</a>
-    <br>
-    <br>
-    <h1>
-        <?= $error ?>
-    </h1>
-    <?php
-}
-
-if (!isset ($_POST['role_name'])) {
-    showError("Il faut passer par le formulaire pour aller sur cette page");
-    exit();
-}
-
-if (isset ($_POST['role_id']) && $_POST['role_id'] > 0) {
-    $sql = "UPDATE table_role 
-    SET role_name = :name
-    WHERE role_id=:id";
-} else {
-    $sql = "INSERT INTO table_role (role_name)
-    VALUES (:name)";
-}
-
-$stmt = $db->prepare($sql);
-
-if (isset ($_POST['role_id']) && $_POST['role_id'] > 0) {
-    $stmt->bindParam(':id', $_POST['role_id']);
-}
-
-if (isset ($_POST['role_name'])) {
-    $stmt->bindParam(':name', $_POST['role_name']);
-}
-
-$stmt->execute();
-
-if (isset ($_FILES['role_badge']) && $_FILES['role_badge']['name'] != "") {
+if (isset($_FILES['user_picture']) && $_FILES['user_picture']['name'] != "") {
 
     // Vérifier s'il y a une erreur
-    if ($_FILES['role_badge']['error'] != 0) {
-        showError("Erreur lors du transfert de l'image");
+    if ($_FILES['user_picture']['error'] != 0) {
+        echo("Erreur lors du transfert de l'image");
         exit();
-    }
-
-    $role_id = $db->lastInsertId();
-
-    $sql = "SELECT role_badge FROM table_role
-    WHERE role_id = :role_id";
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(":role_id", $_POST['role_id'] > 0 ? $_POST['role_id'] : $role_id);
-    $stmt->execute();
-
-    if ($row = $stmt->fetch()) {
-        if ($row['role_badge'] != "" && file_exists($uploadPath . $prefix . $row['role_badge'])) {
-            unlink($uploadPath . $prefix . $row['role_badge']);
-        }
     }
 
     // Renomme l'image
 
-    $extension = pathinfo($_FILES['role_badge']['name'], PATHINFO_EXTENSION);
-    $filename = generateFileName($_POST['role_name'], $extension, $uploadPath, $prefix);
+    $extension = pathinfo($_FILES['user_picture']['name'], PATHINFO_EXTENSION);
+    $filename = generateFileName($_SESSION['user_name'], $extension, $uploadPath, $prefix);
     move_uploaded_file(
-        $_FILES['role_badge']['tmp_name'],
+        $_FILES['user_picture']['tmp_name'],
         $uploadPath . $filename . "." . $extension
     );
 
     // Requête pour ajouter l'image dans la BDD
-
-    $sql = "UPDATE table_role SET role_badge=:role_badge 
-    WHERE role_id = :role_id";
+	// On récupère l'ancien nom de l'image pour la supprimer du dossier upload quand la nouvelle image aura été ajoutée au dossier
+    $sql = "SELECT user_picture FROM table_user
+			WHERE user_id = :user_id;
+			UPDATE table_user 
+			SET user_picture = :user_picture 
+    		WHERE user_id = :user_id";
 
     $stmt = $db->prepare($sql);
-    $stmt->bindValue(":role_badge", $filename . "." . $extension); // Value prend la valeur là où on la déclare Param prend en compte les modifications
-    $stmt->bindValue(":role_id", $_POST['role_id'] > 0 ? $_POST['role_id'] : $role_id);
+    $stmt->bindValue(":user_picture", $filename . "." . $extension); // Value prend la valeur là où on la déclare Param prend en compte les modifications
+    $stmt->bindValue(":user_id", $_SESSION['user_id']);
     $stmt->execute();
+
+	$oldFileName = $stmt->fetch();
 
     $filename = $filename . "." . $extension;
 
@@ -127,11 +82,11 @@ if (isset ($_FILES['role_badge']) && $_FILES['role_badge']['name'] != "") {
             default:
                 unlink($uploadPath . $filename);
                 showError("Format de fichier non autorisé");
-                $sql = "UPDATE table_role SET role_badge=null
-                WHERE role_id = :role_id";
+                $sql = "UPDATE table_user SET user_picture=null
+                WHERE user_id = :user_id";
 
                 $stmt = $db->prepare($sql);
-                $stmt->bindValue(":role_id", $_POST['role_id'] > 0 ? $_POST['role_id'] : $role_id);
+                $stmt->bindValue(":user_id", $_SESSION['user_id']);
                 $stmt->execute();
                 exit();
         }
@@ -211,9 +166,12 @@ if (isset ($_FILES['role_badge']) && $_FILES['role_badge']['name'] != "") {
         }
     }
 
-    // Suppression de l'image source
+    // Suppression de l'image source et l'ancienne image de profil
 
     unlink($uploadPath . $filename);
+	if ($oldFileName[0] != "" && file_exists($uploadPath . $prefix . $oldFileName[0])) {
+		unlink($uploadPath . $prefix . $oldFileName[0]);
+	}
 }
 
-header("Location:index.php");
+header("Location:/parametres.php");

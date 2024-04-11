@@ -11,7 +11,7 @@ if (isset ($_POST['login']) && isset ($_POST['password'])) {
             session_start();
             $_SESSION['user_connected'] = "ok";
             $_SESSION['user_id'] = $row["user_id"];
-            $_SESSION['user_name'] = $row["user_firstname"];
+            $_SESSION['user_name'] = $row["user_firstname"] . " " . $row["user_lastname"];
             $_SESSION['user_channel_active_id'] = 1;
 
             function storeUserInJson($userId)

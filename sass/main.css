@@ -323,7 +323,7 @@ button {
   }
 }
 .form-field .hide {
-  display: none;
+  visibility: hidden;
 }
 .form-field textarea {
   flex: 1;
@@ -362,6 +362,10 @@ button {
     padding: 5px 15px;
     font-size: 1.7rem;
   }
+}
+
+form .error-message {
+  color: red;
 }
 
 #body-connexion {
@@ -545,9 +549,6 @@ button {
     font-size: 3rem;
   }
 }
-#body-connexion main form .error-message {
-  color: red;
-}
 
 #header {
   width: 100%;
@@ -690,6 +691,7 @@ button {
   align-items: center;
   gap: 10px;
   font-size: 1.5rem;
+  text-transform: capitalize;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -851,52 +853,42 @@ button {
     height: 75%;
   }
 }
-.left-container .admin-div {
-  width: 25%;
+.left-container #admin-link {
+  display: none;
+}
+.left-container #admin-link .admin-div {
+  width: 100%;
   font-size: 1.2rem;
   background-color: #38a3a5;
   text-align: left;
   border: none;
-  padding: 0;
+  padding: 2px 0;
 }
-@media screen and (min-width: 768px) {
-  .left-container .admin-div {
-    height: 35%;
-    min-height: 2.5rem;
-    width: 100%;
-  }
-}
-.left-container .admin-div:hover {
+.left-container #admin-link .admin-div:hover {
   cursor: pointer;
   background-color: #57cc99;
 }
-.left-container .admin-div a {
+.left-container #admin-link .admin-div a {
   display: flex;
   justify-content: space-around;
   align-items: center;
   color: #3f3f3f;
 }
-.left-container .admin-div a div {
+.left-container #admin-link .admin-div a div {
   text-align: center;
 }
 @media screen and (min-width: 768px) {
-  .left-container .admin-div a div {
+  .left-container #admin-link .admin-div a div {
     width: 25%;
   }
 }
-.left-container .admin-div a div img {
+.left-container #admin-link .admin-div a div img {
   filter: invert(1);
 }
-.left-container .admin-div a p {
+.left-container #admin-link .admin-div a p {
   width: 75%;
-  display: none;
 }
-@media screen and (min-width: 768px) {
-  .left-container .admin-div a p {
-    display: block;
-  }
-}
-.left-container .admin-div a:visited {
+.left-container #admin-link .admin-div a:visited {
   color: #3f3f3f;
 }
 .left-container .calendar-parameters {
@@ -976,9 +968,6 @@ button {
 .left-container .calendar-parameters .parameters-div .left {
   width: 25%;
 }
-.left-container .calendar-parameters .parameters-div .left #parameters-user-profil {
-  filter: invert(1);
-}
 .left-container .calendar-parameters .parameters-div .center {
   width: 50%;
   text-align: left;
@@ -991,6 +980,7 @@ button {
 }
 .left-container .calendar-parameters .parameters-div .center p#parameters-role {
   font-size: smaller;
+  text-transform: capitalize;
 }
 .left-container .calendar-parameters .parameters-div .right {
   width: 25%;
@@ -1336,6 +1326,16 @@ emoji-picker {
     /* Firefox */
   }
 }
+@media screen and (min-width: 768px) {
+  .user-infos {
+    left: 65%;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .user-infos {
+    left: 60%;
+  }
+}
 .user-infos .user-infos-header {
   display: flex;
   align-items: center;
@@ -1343,7 +1343,6 @@ emoji-picker {
 }
 .user-infos .user-infos-header img {
   width: 3rem;
-  filter: invert(1);
 }
 .user-infos .user-infos-header span {
   font-size: 1.2rem;
@@ -1381,11 +1380,18 @@ emoji-picker {
   margin-bottom: 10px;
 }
 .user-infos .user-infos-roles .role .role-badge {
-  width: 1.5rem;
+  width: 1.7rem;
   margin-right: 5px;
 }
 .user-infos .user-infos-roles .role span {
   font-size: 1.1rem;
+}
+.user-infos #conversation-button {
+  width: 100%;
+  margin: 10px 0 0;
+  padding: 5px;
+  border-color: #c7f9cc;
+  color: #c7f9cc;
 }
 
 .channel {
@@ -1396,6 +1402,7 @@ emoji-picker {
   align-items: center;
   margin: 15px 0 15px 40px;
   cursor: pointer;
+  text-transform: capitalize;
 }
 .channel:hover {
   background-color: rgba(111, 111, 111, 0.5);
@@ -1470,6 +1477,10 @@ emoji-picker {
   }
 }
 
+.private-channel,
+.member-channel {
+  padding: 5px;
+}
 .private-channel .dot-container,
 .member-channel .dot-container {
   width: 45px;
@@ -1522,6 +1533,9 @@ emoji-picker {
 .parameters-content .channel-content h2 {
   padding: 9px 0;
   margin-bottom: 1rem;
+}
+.parameters-content .channel-content .problem-suggestion {
+  display: none;
 }
 .parameters-content .channel-content .problem-suggestion form {
   display: flex;
@@ -1635,7 +1649,6 @@ emoji-picker {
 
 .my-account {
   font-size: 1.2rem;
-  display: none;
 }
 @media screen and (min-width: 768px) {
   .my-account {
@@ -1669,24 +1682,37 @@ emoji-picker {
 }
 .my-account .profile-picture .picture-container {
   height: 100%;
+  width: -moz-max-content;
+  width: max-content;
   padding: 0.8rem 1.3rem;
   margin-right: 1rem;
   background-color: #fefefe;
   border-radius: 10px;
 }
 .my-account .profile-picture .picture-container img {
-  width: 3.7rem;
+  height: 3.7rem;
 }
-.my-account .profile-picture button {
+.my-account .profile-picture #submit-picture {
+  display: none;
+}
+.my-account .profile-picture #submit-picture label, .my-account .profile-picture #submit-picture input {
+  display: none;
+}
+.my-account .profile-picture #submit-picture button {
+  padding: 0.5rem 5px;
+  font-size: 16px;
+}
+.my-account .profile-picture button, .my-account #button-modify-password {
   height: 60%;
-  width: 8rem;
-  padding: 5px 5px;
+  width: -moz-max-content;
+  width: max-content;
+  padding: 5px 15px;
   font-size: 16px;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
 }
-.my-account .profile-picture button img {
+.my-account .profile-picture button img, .my-account #button-modify-password img {
   margin-left: 5px;
 }
 @media screen and (min-width: 1024px) {
@@ -1694,17 +1720,21 @@ emoji-picker {
     width: 50%;
   }
 }
-.my-account .password-to-modify {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+.my-account #modify-password {
+  display: none;
 }
-.my-account .password-to-modify button {
-  margin: 10px 0 0 10px;
+.my-account #modify-password .form-buttons button {
+  width: -moz-max-content;
+  width: max-content;
+  font-size: 16px;
+  padding: 5px 15px;
 }
-.my-account .password-to-modify button img {
-  margin: 5px auto 2px;
-  width: 1.4rem;
+.my-account #modify-password .form-buttons .button-send {
+  height: 5.2vh;
+  border-radius: 13px;
+}
+.my-account .error-message {
+  color: red;
 }
 
 .admin-content {
@@ -1735,6 +1765,11 @@ emoji-picker {
 }
 .admin-content .temp img {
   width: 2rem;
+}
+
+.roles, .form-channels {
+  display: flex;
+  flex-direction: row;
 }
 
 /* ----- Global -----*/

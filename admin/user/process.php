@@ -48,14 +48,31 @@ foreach ($roles as $role) {
 }
 
 if (!$hasARole) {
-    echo (
-        '<script>alert("Un utilisateur doit avoir minimum un rôle.")</script>
-		<a href="../user/index.php">Retourner sur la liste</a>'
-    );
+	showError("Un utilisateur doit avoir minimum un rôle.");
     exit();
 }
 
+// ON VERIFIE SI L'UTILISATEUR A ACCES A AU MOINS UN CANAL
+$sql = "SELECT channel_id, channel_name FROM table_channel";
+$stmt = $db->prepare($sql);
+$stmt->execute();
+$channels = $stmt->fetchAll();
 
+$hasAChannel = false;
+
+foreach ($channels as $channel) {
+    if (isset ($_POST[$channel['channel_name']])) {
+        $hasAChannel = true;
+        break;
+    }
+}
+
+if (!$hasAChannel) {
+	showError("Un utilisateur doit avoir accès au minimum à un canal.");
+    exit();
+}
+
+// UPDATE / CREATE USER
 if (isset ($_POST['user_id']) && $_POST['user_id'] > 0) {
     $sql = "UPDATE table_user 
 			SET user_lastname = :lastname,
@@ -63,6 +80,18 @@ if (isset ($_POST['user_id']) && $_POST['user_id'] > 0) {
 				user_email = :email
 			WHERE user_id=:id";
 } else {
+	$sqlEmails = "SELECT user_email FROM table_user";
+	$stmtEmails = $db->prepare($sqlEmails);
+	$stmtEmails->execute();
+	$emails = $stmtEmails->fetchAll();
+
+	foreach ($emails as $email) {
+		if ($email[0] == htmlspecialchars($_POST['user_email'])) {
+			showError('Identifiants déjà existants');
+			exit();
+		}
+	}
+
     $password = generatePassword();
     // TODO : Donner le mot de passe à l'administrateur
     $password_hash = password_hash($password, PASSWORD_DEFAULT);
@@ -77,11 +106,11 @@ if (isset ($_POST['user_id']) && $_POST['user_id'] > 0) {
 }
 
 if (isset ($_POST['user_lastname'])) {
-    $stmt->bindParam(':lastname', $_POST['user_lastname']);
+    $stmt->bindParam(':lastname', strtoupper($_POST['user_lastname']));
 }
 
 if (isset ($_POST['user_firstname'])) {
-    $stmt->bindParam(':firstname', $_POST['user_firstname']);
+    $stmt->bindParam(':firstname', ucfirst($_POST['user_firstname']));
 }
 
 if (isset ($_POST['user_email'])) {
@@ -95,8 +124,7 @@ if (isset ($_POST['user_id']) && $_POST['user_id'] > 0) {
     $user_id = $db->lastInsertId();
 }
 
-// ROLES
-
+// AJOUT ROLES-USER DANS LA BDD
 if (isset ($_POST['user_id']) && $_POST['user_id'] > 0) {
     $sql = "DELETE FROM table_user_role
 			WHERE user_role_user_id = :id";
@@ -112,6 +140,26 @@ foreach ($roles as $role) {
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':user_id', $user_id);
         $stmt->bindParam(':role_id', $role['role_id']);
+        $stmt->execute();
+    }
+}
+
+// AJOUT CHANNELS-USER DANS LA BDD
+if (isset ($_POST['user_id']) && $_POST['user_id'] > 0) {
+    $sql = "DELETE FROM table_user_channel
+			WHERE user_channel_user_id = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':id', $user_id);
+    $stmt->execute();
+}
+foreach ($channels as $channel) {
+    if (isset ($_POST[$channel['channel_name']])) {
+        $sql = "INSERT INTO table_user_channel (user_channel_user_id, user_channel_channel_id)
+		VALUES (:user_id, :channel_id)";
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':channel_id', $channel['channel_id']);
         $stmt->execute();
     }
 }

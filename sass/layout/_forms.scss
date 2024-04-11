@@ -130,7 +130,7 @@
 	}
 
 	.hide {
-		display: none;
+		visibility: hidden;
 	}
 
 	textarea {
@@ -168,4 +168,8 @@
 			font-size: 1.7rem;
 		}
 	}
+}
+
+form .error-message {
+	color: red;
 }

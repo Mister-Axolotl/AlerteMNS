@@ -28,6 +28,14 @@
 		/* Firefox */
 	}
 
+	@media screen and (min-width: 768px) {
+		left: 65%;
+	}
+
+	@media screen and (min-width: 1024px) {
+		left: 60%;
+	}
+
 	& &-header {
 		display: flex;
 		align-items: center;
@@ -35,7 +43,6 @@
 
 		img {
 			width: 3rem;
-			filter: invert(1); // juste pour le design
 		}
 
 		span {
@@ -78,7 +85,7 @@
 			margin-bottom: 10px;
 
 			.role-badge {
-				width: 1.5rem;
+				width: 1.7rem;
 				margin-right: 5px;
 			}
 
@@ -86,5 +93,13 @@
 				font-size: 1.1rem;
 			}
 		}
+	}
+
+	#conversation-button {
+		width: 100%;
+		margin: 10px 0 0;
+		padding: 5px;
+		border-color: $vert-tres-clair;
+		color: $vert-tres-clair;
 	}
 }

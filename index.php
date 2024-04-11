@@ -59,52 +59,10 @@ l'administrateur. -->
             <!-- MENU CANAL / AGENDA / PARAMETRES-->
             <div class="left-container" id="left-container">
                 <!-- CANAUX -->
-                <div class="channels">
-                    <!--
-                    <div class="channel public-channel active-channel">
-                        <div class="dot-container">
-                            <span class="dot" style="visibility: hidden;"></span>
-                        </div>
-                        <img src="./images/channel/chat_bubbles.png" alt="Forum icône">
-                        <span class="dash">–</span>
-                        <span class="name">Forum</span>
-                    </div>
-                    <hr class="separator">
-                    <div class="channel public-channel">
-                        <div class="dot-container">
-                            <span class="dot"></span>
-                        </div>
-                        <img src="./images/channel/team.png" alt="Equipe MNS icône">
-                        <span class="dash">–</span>
-                        <span class="name">Equipe MNS</span>
-                    </div>
-                    <div class="channel public-channel">
-                        <div class="dot-container">
-                            <span class="dot"></span>
-                        </div>
-                        <img src="./images/channel/team.png" alt="Equipe MNS icône">
-                        <span class="dash">–</span>
-                        <span class="name">Equipe MNS</span>
-                    </div>
-                    <div class="channel public-channel">
-                        <div class="dot-container">
-                            <span class="dot"></span>
-                        </div>
-                        <img src="./images/channel/team.png" alt="Equipe MNS icône">
-                        <span class="dash">–</span>
-                        <span class="name">Equipe MNS</span>
-                    </div>
-                    <div class="channel private-channel">
-                        <div class="dot-container">
-                            <span class="dot"></span>
-                        </div>
-                        <img src="./images/profile-user.png" alt="Photo profil">
-                        <span class="name">Prénom Nom</span>
-                    </div> -->
-                </div>
+                <div class="channels"></div>
 
                 <!-- ADMIN PAGE LINK -->
-                <div class="admin-link">
+                <div id="admin-link">
                     <button class="admin-div">
                         <a href="/admin/index.php">
                             <div>
@@ -194,38 +152,14 @@ l'administrateur. -->
                         <span>ROLES</span>
                         <hr>
                     </div>
-                    <div class="user-infos-roles">
-                        <div class="role">
-                            <img class="role-badge" src="./images/Badges/admin.png" alt="administrateur badge">
-                            <span>Administrateur</span>
-                        </div>
-                        <div class="role">
-                            <img class="role-badge" src="./images/Badges/admin.png" alt="administrateur badge">
-                            <span>Administrateur</span>
-                        </div>
-                        <div class="role">
-                            <img class="role-badge" src="./images/Badges/admin.png" alt="administrateur badge">
-                            <span>Administrateur</span>
-                        </div>
-                        <div class="role">
-                            <img class="role-badge" src="./images/Badges/admin.png" alt="administrateur badge">
-                            <span>Administrateur</span>
-                        </div>
-                    </div>
+                    <div class="user-infos-roles"></div>
+					<button class="button-outline" id="conversation-button">Envoyer un message</button>
                 </div>
             </div>
 
             <!-- MENU MEMBRES CANAL -->
             <div class="members-container" id="members-container">
-                <div class="members">
-                    <!-- <div class="channel member-channel user-profile-picture">
-                        <div class="dot-container">
-                            <span class="dot"></span>
-                        </div>
-                        <img src="./images/profile-user.png" alt="Photo profil">
-                        <span class="name">Prénom Nom</span>
-                    </div> -->
-                </div>
+                <div class="members"></div>
             </div>
         </div>
     </main>
