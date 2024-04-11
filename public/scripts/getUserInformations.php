@@ -2,8 +2,8 @@
 require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/connect.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/protect.php";
 
-if (isset ($_POST['userId'])) {
-	$sql = "SELECT user_firstname, user_lastname, user_picture,
+if (isset($_POST['userId'])) {
+    $sql = "SELECT user_firstname, user_lastname, user_picture,
 			GROUP_CONCAT(role_badge) AS roles_badge,
 			GROUP_CONCAT(role_name) AS roles_name
 			FROM table_user

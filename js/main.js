@@ -70,47 +70,47 @@ document.addEventListener('DOMContentLoaded', function () {
 	if (window.location.pathname === '/index.php') {
 
 		/* ==================== CONVERSATION TYPE SWITCH ==================== */
-	
+
 		const activeBackgroundConversation = document.querySelector('.active-background');
 		const publicConversation = document.querySelector('#public');
 		const priveeConversation = document.querySelector('#privee');
-	
+
 		publicConversation.addEventListener('click', () => {
 			toggleBackground('activePublic', 'activePrivate', priveeConversation, publicConversation);
 			getRenderClickChannel("public");
 		});
-		
+
 		priveeConversation.addEventListener('click', () => {
 			toggleBackground('activePrivate', 'activePublic', publicConversation, priveeConversation);
 			getRenderClickChannel("private");
 		});
-	
+
 		function toggleBackground(addClass, removeClass, activeElement, inactiveElement) {
 			activeBackgroundConversation.classList.remove(removeClass);
 			activeBackgroundConversation.classList.add(addClass);
 			activeElement.classList.remove('active-type');
 			inactiveElement.classList.add('active-type');
 		}
-	
+
 		/* ==================== INVERT DEFAULT IMAGE FOR MENUS ==================== */
-	
+
 		document.querySelectorAll('.private-channel, .member-channel').forEach(channel => {
 			let img = channel.childNodes[3];
-	
+
 			let imgSrc = img.src.split("/");
 			let imgName = imgSrc[imgSrc.length - 1];
-	
+
 			if (imgName == "profile-user.png") {
 				img.style.filter = "invert(1)";
 			}
 		});
-	
+
 		/* ==================== SEARCHBAR (PHONE) ==================== */
-	
+
 		const searchIcon = document.querySelector('#magnifying-glass');
 		const searchBarPhone = document.querySelector('#research-bar-phone');
 		let isUserSearching = false;
-	
+
 		// Open searchbar for phone only when user is on a phone (<768px) and not in the menu
 		searchIcon.addEventListener('click', () => {
 			isUserSearching = !isUserSearching;
@@ -124,9 +124,9 @@ document.addEventListener('DOMContentLoaded', function () {
 				searchBarPhone.style.display = 'none';
 			}
 		})
-	
+
 		/* ==================== MENU CHANNELS OPENING (PHONE) ==================== */
-	
+
 		const menuMainIcon = document.querySelector('#menu-icon');
 		const leftContainer = document.querySelector('#left-container');
 		const rightContainer = document.querySelector('#right-container');
@@ -134,21 +134,21 @@ document.addEventListener('DOMContentLoaded', function () {
 		const leftHeader = document.querySelector('#left-header');
 		const header = document.querySelector('#header');
 		let isMenuChannelOpen = false;
-	
+
 		menuMainIcon.addEventListener('click', () => {
 			// Searching is not possible when the menu is open
 			searchBarPhone.style.display = 'none';
 			isUserSearching = false;
-	
+
 			if (isMenuChannelOpen) {
 				menuOpenClose('none', 'block', 'none', 'none', 'column');
 			} else {
 				menuOpenClose('flex', 'none', 'none', 'block', 'column-reverse');
 			}
-	
+
 			isMenuChannelOpen = !isMenuChannelOpen;
 		});
-	
+
 		function menuOpenClose(leftContainerDisplay, rightContainerDisplay, channelMemberContainerDisplay, leftHeaderDisplay, headerFlexDirection) {
 			leftContainer.style.display = leftContainerDisplay;
 			rightContainer.style.display = rightContainerDisplay;
@@ -156,14 +156,14 @@ document.addEventListener('DOMContentLoaded', function () {
 			leftHeader.style.display = leftHeaderDisplay;
 			header.style.flexDirection = headerFlexDirection;
 		}
-	
+
 		/* ==================== MENU CHANNELS USER ==================== */
 		const parametersUserName = document.querySelector('#parameters-name');
 		const parametersUserRole = document.querySelector('#parameters-role');
 		const parametersUserPicture = document.querySelector('#parameters-user-profil');
 		const adminLinkDiv = document.querySelector('#admin-link');
 		const channelsDiv = leftContainer.querySelector('.channels');
-	
+
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", "/public/scripts/getUserRoleAndName.php");
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -178,41 +178,41 @@ document.addEventListener('DOMContentLoaded', function () {
 					parametersUserName.title = `${userRoleAndName.user_firstname} ${userRoleAndName.user_lastname}`;
 					parametersUserRole.textContent = userRoles[0];
 					parametersUserRole.title = userRoles;
-	
+
 					// Display profile picture if there is one otherwise default picture
 					if (userPicture != "") {
 						parametersUserPicture.src = `/upload/${profilePicturePrefix}${userPicture}`;
 					} else {
 						parametersUserPicture.src = "/images/parameters/user.png";
 					}
-	
+
 					// Display roles
 					if (userRoles[0] == "administrateur") {
 						channelMenuAdmin();
 					}
-					
+
 					for (let i = 1; i < userRoles.length; i++) {
 						parametersUserRole.textContent += `, ${userRoles[i]}`;
-						
+
 						if (userRoles[i] == "administrateur") {
 							channelMenuAdmin();
 						}
-						
+
 					}
 				}
 			}
 		}
-	
+
 		function channelMenuAdmin() {
 			// Admin button
 			adminLinkDiv.style.display = "block";
 			const adminButtonLink = adminLinkDiv.querySelector('a');
 			const adminButtonText = adminLinkDiv.querySelector('p');
 			adminButtonLink.style.justifyContent = "center";
-			
+
 			// Calendar & parameters buttons
 			const calendarParamDiv = document.querySelector('.calendar-parameters');
-			
+
 			if (window.innerWidth < 768) {
 				channelsDiv.style.height = '80%';
 				adminButtonText.style.width = "fit-content";
@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				channelsDiv.style.height = '70%';
 			}
 		}
-	
+
 		/* ==================== GET/DISPLAY MEMBERS ==================== */
 		function members() {
 			getMembers().then(members => {
@@ -235,18 +235,18 @@ document.addEventListener('DOMContentLoaded', function () {
 				console.error(error);
 			});
 		}
-	
+
 		/* ==================== MENU MEMBERS OPENING ==================== */
-	
+
 		const channelNameHeader = document.querySelector('#channel-name');
 		let isMembersChannelOpen = false;
-	
+
 		channelNameHeader.addEventListener('click', () => {
 			// Searching is not possible when the menu is open
 			searchBarPhone.style.display = 'none';
 			isUserSearching = false;
 			let viewportWidth = window.innerWidth;
-	
+
 			if (viewportWidth >= 768) {
 				if (isMembersChannelOpen) {
 					channelMemberContainer.style.display = 'none';
@@ -262,19 +262,19 @@ document.addEventListener('DOMContentLoaded', function () {
 					menuOpenClose('none', 'block', 'none', 'none', 'column');
 				}
 			}
-	
+
 			if (!isMenuChannelOpen) {
 				isMembersChannelOpen = !isMembersChannelOpen;
 			}
 		});
-	
+
 		/* ==================== USER INFORMATIONS ==================== */
-	
+
 		function setupUserInfos() {
 			const userInfos = document.querySelector('#user-infos');
 			const userInfosHeader = document.querySelector('.user-infos-header');
 			const pictures = document.querySelectorAll('.user-profile-picture');
-	
+
 			pictures.forEach(picture => {
 				picture.addEventListener('click', (event) => {
 					userInfos.style.display = "none";
@@ -286,6 +286,7 @@ document.addEventListener('DOMContentLoaded', function () {
 						// Message
 						userId = picture.getAttribute('data-user-id');
 					}
+
 					var xhr = new XMLHttpRequest();
 					xhr.open("POST", "/public/scripts/getUserInformations.php");
 					xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -298,52 +299,52 @@ document.addEventListener('DOMContentLoaded', function () {
 								const userPicture = userInfos.user_picture;
 								const userBadgeRole = userInfos.roles_badge.split(",");
 								const userRoleName = userInfos.roles_name.split(",");
-								
+
 								const imgElement = userInfosHeader.querySelector('img');
 								const spanElement = userInfosHeader.querySelector('span');
-								
+
 								const userInfosRoles = document.querySelector('.user-infos-roles');
-	
+
 								if (userPicture != "") {
 									imgElement.src = `/upload/${profilePicturePrefix}${userPicture}`
 								} else {
 									imgElement.src = "/images/profile-user.png";
 								}
-								
+
 								// User lastname and firstname
 								spanElement.textContent = `${userFirstname} ${userLastname}`;
-								
+
 								// User roles
 								// delete all roles before displaying user's role(s)
 								removeChild(userInfosRoles);
-	
+
 								// display user's roles
 								for (let i = 0; i < userRoleName.length; i++) {
 									const divRole = document.createElement('div');
 									divRole.classList.add('role');
-									
+
 									const imgRoleBadge = document.createElement('img');
 									imgRoleBadge.classList.add('role-badge');
 									imgRoleBadge.src = `/upload/${badgePrefix}${userBadgeRole[i]}`;
 									imgRoleBadge.alt = userRoleName[i] + 'badge';
 									divRole.appendChild(imgRoleBadge);
-	
+
 									const spanRoleName = document.createElement('span');
 									spanRoleName.textContent = userRoleName[i];
 									divRole.appendChild(spanRoleName);
-	
+
 									userInfosRoles.appendChild(divRole);
 								}
-	
+
 							} else {
 								console.error("Erreur lors de la session channel ID");
 							}
 						}
 					};
 					xhr.send("userId=" + userId);
-	
+
 					userInfos.style.display = "block";
-					
+
 					event.stopPropagation();
 
 					document.querySelectorAll('#conversation-button').forEach(button => {
@@ -366,7 +367,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					})
 				});
 			});
-	
+
 			document.querySelectorAll('.button-close').forEach(button => {
 				button.addEventListener('click', (event) => {
 					userInfos.style.display = "none";
@@ -374,20 +375,20 @@ document.addEventListener('DOMContentLoaded', function () {
 				});
 			});
 
-			
-	
+
+
 			document.addEventListener('click', (event) => {
 				if (!userInfos.contains(event.target) && event.target !== userInfos) {
 					userInfos.style.display = "none";
 				}
 			});
 		}
-	
+
 		/* ==================== MESSAGES OPTIONS ==================== */
-	
+
 		const messageOptionsButton = document.querySelector('#messageOptionsButton');
 		const options = document.querySelector('#options');
-	
+
 		messageOptionsButton.addEventListener('click', () => {
 			if (options.classList.contains('show-up')) {
 				options.classList.remove('show-up');
@@ -399,75 +400,75 @@ document.addEventListener('DOMContentLoaded', function () {
 				options.classList.add('show-up');
 			}
 		});
-	
+
 		/* ==================== EMOJIS CHANGER ==================== */
-	
+
 		const emojiButton = document.querySelector('#emoji-option'); // Sélectionnez le bouton maintenant
 		const emojiNames = ['smile', 'sad', 'cool', 'famous', 'in-love', 'mocking', 'rolling-eyes', 'tongue'];
 		const emojiAlt = ['Visage heureux', 'Visage triste', 'Visage avec des lunettes de soleil', 'Visage avec des étoiles dans les yeux', 'Visage avec des coeurs dans les yeux', 'Visage qui plisse les yeux', 'Visage avec les yeux doux', 'Visage qui tire la langue'];
 		let currentEmojiIndex = 1;
-	
+
 		emojiButton.addEventListener('mouseover', (event) => {
 			const nextEmojiSrc = `../images/emojis/${emojiNames[currentEmojiIndex]}.png`;
 			emojiButton.src = nextEmojiSrc;
 			emojiButton.alt = emojiAlt[currentEmojiIndex];
 			currentEmojiIndex = (currentEmojiIndex + 1) % emojiNames.length;
 		});
-	
+
 		/* ==================== OPEN EMOJIS MENU ==================== */
-	
+
 		const input = document.querySelector('#messageInput');
-	
+
 		document.querySelector('emoji-picker').addEventListener('emoji-click', event => {
 			input.value += event.detail.unicode;
 		});
-	
+
 		const emojiPicker = document.querySelector('#emoji-picker');
-	
+
 		document.querySelector('#emoji-option').addEventListener('click', event => {
 			event.stopPropagation();
 			emojiPicker.i18n = fr;
 			emojiPicker.locale = 'fr';
 			emojiPicker.dataSource = 'https://cdn.jsdelivr.net/npm/emoji-picker-element-data@^1/fr/emojibase/data.json';
-	
+
 			if (emojiPicker.style.display === 'none') {
 				emojiPicker.style.display = 'block';
 			} else {
 				emojiPicker.style.display = 'none';
 			}
 		});
-	
+
 		document.addEventListener('click', (event) => {
 			if (!emojiPicker.contains(event.target) && event.target !== emojiPicker) {
 				emojiPicker.style.display = "none";
 			}
 		});
-	
+
 		adjustEmojiPicker();
-	
+
 		window.addEventListener('resize', adjustEmojiPicker);
-	
+
 		function adjustEmojiPicker() {
-	
+
 			const emojiPicker = document.querySelector('#emoji-picker');
-	
+
 			if (window.innerWidth < 768) {
 				emojiPicker.style.display = 'none';
 			}
 		}
-	
+
 		/* ==================== ON RESIZE WINDOW ==================== */
-	
+
 		window.addEventListener('resize', () => {
 			let windowWidth = window.innerWidth;
-	
+
 			if (windowWidth >= 768) {
 				menuOpenClose('flex', 'block', 'none', 'block', 'row');
 				searchBarPhone.style.display = 'none';
 			} else {
 				menuOpenClose('none', 'block', 'none', 'none', 'column');
 			}
-	
+
 			channelMenuAdmin();
 			isMenuChannelOpen = false;
 			isMembersChannelOpen = false;
@@ -511,43 +512,41 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		/* ==================== CHANNELS ==================== */
 
-		function getRenderClickChannel(type) {
-			getChannels(type).then(channels => {
-				if (type == "public") {
-					renderPublicChannels(channels); // Rendre les canaux dans le DOM
-				} else if (type == "private") {
-					renderPrivateChannels(channels);
+		async function getRenderClickChannel(type) {
+			try {
+				const channels = await getChannels(type);
+				if (type === "public") {
+					renderPublicChannels(channels); // Rendre les canaux publics dans le DOM
+				} else if (type === "private") {
+					await renderPrivateChannels(channels);
+					attachChannelClickEvent(channels); // Attacher l'événement de clic une fois que le rendu des canaux privés est terminé
 				}
-				attachChannelClickEvent(channels);
-				// attachChannelClickEvent(channels); // Attacher l'événement de clic une fois que les canaux sont rendus
-			}).catch(error => {
+				attachChannelClickEvent(channels); // Attacher l'événement de clic une fois que le rendu des canaux privés est terminé
+			} catch (error) {
 				console.error(error);
-			});
+			}
 		}
 
 		getRenderClickChannel("public");
 
 		//TODO Vérifier si l'utilisateur a la permission d'aller dans le channel car il peut modifier l'html
 
-		function attachChannelClickEvent(channelsList) {
+		function attachChannelClickEvent(channelsList, type) {
 			const channels = document.querySelectorAll('.channel');
 			const channelName = document.querySelector('#channel-name');
-			
+
 			channels.forEach(channel => {
 				channel.addEventListener('click', event => {
 					const clickedChannel = event.currentTarget;
 					const channelId = clickedChannel.dataset.channelId;
 
 					// Modifier le nom et l'image du canal dans le DOM
-					channelsList.forEach(channelDb => {
-						if (channelDb.channel_id == channel.getAttribute('data-channel-id')) {
-							const imageElement = channelName.querySelector('.channel-image');
-							imageElement.src = '/images/channel/' + channelDb.channel_icon;
 
-							const nameElement = channelName.querySelector('.channel-name');
-							nameElement.textContent = channelDb.channel_name;
-						}
-					});
+					const imageElement = channelName.querySelector('.channel-image');
+					imageElement.src = channel.querySelector('img').src;
+
+					const nameElement = channelName.querySelector('.channel-name');
+					nameElement.textContent = channel.querySelector('span').textContent;
 
 					// Supprimer la classe "active" de tous les éléments
 					channels.forEach(channel => {
@@ -610,7 +609,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 	// PARAMETERS PAGE
-	
+
 	if (window.location.pathname === '/parametres.php') {
 
 		/* ==================== MENU PARAMETERS OPENING ==================== */
@@ -636,17 +635,17 @@ document.addEventListener('DOMContentLoaded', function () {
 		const parameterChannels = document.querySelectorAll('.parameter-channel');
 		const parameterTitle = contentPageParameters.querySelector('h2');
 		const problemSuggestionDescription = document.querySelector('#description-label');
-		const channelToDivName = {'Mon compte': 'my-account', 'Un problème ?': 'problem-suggestion', 'FAQ': 'faq', 'Suggestions ?': 'problem-suggestion', 'RGPD': 'rgpd'};
+		const channelToDivName = { 'Mon compte': 'my-account', 'Un problème ?': 'problem-suggestion', 'FAQ': 'faq', 'Suggestions ?': 'problem-suggestion', 'RGPD': 'rgpd' };
 		let activeDivName = 'my-account';
 		let activeChannel = parameterChannels[0];
-	
+
 		parameterChannels.forEach(channel => {
 			channel.addEventListener('click', event => {
 				// The channel that was open should no longer be visible
 				let activeDiv = document.querySelector(`.${activeDivName}`);
 				activeDiv.style.display = 'none';
 				activeChannel.classList.remove('active');
-				
+
 				// Display content of the channel that was clicked and change title
 				activeDivName = channelToDivName[channel.title];
 				parameterTitle.textContent = channel.title;
@@ -656,7 +655,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				} else if (channel.title === "Suggestions ?") {
 					problemSuggestionDescription.textContent = "Description de la suggestion";
 				}
-				
+
 				activeChannel = channel;
 				activeDiv = document.querySelector(`.${activeDivName}`);
 				activeDiv.style.display = 'block';
@@ -689,7 +688,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				}
 			}
 		}
-		
+
 		// CHANGE PROFILE PICTURE
 		const modifyPictureButton = document.querySelector('#modify-profile-picture');
 		const formPicture = document.querySelector('#submit-picture');
@@ -710,7 +709,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		modifyPasswordButton.addEventListener('click', () => {
 			displayFormPassword('none', 'block');
 		});
-		
+
 		// Hide form to modify password on cancel-password-change button's click and reset values to empty strings 
 		cancelPasswordModify.addEventListener('click', () => {
 			displayFormPassword('block', 'none');
