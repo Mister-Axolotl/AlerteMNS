@@ -128,7 +128,7 @@ if (isset($_POST['actualPassword']) && $user_id > 0) {
 					<form id="submit-picture" action="parametres.php" method="post" enctype="multipart/form-data">
 						<label for="user-picture">Modifier l'image de profil</label>
 						<input type="file" name="user_picture" id="user-picture">
-						<button type="submit" class="button-outline">Submit</button>
+						<button type="submit" class="button-outline">Enregistrer</button>
 					</form>
 				</div>
 

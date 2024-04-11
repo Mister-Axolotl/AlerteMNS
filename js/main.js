@@ -1,4 +1,4 @@
-import { openCloseMenu, ifOpenMenu, startParticleAnimation, renderMessages, broadcastMessage, getUserId, getChannels, renderChannels, getActualChannelId, getMembers, renderMembers, removeChild } from "./functions.js";
+import { openCloseMenu, ifOpenMenu, startParticleAnimation, renderMessages, broadcastMessage, getUserId, getChannels, renderPublicChannels, renderPrivateChannels, getActualChannelId, getMembers, renderMembers, removeChild } from "./functions.js";
 import fr from "./fr.js";
 const newMessageEvent = new Event('newMessage');
 
@@ -278,7 +278,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			pictures.forEach(picture => {
 				picture.addEventListener('click', (event) => {
 					userInfos.style.display = "none";
-					var userId;
+					let userId;
 					// Member
 					if (picture.hasChildNodes()) {
 						userId = picture.querySelector('img').getAttribute('data-user-id');
@@ -345,6 +345,25 @@ document.addEventListener('DOMContentLoaded', function () {
 					userInfos.style.display = "block";
 					
 					event.stopPropagation();
+
+					document.querySelectorAll('#conversation-button').forEach(button => {
+						button.addEventListener('click', (event) => {
+							var xhr = new XMLHttpRequest();
+							xhr.open("POST", "/public/scripts/insertNewPrivateChannel.php", true);
+							xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+							xhr.onreadystatechange = function () {
+								if (xhr.readyState === XMLHttpRequest.DONE) {
+									if (xhr.status === 200) {
+										const channelInfo = JSON.parse(xhr.responseText);
+									}
+								}
+							}
+							xhr.send(`otherUserId=${userId}`);
+							// Open new/existant conversation
+							priveeConversation.click();
+							event.stopPropagation();
+						})
+					})
 				});
 			});
 	
@@ -354,6 +373,8 @@ document.addEventListener('DOMContentLoaded', function () {
 					event.stopPropagation();
 				});
 			});
+
+			
 	
 			document.addEventListener('click', (event) => {
 				if (!userInfos.contains(event.target) && event.target !== userInfos) {
@@ -492,8 +513,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		function getRenderClickChannel(type) {
 			getChannels(type).then(channels => {
-				renderChannels(channels); // Rendre les canaux dans le DOM
-				attachChannelClickEvent(channels); // Attacher l'événement de clic une fois que les canaux sont rendus
+				if (type == "public") {
+					renderPublicChannels(channels); // Rendre les canaux dans le DOM
+				} else if (type == "private") {
+					renderPrivateChannels(channels);
+				}
+				attachChannelClickEvent(channels);
+				// attachChannelClickEvent(channels); // Attacher l'événement de clic une fois que les canaux sont rendus
 			}).catch(error => {
 				console.error(error);
 			});
@@ -506,7 +532,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		function attachChannelClickEvent(channelsList) {
 			const channels = document.querySelectorAll('.channel');
 			const channelName = document.querySelector('#channel-name');
-
+			
 			channels.forEach(channel => {
 				channel.addEventListener('click', event => {
 					const clickedChannel = event.currentTarget;

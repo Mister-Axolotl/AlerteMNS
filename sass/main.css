@@ -1386,6 +1386,13 @@ emoji-picker {
 .user-infos .user-infos-roles .role span {
   font-size: 1.1rem;
 }
+.user-infos #conversation-button {
+  width: 100%;
+  margin: 10px 0 0;
+  padding: 5px;
+  border-color: #c7f9cc;
+  color: #c7f9cc;
+}
 
 .channel {
   height: 2rem;

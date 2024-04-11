@@ -195,14 +195,14 @@ export function getChannels(type) {
     });
 }
 
-export function renderChannels(channels) {
+export function renderPublicChannels(channels) {
     var channelsContainer = document.querySelector('.channels');
 	removeChild(channelsContainer);
     var count = 0; // Variable de comptage pour suivre le nombre de canaux ajoutés
 
     channels.forEach(channel => {
         var channelDiv = document.createElement('div');
-        channelDiv.classList.add('channel', 'public-channel');
+		channelDiv.classList.add('channel', 'public-channel');
 		channelDiv.title = channel.channel_name;
 
         // Ajouter un attribut de données avec l'ID du canal
@@ -248,6 +248,59 @@ export function renderChannels(channels) {
             separator.classList.add('separator');
             channelsContainer.appendChild(separator);
         }
+    });
+}
+
+export function renderPrivateChannels(channels) {
+    var channelsContainer = document.querySelector('.channels');
+	removeChild(channelsContainer);
+
+    channels.forEach(channel => {
+		// Récupérer les informations des utilisateurs avec qui le compte a une discussion privée
+		const xhr = new XMLHttpRequest();
+		xhr.open("POST", "/public/scripts/getOtherUserInfo.php");
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState === XMLHttpRequest.DONE) {
+				if (xhr.status === 200) {
+					const otherUserInfo = JSON.parse(xhr.responseText);
+					
+					var channelDiv = document.createElement('div');
+					channelDiv.classList.add('channel', 'private-channel');
+					channelDiv.title = `${otherUserInfo.user_firstname} ${otherUserInfo.user_lastname}`;
+
+					// Ajouter un attribut de données avec l'ID du canal
+					channelDiv.setAttribute('data-channel-id', channel.channel_id);
+
+					// Créer une balise img pour l'icône
+					var iconImg = document.createElement('img');
+					var userPicture = otherUserInfo.user_picture;
+					if (userPicture != "") {
+						iconImg.src = '/upload/sm_' + userPicture;
+					} else {
+						iconImg.src = "/images/profile-user.png";
+						iconImg.style.filter = "invert(1)";
+					}
+					iconImg.alt = `${otherUserInfo.user_firstname} ${otherUserInfo.user_lastname}`;
+
+					// Créer une balise span pour le nom du canal
+					var nameSpan = document.createElement('span');
+					nameSpan.classList.add('name');
+					nameSpan.textContent = `${otherUserInfo.user_firstname} ${otherUserInfo.user_lastname}`;
+
+					// Ajouter les éléments au canal
+					channelDiv.appendChild(iconImg);
+					channelDiv.appendChild(nameSpan);
+
+					// Ajouter le canal au conteneur des canaux
+					channelsContainer.appendChild(channelDiv);
+
+				} else {
+					console.error("Erreur lors de la session channel ID");
+				}
+			}
+		};
+		xhr.send("channelName=" + channel.channel_name);
     });
 }
 

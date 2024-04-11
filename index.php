@@ -152,8 +152,8 @@ l'administrateur. -->
                         <span>ROLES</span>
                         <hr>
                     </div>
-                    <div class="user-infos-roles">
-                    </div>
+                    <div class="user-infos-roles"></div>
+					<button class="button-outline" id="conversation-button">Envoyer un message</button>
                 </div>
             </div>
 

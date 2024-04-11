@@ -38,7 +38,14 @@ $stmt->execute();
 $roles = $stmt->fetchAll();
 
 // CHANNELS
-$sql = "SELECT channel_id, channel_name FROM table_channel";
+$sql = "SELECT channel_id, channel_name FROM table_channel
+		WHERE table_channel.channel_id IN (
+			SELECT table_user_channel.user_channel_channel_id
+			FROM table_user_channel
+			GROUP BY table_user_channel.user_channel_channel_id
+			HAVING COUNT(table_user_channel.user_channel_user_id) != 2
+		)
+		GROUP BY table_channel.channel_id";
 $stmt = $db->prepare($sql);
 $stmt->execute();
 $channels = $stmt->fetchAll();
