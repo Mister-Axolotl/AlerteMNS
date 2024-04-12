@@ -101,23 +101,8 @@ export function startParticleAnimation(event, color) {
 function getRandomColor(color) {
     let colors = [];
     switch (color) {
-        case "discord":
-            colors = ['#5865f2'];
-            break;
-        case "instagram":
-            colors = ['#fdbe57', '#ac34ac', '#ffffff'];
-            break;
-        case "tik-tok":
-            colors = ['#ee1e52', '#69c9d0', '#ffffff'];
-            break;
         case "cotillons":
             colors = ["#f9c23c", "#3f5fff", "#00a6ed", "#f70a8d"];
-            break;
-        case "fc-metz":
-            colors = ["#731013"];
-            break;
-        case "arrow-down":
-            colors = ["#1e4940"];
             break;
         default:
             colors = ['#ffffff'];
@@ -334,8 +319,6 @@ export function renderMessages(messages, userId) {
             messageDiv.classList.add('others-message');
         }
 
-        messageDiv.classList.add('scroll-section');
-
         const profilePictureImg = document.createElement('img');
         const userPicture = message.user_picture;
         if (userPicture != "") {
@@ -382,25 +365,6 @@ export function renderMessages(messages, userId) {
         messageDiv.appendChild(messageContentDiv);
 
         messageContainer.appendChild(messageDiv);
-    });
-}
-
-function sendMessage(userId, message) {
-    const messageContainer = document.querySelector('.message-container');
-    const messageDiv = document.createElement('div');
-
-    if (userId == message[0]) {
-        messageDiv.classList.add('my-message');
-    } else {
-        messageDiv.classList.add('others-message');
-    }
-
-    messageContainer.prepend(messageDiv);
-}
-
-export function broadcastMessage(usersIds, message) {
-    usersIds.forEach(userId => {
-        sendMessage(userId, message);
     });
 }
 

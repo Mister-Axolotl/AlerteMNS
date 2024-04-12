@@ -1,6 +1,5 @@
-import { openCloseMenu, ifOpenMenu, startParticleAnimation, renderMessages, broadcastMessage, getUserId, getChannels, renderPublicChannels, renderPrivateChannels, getActualChannelId, getMembers, renderMembers, removeChild } from "./functions.js";
+import { startParticleAnimation, renderMessages, getUserId, getChannels, renderPublicChannels, renderPrivateChannels, getActualChannelId, getMembers, renderMembers, removeChild } from "./functions.js";
 import fr from "./fr.js";
-const newMessageEvent = new Event('newMessage');
 
 const badgePrefix = "sm_";
 const profilePicturePrefix = "sm_";
@@ -495,11 +494,8 @@ document.addEventListener('DOMContentLoaded', function () {
 				xhr.onreadystatechange = function () {
 					if (xhr.readyState === XMLHttpRequest.DONE) {
 						if (xhr.status === 200) {
-							console.log(JSON.parse(xhr.responseText));
 							var responseData = JSON.parse(xhr.responseText);
-							var usersIds = responseData.userIds;
-							var message = responseData.message;
-							broadcastMessage(usersIds, message);
+							// console.log(responseData);
 						} else {
 							console.error("Erreur: " + xhr.status);
 						}
@@ -531,6 +527,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		//TODO Vérifier si l'utilisateur a la permission d'aller dans le channel car il peut modifier l'html
 
+		let channelId = null;
+
 		function attachChannelClickEvent(channelsList, type) {
 			const channels = document.querySelectorAll('.channel');
 			const channelName = document.querySelector('#channel-name');
@@ -538,10 +536,9 @@ document.addEventListener('DOMContentLoaded', function () {
 			channels.forEach(channel => {
 				channel.addEventListener('click', event => {
 					const clickedChannel = event.currentTarget;
-					const channelId = clickedChannel.dataset.channelId;
+					channelId = clickedChannel.dataset.channelId;
 
 					// Modifier le nom et l'image du canal dans le DOM
-
 					const imageElement = channelName.querySelector('.channel-image');
 					imageElement.src = channel.querySelector('img').src;
 
@@ -556,42 +553,9 @@ document.addEventListener('DOMContentLoaded', function () {
 					});
 
 					clickedChannel.classList.add("active");
-					var xhr = new XMLHttpRequest();
 
-					// Définir le channel dans la session
-					xhr.open("POST", "/public/scripts/setSessionChannelId.php");
-					xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-					xhr.onreadystatechange = function () {
-						if (xhr.readyState === XMLHttpRequest.DONE) {
-							if (xhr.status === 200) {
-
-							} else {
-								console.error("Erreur lors de la session channel ID");
-							}
-						}
-					};
-					xhr.send("channelId=" + channelId);
-
-					var xhr2 = new XMLHttpRequest();
-					// Effectuez une requête AJAX pour récupérer les messages du canal
-					xhr2.open("POST", "/public/message/getMessages.php", true);
-					xhr2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-					xhr2.onreadystatechange = function () {
-						if (xhr2.readyState === XMLHttpRequest.DONE) {
-							if (xhr2.status === 200) {
-								const messages = JSON.parse(xhr2.responseText);
-								let channeldId = getUserId();
-								channeldId.then(userId => {
-									renderMessages(messages, userId);
-									setupUserInfos();
-								});
-
-							} else {
-								console.error("Erreur lors de la récupération des messages");
-							}
-						}
-					};
-					xhr2.send("channelId=" + encodeURIComponent(channelId));
+					// Récupérer les messages du canal
+					retrieveAndRenderMessages();
 
 					// récupérer tous les membres du channel si celui-ci est ouvert
 					if (isMembersChannelOpen) {
@@ -599,13 +563,44 @@ document.addEventListener('DOMContentLoaded', function () {
 					}
 				});
 			});
+
+			// Définir l'intervalle pour rafraîchir les messages toutes les 5 secondes
+			setInterval(retrieveAndRenderMessages, 5000);
 		}
 
-		document.addEventListener('newMessage', function (event) {
-			console.log('New message received:', event);
-			// Logique pour mettre à jour l'interface utilisateur avec le nouveau message
-			// Par exemple, vous pourriez ajouter le nouveau message à une liste de messages dans votre interface utilisateur
-		});
+		function retrieveAndRenderMessages() {
+			if (channelId) {
+				var xhr = new XMLHttpRequest();
+				xhr.open("POST", "/public/message/getMessages.php", true);
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.onreadystatechange = function () {
+					if (xhr.readyState === XMLHttpRequest.DONE) {
+						if (xhr.status === 200) {
+							const messages = JSON.parse(xhr.responseText);
+							let userId = getUserId();
+							userId.then(user => {
+								renderMessages(messages, user);
+								setupUserInfos();
+								var xhr2 = new XMLHttpRequest();
+								xhr2.open("POST", "/public/scripts/setSessionChannelId.php", true);
+								xhr2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+								xhr2.onreadystatechange = function () {
+									if (xhr2.readyState === XMLHttpRequest.DONE) {
+										if (xhr2.status === 200) {
+
+										}
+									}
+								};
+								xhr2.send("channelId=" + encodeURIComponent(channelId));
+							});
+						} else {
+							console.error("Erreur lors de la récupération des messages");
+						}
+					}
+				};
+				xhr.send("channelId=" + encodeURIComponent(channelId));
+			}
+		}
 	}
 
 	// PARAMETERS PAGE
