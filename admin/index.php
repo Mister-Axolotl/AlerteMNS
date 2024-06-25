@@ -1,3 +1,7 @@
+<?php
+require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/protectAdmin.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

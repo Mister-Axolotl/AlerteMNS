@@ -1,5 +1,5 @@
 <?php require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/connect.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/protect.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/protectAdmin.php";
 
 $sql = "SELECT * FROM table_channel";
 $stmt = $db->prepare($sql);

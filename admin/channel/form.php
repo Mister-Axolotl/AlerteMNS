@@ -1,5 +1,5 @@
 <?php require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/connect.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/protect.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/protectAdmin.php";
 $channel_id = 0;
 $channel_name = "";
 $channel_description = "";

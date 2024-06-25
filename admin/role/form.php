@@ -1,5 +1,5 @@
 <?php require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/connect.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/protect.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/protectAdmin.php";
 $role_id = 0;
 $role_name = "";
 $role_badge = "";

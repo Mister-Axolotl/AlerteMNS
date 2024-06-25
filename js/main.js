@@ -28,7 +28,8 @@ document.addEventListener('DOMContentLoaded', function () {
 		container = document.querySelector(".container");
 	} else if (window.location.pathname === '/parametres.php') {
 		container = document.querySelector(".parameters-content");
-
+	} else if (window.location.pathname === '/calendrier.php') {
+		container = document.querySelector(".calendar-container");
 	}
 
 	// Créer un observateur de mutation pour surveiller les changements dans le conteneur
@@ -543,7 +544,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					imageElement.src = channel.querySelector('img').src;
 
 					const nameElement = channelName.querySelector('.channel-name');
-					nameElement.textContent = channel.querySelector('span').textContent;
+					nameElement.textContent = channel.querySelector('.name').textContent;
 
 					// Supprimer la classe "active" de tous les éléments
 					channels.forEach(channel => {
@@ -717,6 +718,169 @@ document.addEventListener('DOMContentLoaded', function () {
 			passwordForm.querySelectorAll('input').forEach(input => {
 				input.value = "";
 			})
+		}
+	}
+
+	// CALENDAR PAGE
+
+	if (window.location.pathname === '/calendrier.php') {
+		var eventPopUp = document.querySelector('#addEventPopUp');
+		var cancelEvent = document.querySelector('#cancel-event-button');
+		var newFormInput = document.querySelector('#new-form');
+		var idInput = document.querySelector('#id');
+		var titleInput = document.querySelector('#title');
+		var dateInput = document.querySelector('#date');
+		var beginDateInput = document.querySelector('#begin-at');
+		var endDateInput = document.querySelector('#end-at');
+		//var otherUserInput = document.querySelector('#other-user');
+		var placeInput = document.querySelector('#place');
+
+		// Get and display user's event(s)
+		window.onload = getEventList();
+
+		// Display calendar
+		var calendarEl = document.getElementById('calendar');
+		var calendar = new FullCalendar.Calendar(calendarEl, {
+			height: "auto",
+			initialView: 'dayGridMonth',
+			dateClick: function(info) {
+				openNewEventForm(info.dateStr);
+
+			},
+			//headerToolbar: { center: 'dayGridMonth,timeGridWeek' }, // buttons for switching between views
+			views: {
+				dayGridMonth: {
+					titleFormat: { year: 'numeric', month: '2-digit', day: '2-digit' }
+				}
+			},
+			timeZone: 'UTC',
+			// Display event and user is able to modify it
+			eventClick: function(info) {
+				displayEvent(info.event);
+			  }
+		});
+		calendar.render();
+		calendar.updateSize();
+
+		// Calendar in french (but not buttons)
+		calendar.setOption('locale', 'fr');
+	}
+
+	function displayEvent(event) {
+		eventPopUp.style.display = "block";
+
+		newFormInput.value = false;
+		idInput.value = event.id;
+		titleInput.value = event.title;
+		
+		var dateBegin = event.startStr.split("T");
+		var day = dateBegin[0];
+		var beginHour = dateBegin[1].split(":")[0];
+		if (beginHour[0] == "0") {
+			beginHour = beginHour[1];
+		}
+		var dateEnd = event.endStr.split("T");
+		var endHour = dateEnd[1].split(":")[0];
+		if (endHour[0] == "0") {
+			endHour = endHour[1];
+		}
+		dateInput.value = day;
+		beginDateInput.value = beginHour;
+		endDateInput.value = endHour;
+
+		//otherUserInput.value = event.title;
+		placeInput.value = event.extendedProps.description;
+
+		cancelEvent.addEventListener('click', () => {
+			eventPopUp.style.display = "none";
+		});
+	}
+
+	function openNewEventForm(date) {
+		eventPopUp.style.display = "block";
+
+		titleInput.value = null;
+		beginDateInput.value = null;
+		endDateInput.value = null;
+		placeInput.value = null;
+
+		dateInput.value = date;
+		newFormInput.value = true;
+		idInput.value = null;
+
+		cancelEvent.addEventListener('click', () => {
+			eventPopUp.style.display = "none";
+		});
+	}
+
+	function getEventList() {
+		console.log('page chargée');
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", "/public/scripts/getEventList.php");
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.send();
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState === XMLHttpRequest.DONE) {
+				if (xhr.status === 200) {
+					const events = JSON.parse(xhr.responseText);
+					events.forEach(event => {
+						addEventToCalendar(event.event_id, event.event_title, event.event_begin_at, event.event_end_at, event.event_description);
+					});
+				}
+			}
+		}
+	}
+
+	function addEventToCalendar(id, title, beginAt, endAt, description) {
+		calendar.addEvent(
+			{
+				id: id,
+				title: title,
+				start: beginAt,
+				end: endAt,
+				extendedProps : {
+					description: description
+				}
+			}
+		)
+	}
+
+	/* ==================== MENU CHANNELS USER ==================== */
+	const parametersUserName = document.querySelector('#parameters-name');
+	const parametersUserRole = document.querySelector('#parameters-role');
+	const parametersUserPicture = document.querySelector('#parameters-user-profil');
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", "/public/scripts/getUserRoleAndName.php");
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xhr.send();
+	xhr.onreadystatechange = function () {
+		if (xhr.readyState === XMLHttpRequest.DONE) {
+			if (xhr.status === 200) {
+				const userRoleAndName = JSON.parse(xhr.responseText);
+				const userPicture = userRoleAndName.user_picture;
+				const userRoles = userRoleAndName.user_roles.split(",");
+				parametersUserName.textContent = `${userRoleAndName.user_firstname} ${userRoleAndName.user_lastname}`;
+				parametersUserName.title = `${userRoleAndName.user_firstname} ${userRoleAndName.user_lastname}`;
+				parametersUserRole.textContent = userRoles[0];
+				parametersUserRole.title = userRoles;
+
+				// Display profile picture if there is one otherwise default picture
+				if (userPicture != "") {
+					parametersUserPicture.src = `/upload/${profilePicturePrefix}${userPicture}`;
+				} else {
+					parametersUserPicture.src = "/images/parameters/user.png";
+				}
+
+				// Display roles
+				if (userRoles[0] == "administrateur") {
+					channelMenuAdmin();
+				}
+
+				for (let i = 1; i < userRoles.length; i++) {
+					parametersUserRole.textContent += `, ${userRoles[i]}`;
+				}
+			}
 		}
 	}
 });

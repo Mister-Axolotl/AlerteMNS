@@ -31,8 +31,10 @@ if (isset ($_POST['login']) && isset ($_POST['password'])) {
 
             // On récupère l'id du rôle de l'utilisateur
             $sql = "SELECT user_role_role_id FROM table_user_role
-					INNER JOIN table_user ON table_user_role.user_role_user_id = table_user.user_id";
+                    INNER JOIN table_user ON table_user_role.user_role_user_id = table_user.user_id
+                    WHERE user_role_user_id = :id";
             $stmt = $db->prepare($sql);
+            $stmt->bindParam(':id', $row["user_id"]);
             $stmt->execute();
 
             if ($recordset = $stmt->fetchAll()) {

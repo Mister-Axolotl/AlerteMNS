@@ -1,5 +1,5 @@
 <?php require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/connect.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/protect.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/protectAdmin.php";
 $uploadPath = $_SERVER['DOCUMENT_ROOT'] . "/upload/";
 $prefix = "sm_";
 

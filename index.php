@@ -76,12 +76,14 @@ l'administrateur. -->
 
                 <!-- AGENDA AND PARAMETERS -->
                 <div class="calendar-parameters">
-                    <button class="calendar-div">
-                        <div>
-                            <img src="./images/calendar.png" class="icon" alt="Calendrier" title="Ouvrir l'agenda">
-                        </div>
-                        <p>Agenda</p>
-                    </button>
+					<a href="./calendrier.php" class="calendar-link">
+						<button class="calendar-div">
+							<div>
+								<img src="./images/calendar.png" class="icon" alt="Calendrier" title="Ouvrir l'agenda">
+							</div>
+							<p>Agenda</p>
+						</button>
+					</a>
                     <div class="parameters-div">
                         <div class="left">
                             <img src="./images/parameters/user.png" id="parameters-user-profil" class="icon"
