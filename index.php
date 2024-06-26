@@ -34,7 +34,7 @@ l'administrateur. -->
             </div>
 
             <div class="right-header-content">
-                <div class="research-bar">
+                <div class="research-bar" id="research-bar">
                     <input type="text" class="bar">
                     <img src="./images/magnifying_glass.png" class="icon-header" id="magnifying-glass" alt="Loupe"
                         title="Ouvrir la barre de recherche">
@@ -49,7 +49,7 @@ l'administrateur. -->
         <div class="research-bar-phone" id="research-bar-phone">
             <img src="./images/magnifying_glass.png" class="icon-header" id="magnifying-glass" alt="Loupe"
                 title="Ouvrir la barre de recherche">
-            <input type="text">
+            <input type="text" class="bar">
         </div>
     </header>
 
@@ -76,12 +76,14 @@ l'administrateur. -->
 
                 <!-- AGENDA AND PARAMETERS -->
                 <div class="calendar-parameters">
-                    <button class="calendar-div">
-                        <div>
-                            <img src="./images/calendar.png" class="icon" alt="Calendrier" title="Ouvrir l'agenda">
-                        </div>
-                        <p>Agenda</p>
-                    </button>
+					<a href="./calendrier.php" class="calendar-link">
+						<button class="calendar-div">
+							<div>
+								<img src="./images/calendar.png" class="icon" alt="Calendrier" title="Ouvrir l'agenda">
+							</div>
+							<p>Agenda</p>
+						</button>
+					</a>
                     <div class="parameters-div">
                         <div class="left">
                             <img src="./images/parameters/user.png" id="parameters-user-profil" class="icon"
@@ -105,6 +107,9 @@ l'administrateur. -->
 
             <!-- CONVERSATIONS -->
             <div class="right-container" id="right-container">
+				<!-- SEARCH MESSAGES -->
+				<div id="search-messages-list"></div>
+
                 <!-- MESSAGES -->
                 <div class="message-container"></div>
 

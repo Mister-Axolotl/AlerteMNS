@@ -434,3 +434,57 @@ export function renderMembers(members) {
         MembersContainer.appendChild(memberDiv);
     });
 }
+
+export function renderSearchMessages(messages) {
+    const searchMessageContainer = document.querySelector('#search-messages-list');
+    searchMessageContainer.innerHTML = ''; // Effacer les anciens messages
+
+    messages.forEach(message => {
+        const searchMessageBlock = document.createElement('div');
+		searchMessageBlock.classList.add('search-message-block');
+
+		const pictureDiv = document.createElement('div');
+		pictureDiv.classList.add('user-picture');
+
+        const profilePictureImg = document.createElement('img');
+        const userPicture = message.user_picture;
+        if (userPicture != "") {
+            profilePictureImg.src = '/upload/sm_' + message.user_picture;
+			} else {
+				profilePictureImg.src = "/images/profile-user.png";
+			profilePictureImg.style.filter = "invert(1)";
+			}
+		profilePictureImg.alt = `photo de profil ${message.user_firstname} ${message.user_lastname}`;
+		profilePictureImg.classList.add('user-profile-picture');
+		profilePictureImg.setAttribute('data-user-id', message.message_user_id);
+		pictureDiv.appendChild(profilePictureImg);
+
+
+        const searchMessageBlockContentDiv = document.createElement('div');
+        searchMessageBlockContentDiv.classList.add('search-message');
+
+        const infoDiv = document.createElement('div');
+        infoDiv.classList.add('infos');
+
+		const nameFisrtName = document.createElement('p');
+		nameFisrtName.textContent = message.user_firstname + " " + message.user_lastname;
+
+		const date = document.createElement('p');
+		date.textContent = message.message_date;
+
+		infoDiv.appendChild(nameFisrtName);
+		infoDiv.appendChild(date);
+
+        const contentParagraph = document.createElement('p');
+        contentParagraph.classList.add('content');
+        contentParagraph.textContent = message.message_content;
+
+        searchMessageBlockContentDiv.appendChild(infoDiv);
+        searchMessageBlockContentDiv.appendChild(contentParagraph);
+
+        searchMessageBlock.appendChild(pictureDiv);
+        searchMessageBlock.appendChild(searchMessageBlockContentDiv);
+
+        searchMessageContainer.appendChild(searchMessageBlock);
+    });
+}

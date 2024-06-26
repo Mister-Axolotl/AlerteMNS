@@ -219,7 +219,7 @@ button {
     font-size: 2.7rem;
   }
 }
-.form-field input {
+.form-field input, .form-field select {
   height: 2.5rem;
   background-color: #fefefe;
   border: none;
@@ -229,15 +229,15 @@ button {
   color: #221f1f;
   font-size: 1.2rem;
 }
-.form-field input:focus {
+.form-field input:focus, .form-field select:focus {
   outline: 3px solid rgba(128, 237, 153, 0.4);
 }
-.form-field input:-webkit-autofill, .form-field input:-webkit-autofill:hover, .form-field input:-webkit-autofill:focus, .form-field input:-webkit-autofill:active {
+.form-field input:-webkit-autofill, .form-field input:-webkit-autofill:hover, .form-field input:-webkit-autofill:focus, .form-field input:-webkit-autofill:active, .form-field select:-webkit-autofill, .form-field select:-webkit-autofill:hover, .form-field select:-webkit-autofill:focus, .form-field select:-webkit-autofill:active {
   -webkit-transition: background-color 5000s ease-in-out 0s;
   transition: background-color 5000s ease-in-out 0s;
 }
 @media screen and (min-width: 768px) {
-  .form-field input {
+  .form-field input, .form-field select {
     height: 3rem;
     border-radius: 17px;
     padding: 0 15px;
@@ -245,21 +245,21 @@ button {
   }
 }
 @media screen and (max-height: 439px) {
-  .form-field input {
+  .form-field input, .form-field select {
     height: 2rem;
     border-radius: 11px;
     font-size: 1rem;
   }
 }
 @media screen and (min-width: 1024px) {
-  .form-field input {
+  .form-field input, .form-field select {
     height: 2.5rem;
     border-radius: 14px;
     font-size: 1rem;
   }
 }
 @media screen and (min-width: 1280px) and (min-height: 1000px) {
-  .form-field input {
+  .form-field input, .form-field select {
     height: 4rem;
     border-radius: 17px;
     padding: 0 15px;
@@ -796,7 +796,6 @@ form .error-message {
   width: 100%;
   height: calc(100vh - 62px);
   display: flex;
-  overflow-y: auto;
   overflow-x: hidden;
   overflow-y: auto;
 }
@@ -891,68 +890,81 @@ form .error-message {
 .left-container #admin-link .admin-div a:visited {
   color: #3f3f3f;
 }
-.left-container .calendar-parameters {
+.left-container .calendar-parameters, .left-container .home-parameters {
   height: 15%;
   width: 100%;
   display: flex;
   flex-direction: row-reverse;
 }
 @media screen and (max-height: 500px) {
-  .left-container .calendar-parameters {
+  .left-container .calendar-parameters, .left-container .home-parameters {
     height: 25%;
   }
 }
 @media screen and (min-width: 768px) {
-  .left-container .calendar-parameters {
+  .left-container .calendar-parameters, .left-container .home-parameters {
     flex-direction: column;
   }
 }
 @media screen and (min-width: 1024px) {
-  .left-container .calendar-parameters {
+  .left-container .calendar-parameters, .left-container .home-parameters {
     height: 25%;
   }
 }
-.left-container .calendar-parameters .calendar-div {
+.left-container .calendar-parameters .calendar-link, .left-container .home-parameters .calendar-link {
+  background-color: #80ed99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 25%;
+}
+@media screen and (min-width: 768px) {
+  .left-container .calendar-parameters .calendar-link, .left-container .home-parameters .calendar-link {
+    height: 35%;
+    min-height: 2.5rem;
+    width: 100%;
+    justify-content: normal;
+  }
+}
+.left-container .calendar-parameters .calendar-link .calendar-div, .left-container .home-parameters .calendar-link .calendar-div {
   display: flex;
   justify-content: space-around;
   align-items: center;
   color: #3f3f3f;
   font-size: 1.2rem;
-  background-color: #80ed99;
   text-align: left;
   border: none;
   padding: 0;
 }
 @media screen and (min-width: 768px) {
-  .left-container .calendar-parameters .calendar-div {
+  .left-container .calendar-parameters .calendar-link .calendar-div, .left-container .home-parameters .calendar-link .calendar-div {
     height: 35%;
     min-height: 2.5rem;
     width: 100%;
   }
 }
-.left-container .calendar-parameters .calendar-div:hover {
+.left-container .calendar-parameters .calendar-link .calendar-div:hover, .left-container .home-parameters .calendar-link .calendar-div:hover {
   cursor: pointer;
   background-color: #57cc99;
 }
-.left-container .calendar-parameters .calendar-div div {
+.left-container .calendar-parameters .calendar-link .calendar-div div, .left-container .home-parameters .calendar-link .calendar-div div {
   text-align: center;
 }
 @media screen and (min-width: 768px) {
-  .left-container .calendar-parameters .calendar-div div {
+  .left-container .calendar-parameters .calendar-link .calendar-div div, .left-container .home-parameters .calendar-link .calendar-div div {
     width: 25%;
   }
 }
-.left-container .calendar-parameters .calendar-div p {
+.left-container .calendar-parameters .calendar-link .calendar-div p, .left-container .home-parameters .calendar-link .calendar-div p {
   width: 75%;
   display: none;
 }
 @media screen and (min-width: 768px) {
-  .left-container .calendar-parameters .calendar-div p {
+  .left-container .calendar-parameters .calendar-link .calendar-div p, .left-container .home-parameters .calendar-link .calendar-div p {
     display: block;
   }
 }
-.left-container .calendar-parameters .parameters-div {
+.left-container .calendar-parameters .parameters-div, .left-container .home-parameters .parameters-div {
   display: flex;
   align-items: center;
   width: 75%;
@@ -960,39 +972,39 @@ form .error-message {
   color: #3f3f3f;
 }
 @media screen and (min-width: 768px) {
-  .left-container .calendar-parameters .parameters-div {
+  .left-container .calendar-parameters .parameters-div, .left-container .home-parameters .parameters-div {
     height: 65%;
     width: 100%;
   }
 }
-.left-container .calendar-parameters .parameters-div .left {
+.left-container .calendar-parameters .parameters-div .left, .left-container .home-parameters .parameters-div .left {
   width: 25%;
 }
-.left-container .calendar-parameters .parameters-div .center {
+.left-container .calendar-parameters .parameters-div .center, .left-container .home-parameters .parameters-div .center {
   width: 50%;
   text-align: left;
 }
-.left-container .calendar-parameters .parameters-div .center p {
+.left-container .calendar-parameters .parameters-div .center p, .left-container .home-parameters .parameters-div .center p {
   display: block;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 }
-.left-container .calendar-parameters .parameters-div .center p#parameters-role {
+.left-container .calendar-parameters .parameters-div .center p#parameters-role, .left-container .home-parameters .parameters-div .center p#parameters-role {
   font-size: smaller;
   text-transform: capitalize;
 }
-.left-container .calendar-parameters .parameters-div .right {
+.left-container .calendar-parameters .parameters-div .right, .left-container .home-parameters .parameters-div .right {
   width: 25%;
 }
-.left-container .calendar-parameters .parameters-div .right button {
+.left-container .calendar-parameters .parameters-div .right button, .left-container .home-parameters .parameters-div .right button {
   background-color: transparent;
   border: none;
   padding: 0;
   height: 30px;
   transition: transform 0.3s ease-in-out;
 }
-.left-container .calendar-parameters .parameters-div .right button:hover {
+.left-container .calendar-parameters .parameters-div .right button:hover, .left-container .home-parameters .parameters-div .right button:hover {
   cursor: pointer;
   transform: rotate(90deg);
 }
@@ -1232,6 +1244,7 @@ emoji-picker {
   right: 5px;
 }
 
+/* BULLE DE MESSAGE ET CONTENEUR GLOBAL */
 .message-container {
   display: flex;
   flex-direction: column-reverse;
@@ -1299,6 +1312,62 @@ emoji-picker {
 }
 .message-container .my-message .info {
   justify-content: flex-end;
+}
+
+/* LISTE DES MESSAGES D'UNE RECHERCHE */
+#search-messages-list {
+  height: 60%;
+  width: 30%;
+  position: absolute;
+  left: 69%;
+  top: 1%;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  padding: 15px 0;
+  border-radius: 5%;
+  background-color: rgba(34, 87, 122, 0.9);
+}
+@media screen and (max-width: 768px) {
+  #search-messages-list {
+    width: 90%;
+    left: 5%;
+    top: 6%;
+  }
+}
+#search-messages-list .search-message-block {
+  width: 85%;
+  max-height: 50%;
+  padding: 4px;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row;
+  background-color: rgba(87, 204, 153, 0.5);
+  border-radius: 5%;
+  border: 3px solid #80ed99;
+  color: #fefefe;
+}
+#search-messages-list .search-message-block .user-picture {
+  width: 15%;
+}
+#search-messages-list .search-message-block .user-picture img {
+  width: 80%;
+}
+#search-messages-list .search-message-block .search-message {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+#search-messages-list .search-message-block .search-message .infos {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: small;
+  margin-bottom: 3px;
+}
+#search-messages-list .search-message-block .search-message .content {
+  overflow-y: auto;
 }
 
 .user-infos {
@@ -1770,6 +1839,109 @@ emoji-picker {
 .roles, .form-channels {
   display: flex;
   flex-direction: row;
+}
+
+.invert-image-white {
+  filter: brightness(0) invert(1);
+}
+.invert-image-black {
+  filter: brightness(1) invert(1);
+}
+
+.error-message {
+  color: red;
+}
+
+.calendar-container {
+  padding: 1rem 2rem;
+}
+.calendar-container #addEventPopUp {
+  display: none;
+  z-index: 1;
+  position: absolute;
+  top: 51%;
+  left: 55%;
+  transform: translate(-45%, -49%);
+  width: 50%;
+  padding: 1rem;
+  border-radius: 20px;
+  box-shadow: 0 0 20px 8px rgba(56, 163, 165, 0.6);
+  background-color: #38a3a5;
+}
+.calendar-container #addEventPopUp form .date-label {
+  margin: 0 0 0.2rem 0.6rem;
+  font-size: 1.2rem;
+}
+@media screen and (min-width: 768px) {
+  .calendar-container #addEventPopUp form .date-label {
+    font-size: 1.4rem;
+  }
+}
+@media screen and (max-height: 439px) {
+  .calendar-container #addEventPopUp form .date-label {
+    font-size: 1.2rem;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .calendar-container #addEventPopUp form .date-label {
+    font-size: 1.1rem;
+  }
+}
+@media screen and (min-width: 1280px) and (min-height: 1000px) {
+  .calendar-container #addEventPopUp form .date-label {
+    font-size: 2.7rem;
+  }
+}
+.calendar-container #addEventPopUp form #date {
+  background-color: #38a3a5;
+  border: none;
+  margin-left: 10px;
+  font-weight: bold;
+  font-size: large;
+}
+.calendar-container #addEventPopUp form .hours {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.calendar-container #addEventPopUp form .hours .hour {
+  width: 45%;
+}
+.calendar-container #addEventPopUp form button {
+  border-radius: 9%;
+  box-shadow: 3px 8px 0px 0px rgba(34, 87, 122, 0.5);
+  margin-right: 5px;
+  padding: 5px;
+}
+.calendar-container #addEventPopUp form button#cancel-event-button {
+  background-color: #6F6F6F;
+}
+.calendar-container #addEventPopUp form button#delete-event-button {
+  background-color: lightcoral;
+}
+.calendar-container #addEventPopUp form button#submit-event-button {
+  background-color: #57cc99;
+}
+
+/* PERSONNALISATION DU CALENDRIER */
+:root {
+  --fc-border-color: #fefefe;
+  --fc-daygrid-event-dot-width: 9px;
+}
+
+.fc .fc-daygrid-body {
+  position: relative;
+  z-index: 1;
+  background-color: rgba(34, 87, 122, 0.9);
+}
+.fc-daygrid-event {
+  background-color: #38a3a5;
+}
+.fc-daygrid-event:hover {
+  background-color: rgba(56, 163, 165, 0.6);
+}
+.fc-event-title, .fc-event-time {
+  color: #fefefe;
 }
 
 /* ----- Global -----*/

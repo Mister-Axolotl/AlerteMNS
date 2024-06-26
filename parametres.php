@@ -125,7 +125,7 @@ if (isset($_POST['actualPassword']) && $user_id > 0) {
 						Mofifier
 						<img src="./images/parameters/pen.png" alt="stylo icône">
 					</button>
-					<form id="submit-picture" action="parametres.php" method="post" enctype="multipart/form-data">
+					<form id="submit-picture" action="./public/scripts/updateUserPicture.php" method="post" enctype="multipart/form-data">
 						<label for="user-picture">Modifier l'image de profil</label>
 						<input type="file" name="user_picture" id="user-picture">
 						<button type="submit" class="button-outline">Enregistrer</button>

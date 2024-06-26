@@ -1,5 +1,5 @@
 <?php require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/connect.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/protect.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/protectAdmin.php";
 
 if (isset ($_GET['id']) && $_GET['id'] > 0) {
     $sql = "DELETE FROM table_user_role WHERE user_role_user_id= :id;

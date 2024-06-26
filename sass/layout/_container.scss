@@ -4,7 +4,6 @@
 	width: 100%;
 	height: calc(100vh - 62px);
 	display: flex;
-	overflow-y: auto;
 	overflow-x: hidden;
 	overflow-y: auto;
 
@@ -108,7 +107,7 @@
 		}
 	}
 
-	.calendar-parameters {
+	.calendar-parameters, .home-parameters{
 		height: 15%;
 		width: 100%;
 		display: flex;
@@ -126,43 +125,56 @@
 			height: 25%;
 		}
 
-		.calendar-div {
-			width: 25%;
-			display: flex;
-			justify-content: space-around;
-			align-items: center;
-			color: $gris-fonce;
-			font-size: 1.2rem;
+		.calendar-link {
 			background-color: $vert-clair;
-			text-align: left;
-			border: none;
-			padding: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 25%;
 
 			@media screen and (min-width: 768px) {
 				height: 35%;
 				min-height: 2.5rem;
 				width: 100%;
+				justify-content: normal;
 			}
-
-			&:hover {
-				cursor: pointer;
-				background-color: $vert;
-			}
-
-			div {
-				text-align: center;
-
+	
+			.calendar-div {
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
+				color: $gris-fonce;
+				font-size: 1.2rem;
+				text-align: left;
+				border: none;
+				padding: 0;
+	
 				@media screen and (min-width: 768px) {
-					width: 25%;
+					height: 35%;
+					min-height: 2.5rem;
+					width: 100%;
 				}
-			}
-
-			p {
-				width: 75%;
-				display: none;
-
-				@media screen and (min-width: 768px) {
-					display: block;
+	
+				&:hover {
+					cursor: pointer;
+					background-color: $vert;
+				}
+	
+				div {
+					text-align: center;
+	
+					@media screen and (min-width: 768px) {
+						width: 25%;
+					}
+				}
+	
+				p {
+					width: 75%;
+					display: none;
+	
+					@media screen and (min-width: 768px) {
+						display: block;
+					}
 				}
 			}
 		}
