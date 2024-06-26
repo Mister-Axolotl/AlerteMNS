@@ -34,7 +34,7 @@ l'administrateur. -->
             </div>
 
             <div class="right-header-content">
-                <div class="research-bar">
+                <div class="research-bar" id="research-bar">
                     <input type="text" class="bar">
                     <img src="./images/magnifying_glass.png" class="icon-header" id="magnifying-glass" alt="Loupe"
                         title="Ouvrir la barre de recherche">
@@ -49,7 +49,7 @@ l'administrateur. -->
         <div class="research-bar-phone" id="research-bar-phone">
             <img src="./images/magnifying_glass.png" class="icon-header" id="magnifying-glass" alt="Loupe"
                 title="Ouvrir la barre de recherche">
-            <input type="text">
+            <input type="text" class="bar">
         </div>
     </header>
 
@@ -107,6 +107,9 @@ l'administrateur. -->
 
             <!-- CONVERSATIONS -->
             <div class="right-container" id="right-container">
+				<!-- SEARCH MESSAGES -->
+				<div id="search-messages-list"></div>
+
                 <!-- MESSAGES -->
                 <div class="message-container"></div>
 

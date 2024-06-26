@@ -1,4 +1,4 @@
-import { startParticleAnimation, renderMessages, getUserId, getChannels, renderPublicChannels, renderPrivateChannels, getActualChannelId, getMembers, renderMembers, removeChild } from "./functions.js";
+import { startParticleAnimation, renderMessages, getUserId, getChannels, renderPublicChannels, renderPrivateChannels, getActualChannelId, getMembers, renderMembers, removeChild, renderSearchMessages } from "./functions.js";
 import fr from "./fr.js";
 
 const badgePrefix = "sm_";
@@ -109,6 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		const searchIcon = document.querySelector('#magnifying-glass');
 		const searchBarPhone = document.querySelector('#research-bar-phone');
+		const inputSearchBarPhone = searchBarPhone.querySelector('.bar');
 		let isUserSearching = false;
 
 		// Open searchbar for phone only when user is on a phone (<768px) and not in the menu
@@ -124,6 +125,45 @@ document.addEventListener('DOMContentLoaded', function () {
 				searchBarPhone.style.display = 'none';
 			}
 		})
+
+		/* ============================== SEARCHBAR ============================== */
+		const searchBar = document.querySelector('#research-bar');
+		const inputSearchBar = searchBar.querySelector('.bar');
+		const searchMessagesList = document.querySelector('#search-messages-list');
+
+		searchBar.onkeydown = function (evt) {
+			if (evt.keyCode == 13) {
+				var keyWord = inputSearchBar.value;
+				if (keyWord != "") {
+					searchMessages(keyWord);
+				}
+			}
+		};
+
+		searchBarPhone.onkeydown = function (evt) {
+			if (evt.keyCode == 13) {
+				var keyWord = inputSearchBarPhone.value;
+				if (keyWord != "") {
+					searchMessages(keyWord);
+				}
+			}
+		};
+
+		function searchMessages(keyWord) {
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", "/public/scripts/getMessagesSearch.php");
+			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			xhr.send("keyWord=" + keyWord);
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState === XMLHttpRequest.DONE) {
+					if (xhr.status === 200) {
+						searchMessagesList.style.display = "flex";
+						const reponse = JSON.parse(xhr.responseText);
+						renderSearchMessages(reponse);
+					}
+				}
+			}
+		}
 
 		/* ==================== MENU CHANNELS OPENING (PHONE) ==================== */
 
@@ -870,11 +910,6 @@ document.addEventListener('DOMContentLoaded', function () {
 					parametersUserPicture.src = `/upload/${profilePicturePrefix}${userPicture}`;
 				} else {
 					parametersUserPicture.src = "/images/parameters/user.png";
-				}
-
-				// Display roles
-				if (userRoles[0] == "administrateur") {
-					channelMenuAdmin();
 				}
 
 				for (let i = 1; i < userRoles.length; i++) {
