@@ -1,0 +1,99 @@
+.my-account {
+	font-size: 1.2rem;
+
+	@media screen and (min-width: 768px) {
+		font-size: 1.4rem;
+	}
+
+	@media screen and (max-height: 439px) {
+		font-size: .9rem;
+	}
+
+	@media screen and (min-width: 1024px) {
+		font-size: 1.1rem;
+	}
+
+	@media screen and (min-width: 1280px) and (min-height: 1000px) {
+		font-size: 2.7rem;
+	}
+
+	.user-lastname {
+		margin-bottom: 1rem;
+	}
+
+	.profile-picture {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		height: 10%;
+		margin-bottom: 1rem;
+
+		.picture-container {
+			height: 100%;
+			width: max-content;
+			padding: .8rem 1.3rem;
+			margin-right: 1rem;
+			background-color: $blanc;
+			border-radius: 10px;
+
+			img {
+				height: 3.7rem;
+			}
+		}
+
+		#submit-picture {
+			display: none;
+
+			label, input {
+				display: none;
+			}
+			
+			button {
+				padding: .5rem 5px;
+				font-size: 16px;
+			}
+		}
+	}
+
+	.profile-picture button, #button-modify-password {
+		height: 60%;
+		width: max-content;
+		padding: 5px 15px;
+		font-size: 16px;
+
+		display: flex;
+		flex-direction: row;
+		justify-content: space-evenly;
+
+		img {
+			margin-left: 5px;
+		}
+	}
+
+	.form-field {
+		@media screen and (min-width: 1024px) {
+			width: 50%;
+		}
+	}
+
+	#modify-password {
+		display: none;
+
+		.form-buttons {
+			button {
+				width: max-content;
+				font-size: 16px;
+				padding: 5px 15px;
+			}
+			
+			.button-send {
+				height: 5.2vh;
+				border-radius: 13px;
+			}
+		}
+	}
+
+	.error-message {
+		color: red;
+	}
+}

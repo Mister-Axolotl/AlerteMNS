@@ -1,21 +1,37 @@
 @import '../utils/_variables.scss';
 
 #header {
-    position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
-    
-    padding-top: 15px;
-    padding-bottom: 15px;
+
     background-color: $noir;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
 
+    @media screen and (min-width: 768px) {
+        flex-direction: row;
+        padding: 15px 0;
+    }
+
     .left-header {
-        width: 20%;
+        width: 100%;
+        background-color: $gris-fonce;
+        padding: 10px;
+        display: none;
+        box-sizing: border-box;
+
+        @media screen and (min-width: 768px) {
+            width: 200px;
+            background-color: $noir;
+            padding: 0;
+            display: block;
+        }
+
+        @media screen and (min-width: 1024px) {
+            width: 20%;
+        }
 
         .conversation-type-div {
             position: relative;
@@ -90,15 +106,39 @@
     }
 
     .right-header {
-        width: 78%;
+        width: 95%;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        
-        .right-header-content {
-            display: flex;
-            justify-content: space-between;
-            gap: 15px;
+        flex-wrap: wrap;
+        padding: 10px;
+
+        @media screen and (min-width: 768px) {
+            width: 78%;
+            padding: 0;
+        }
+
+        @media screen and (min-width: 768px) and (max-width: 1023px) {
+            width: 73%;
+        }
+
+        @media screen and (max-width: 300px) {
+            gap: 5px;
+        }
+
+        #menu-icon {
+            display: block;
+
+            @media screen and (min-width: 768px) {
+                display: none;
+            }
+        }
+
+        .left-header-content {
+            max-width: 50%;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
         }
 
         #channel-name {
@@ -107,43 +147,113 @@
             align-items: center;
             gap: 10px;
             font-size: 1.5rem;
+			text-transform: capitalize;
+
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+
+            &:hover {
+                cursor: pointer;
+                text-decoration: underline;
+            }
         }
 
-        .icon-header {
-            height: 30px;
-        }
+        .right-header-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
 
-        button {
-            background-color: transparent;
-            border: none;
-        }
+            @media screen and (max-width: 300px) {
+                gap: 0px;
+            }
 
-        #magnifying-glass {
-            filter: brightness(0%);
-            margin-right: 5px;
+            button:hover {
+                cursor: pointer;
+                opacity: 0.5;
+            }
         }
 
         .research-bar {
             display: flex;
             align-items: center;
-            background-color: $blanc;
             border-radius: 15px;
+
+            @media screen and (min-width: 768px) {
+                background-color: $blanc;
+            }
 
             .bar {
                 background-color: $blanc;
                 height: 40px;
                 border: none;
                 border-radius: 15px;
-                width: 200px;
+                width: 0;
                 outline: none;
                 font-size: 1rem;
                 padding-left: 10px;
-            }
+                // Ne disparaît pas entièrement même avec width: 0 sans visibility:
+                visibility: hidden;
 
-            .research-bar-img {
-                background-image: url('../../images/magnifying_glass.png');
-                background-size: 50px
+                @media screen and (min-width: 768px) {
+                    width: 200px;
+                    visibility: visible;
+                }
             }
+        }
+    }
+
+    .research-bar-phone {
+        width: 100vw;
+        height: 2.5rem;
+        background-color: $bleu-fonce;
+        display: flex;
+        display: none;
+        position: absolute;
+        top: 60px;
+        z-index: 1;
+
+        @media screen and (min-width: 768px) {
+            display: none;
+        }
+
+        input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: $blanc;
+            font-size: 1rem;
+            position: relative;
+            width: 87%;
+        }
+
+        &::after {
+            content: "";
+            width: 87%;
+            height: 1px;
+            display: inline;
+            position: absolute;
+            left: 42px;
+            bottom: 6px;
+            background-color: $blanc;
+        }
+
+        #magnifying-glass {
+            padding-left: 5px;
+            margin-top: 3px;
+        }
+    }
+
+    .icon-header {
+        height: 30px;
+    }
+
+    #magnifying-glass {
+        margin-right: 5px;
+        filter: invert(0);
+
+        @media screen and (min-width: 768px) {
+            filter: invert(1);
         }
     }
 }

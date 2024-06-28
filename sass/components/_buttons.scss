@@ -1,18 +1,102 @@
+button {
+	background-color: transparent;
+	border: none;
+}
+
 .button {
-    cursor: pointer;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    transition: transform 0.2s;
+	cursor: pointer;
+	-webkit-touch-callout: none !important;
+	-webkit-user-select: none !important;
+	-khtml-user-select: none !important;
+	-moz-user-select: none !important;
+	-ms-user-select: none !important;
+	user-select: none !important;
+	transition: transform 0.2s;
+	box-shadow: 3px 8px 0px 0px rgba(0, 0, 0, 0.500);
+	border: none;
+	transition: all .2s ease-in-out;
 }
 
 .button:hover {
-    transform: scale(1.05);
+	transform: scale(1.02);
 }
 
 .button:active {
-    transform: scale(0.95);
+	transform: scale(0.95);
+	box-shadow: 3px 3px 0px 0px rgba(0, 0, 0, 0.500);
+}
+
+// BOUTON CONSTITUEE UNIQUEMENT D'UNE IMAGE
+.button-image {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	transition: transform 0.2s;
+}
+
+.button-image:hover img {
+	img {
+		cursor: pointer;
+		transform: scale(1.05);
+	}
+}
+
+.button-image:active img {
+	transform: scale(0.95); //ne fonctionne pas
+}
+
+// BOUTON CROIX DE FERMETURE
+.button-close {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+
+	img {
+		width: 1.5rem;
+	}
+}
+
+.button-close:hover {
+	filter: invert(1);
+	cursor: pointer;
+}
+
+// BOUTON OUTLINED
+.button-outline {
+	border: 3px solid $vert;
+	border-radius: 13px;
+	color: $vert;
+	cursor: pointer;
+
+	img {
+		width: 1.5rem;
+	}
+}
+
+.button-outline:hover {
+	filter: brightness(.8);
+}
+
+// BOUTON D'ENVOIE
+.button-send {
+	background-color: $vert;
+	color: $blanc;
+	font-size: x-large;
+	border-radius: 25px;
+	width: 55%;
+	height: 6vh;
+
+	@media screen and (min-width: 768px) {
+		width: 50%;
+		height: 5vh;
+		font-size: xx-large;
+	}
+
+	@media screen and (min-width: 1024px) {
+		height: 6vh;
+		font-size: x-large;
+	}
 }

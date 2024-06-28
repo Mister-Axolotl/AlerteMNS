@@ -1,0 +1,140 @@
+@import '../utils/_variables.scss';
+
+/* BULLE DE MESSAGE ET CONTENEUR GLOBAL */
+.message-container {
+	display: flex;
+	flex-direction: column-reverse;
+	width: 99%;
+	height: calc(100% - 5rem); // All height - (writing bar height + a little space)
+	margin: auto;
+	padding: 0 30px;
+	overflow-y: auto;
+	box-sizing: border-box;
+
+	@media screen and (max-width: 768px) {
+		// Hide scrollbar but still able to scroll
+		-ms-overflow-style: none;
+		/* Internet Explorer 10+ */
+		scrollbar-width: none;
+		/* Firefox */
+
+		padding: 0 10px;
+	}
+
+	.others-message,
+	.my-message {
+		width: 80%;
+		display: flex;
+		align-items: flex-start;
+		margin: 5px 0;
+
+		img {
+			width: 2rem;
+			margin-top: 5px;
+			cursor: pointer;
+		}
+
+		.message {
+			max-width: calc(100% - 3rem);
+			width: fit-content;
+			height: fit-content;
+			background: $blanc;
+			border-radius: 20px;
+			padding: 4px 15px 10px;
+
+			.info {
+				display: flex;
+				flex-direction: row;
+				font-size: smaller;
+				color: #585858;
+				margin-bottom: 5px;
+
+				.name {
+					margin-right: 10px;
+				}
+			}
+		}
+	}
+
+	.others-message {
+		img {
+			margin-right: .6rem;
+		}
+	}
+
+	.my-message {
+		flex-direction: row-reverse;
+		align-self: end;
+
+		img {
+			margin-left: .6rem;
+		}
+
+		.info {
+			justify-content: flex-end;
+		}
+	}
+}
+
+/* LISTE DES MESSAGES D'UNE RECHERCHE */
+#search-messages-list {
+	height: 60%;
+	width: 30%;
+	position: absolute;
+	left: 69%;
+	top: 1%;
+
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	overflow-y: auto;
+
+	padding: 15px 0;
+	border-radius: 5%;
+	background-color: rgba($bleu-fonce, .9);
+
+	@media screen and (max-width: 768px) {
+		width: 90%;
+		left: 5%;
+		top: 6%;
+	}
+
+	.search-message-block {
+		width: 85%;
+		max-height: 50%;
+		padding: 4px;
+		margin-bottom: 1rem;
+		display: flex;
+		flex-direction: row;
+		background-color: rgba($vert, .5);
+		border-radius: 5%;
+		border: 3px solid $vert-clair;
+		color: $blanc;
+
+		.user-picture {
+			width: 15%;
+
+			& img {
+				width: 80%;
+			}
+		}
+
+		.search-message {
+			width: 80%;
+			display: flex;
+			flex-direction: column;
+
+			.infos {
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				font-size: small;
+				margin-bottom: 3px;
+			}
+
+			.content {
+				overflow-y: auto;
+			}
+		}
+	}
+}

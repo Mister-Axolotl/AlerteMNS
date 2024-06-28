@@ -1,83 +1,318 @@
 @import '../utils/_variables.scss';
 
 .container {
-    position: absolute;
-    top: 75px;
-    bottom: 0px;
-    width: 100%;
-    display: flex;
-    overflow-y: auto;
-    overflow-x: hidden;
-    overflow-y: auto;
-    font-family: $font-family-noto_sans;
+	width: 100%;
+	height: calc(100vh - 62px);
+	display: flex;
+	overflow-x: hidden;
+	overflow-y: auto;
 
-    &::-webkit-scrollbar {
-        width: 10px;
-    }
+	&::-webkit-scrollbar {
+		width: 10px;
+	}
 
-    &::-webkit-scrollbar-thumb {
-        background-color: $vert;
-    }
+	&::-webkit-scrollbar-thumb {
+		background-color: $vert;
+	}
 
-    &::-webkit-scrollbar-track {
-        background-color: #f2f2f2;
-        border-radius: 5px;
-    }
+	&::-webkit-scrollbar-track {
+		background-color: #f2f2f2;
+		border-radius: 5px;
+	}
+
+	@media only screen and (min-width: 768px) {
+		height: calc(100vh - 75px);
+	}
 }
 
 @media only screen and (max-width: 480px) {
-    .container {
-        top: 75px;
-    }
+	.container {
+		height: calc(100vh - 62px);
+	}
 }
 
 .left-container {
-    background-color: $gris-fonce;
-    width: 20%;
-    text-align: center;
-    color: $blanc;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+	flex-direction: column;
+	justify-content: flex-end;
+	position: fixed;
+	z-index: 9999;
+	height: 100vh;
 
-    .calendar-div {
-        height: 10%;
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-        align-items: center;
-        color: $gris-fonce;
-        font-size: 1.2rem;
-        background-color: $vert-clair;
-    }
+	.channels {
+		height: 85%;
+		box-sizing: border-box;
+		padding: 10px 0;
+		overflow-y: auto;
 
-    .parameters-div {
-        display: flex;
-        height: 15%;
-        background-color: $vert-tres-clair;
-        color: $gris-fonce;
+		@media screen and (max-height: 500px) {
+			height: 75%;
+		}
 
-        .left {
-            #parameters-user-profil {
-                filter: brightness(0%);
-            }
-        }
-    }
+		@media screen and (min-width: 768px) {
+			// Hide scrollbar but still able to scroll
+			-ms-overflow-style: none;
+			/* Internet Explorer 10+ */
+			scrollbar-width: none;
+			/* Firefox */
+			padding: 0 10px;
+		}
 
-    .icon {
-        height: 30px;
-    }
+		@media screen and (min-width: 1024px) {
+			height: 75%;
+		}
+	}
+
+	#admin-link {
+		display: none;
+
+		.admin-div {
+			width: 100%;
+			font-size: 1.2rem;
+			background-color: $bleu-turquoise;
+			text-align: left;
+			border: none;
+			padding: 2px 0;
+	
+			&:hover {
+				cursor: pointer;
+				background-color: $vert;
+			}
+	
+			a {
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
+				color: $gris-fonce;
+	
+				div {
+					text-align: center;
+	
+					@media screen and (min-width: 768px) {
+						width: 25%;
+					}
+	
+					img {
+						filter: invert(1);
+					}
+				}
+	
+				p {
+					width: 75%;
+				}
+	
+				&:visited {
+					color: $gris-fonce;
+				}
+			}
+		}
+	}
+
+	.calendar-parameters, .home-parameters{
+		height: 15%;
+		width: 100%;
+		display: flex;
+		flex-direction: row-reverse;
+
+		@media screen and (max-height: 500px) {
+			height: 25%;
+		}
+
+		@media screen and (min-width: 768px) {
+			flex-direction: column;
+		}
+
+		@media screen and (min-width: 1024px) {
+			height: 25%;
+		}
+
+		.calendar-link {
+			background-color: $vert-clair;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 25%;
+
+			@media screen and (min-width: 768px) {
+				height: 35%;
+				min-height: 2.5rem;
+				width: 100%;
+				justify-content: normal;
+			}
+	
+			.calendar-div {
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
+				color: $gris-fonce;
+				font-size: 1.2rem;
+				text-align: left;
+				border: none;
+				padding: 0;
+	
+				@media screen and (min-width: 768px) {
+					height: 35%;
+					min-height: 2.5rem;
+					width: 100%;
+				}
+	
+				&:hover {
+					cursor: pointer;
+					background-color: $vert;
+				}
+	
+				div {
+					text-align: center;
+	
+					@media screen and (min-width: 768px) {
+						width: 25%;
+					}
+				}
+	
+				p {
+					width: 75%;
+					display: none;
+	
+					@media screen and (min-width: 768px) {
+						display: block;
+					}
+				}
+			}
+		}
+
+		.parameters-div {
+			display: flex;
+			align-items: center;
+			width: 75%;
+			background-color: $vert-tres-clair;
+			color: $gris-fonce;
+
+			@media screen and (min-width: 768px) {
+				height: 65%;
+				width: 100%;
+			}
+
+			.left {
+				width: 25%;
+			}
+
+			.center {
+				width: 50%;
+				text-align: left;
+
+				p {
+					display: block;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					overflow: hidden;
+
+					&#parameters-role {
+						font-size: smaller;
+						text-transform: capitalize;
+					}
+				}
+			}
+
+			.right {
+				width: 25%;
+
+				button {
+					background-color: transparent;
+					border: none;
+					padding: 0;
+					height: 30px;
+					transition: transform .3s ease-in-out;
+
+					&:hover {
+						cursor: pointer;
+						transform: rotate(90deg);
+					}
+				}
+			}
+		}
+	}
+
+	.icon {
+		height: 30px;
+	}
 }
 
 .right-container {
-    background-image: url("../../images/background_blur.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    flex-grow: 1;
-    background-position: bottom;
+	position: relative;
+	background-image: url('../images/background_blur_shorter.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: bottom;
+	padding-left: 0;
+	flex: 1;
+
+	@media screen and (min-width: 768px) {
+		padding-left: 250px;
+		display: block;
+		height: auto;
+	}
+
+	@media screen and (min-width: 1024px) {
+		padding-left: 20%;
+	}
+
+	/* Track */
+	::-webkit-scrollbar-track {
+		background: rgba($bleu-fonce, .4);
+		margin-top: 5px;
+	}
+
+	/* Handle */
+	::-webkit-scrollbar-thumb {
+		background: $bleu-fonce;
+	}
 }
 
+.left-container,
+.members-container {
+	background-color: $gris-fonce;
+	width: 100%;
+	height: calc(100% - 65px);
+	text-align: center;
+	color: $blanc;
+	display: none;
+
+	@media screen and (min-width: 768px) {
+		width: 250px;
+		display: block;
+	}
+
+	@media screen and (min-width: 1024px) {
+		width: 20%;
+	}
+}
+
+.members-container {
+	padding: 0 5px;
+	height: 100%;
+
+	@media screen and (min-width: 768px) {
+		display: none;
+	}
+
+	.members {
+		width: 99%;
+
+		.channel {
+			cursor: default;
+		}
+
+		.user-profile-picture {
+			cursor: pointer;
+		}
+
+		.name {
+			margin-right: 3px;
+		}
+	}
+}
+
+
 .sections {
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }

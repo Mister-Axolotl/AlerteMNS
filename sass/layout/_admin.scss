@@ -1,0 +1,44 @@
+// INDEX
+.admin-content {
+    background-color: $bleu-fonce;
+    color: $blanc;
+
+    min-height: 100vh;
+
+    .page-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+
+        .add-button {
+            display: flex;
+            align-items: center;
+            border: 3px solid $blanc;
+            border-radius: 13px;
+            color: $blanc;
+            cursor: pointer;
+
+            img {
+                width: 1.5rem;
+                margin-right: 5px;
+                filter: grayscale(1) brightness(50);
+            }
+
+            a {
+                color: $blanc;
+            }
+        }
+    }
+
+    .temp {
+        img {
+            width: 2rem;
+        }
+    }
+}
+
+// FORM
+.roles, .form-channels {
+	display: flex;
+	flex-direction: row;
+}

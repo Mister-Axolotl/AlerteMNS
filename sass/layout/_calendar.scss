@@ -1,0 +1,118 @@
+.invert-image {
+	&-white {
+		filter: brightness(0) invert(1);
+	}
+	&-black {
+		filter: brightness(1) invert(1);
+	}
+}
+
+.error-message {
+	color: red;
+}
+
+.calendar-container {
+	padding: 1rem 2rem;
+
+	#addEventPopUp {
+		display: none;
+
+		z-index: 1;
+		position: absolute;
+		top: 51%;
+		left: 55%;
+		transform: translate(-45%,-49%);
+		width: 50%;
+
+		padding: 1rem;
+		border-radius: 20px;
+		box-shadow: 0 0 20px 8px rgba($bleu-turquoise, $alpha: .6);
+
+		background-color: $bleu-turquoise;
+
+		form {
+			.date-label {
+				margin: 0 0 .2rem .6rem;
+				font-size: 1.2rem;
+		
+				@media screen and (min-width: 768px) {
+					font-size: 1.4rem;
+				}
+				
+				@media screen and (max-height: 439px) {
+					font-size: 1.2rem;
+				}
+		
+				@media screen and (min-width: 1024px) {
+					font-size: 1.1rem;
+				}
+		
+				@media screen and (min-width: 1280px) and (min-height: 1000px) {
+					font-size: 2.7rem;
+				}
+			}
+
+			#date {
+				background-color: $bleu-turquoise;
+				border: none;
+				margin-left: 10px;
+				font-weight: bold;
+				font-size: large;
+			}
+
+			.hours {
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+
+				.hour {
+					width: 45%;
+				}
+			}
+
+			button {
+				border-radius: 9%;
+				box-shadow: 3px 8px 0px 0px rgba($bleu-fonce, 0.5);
+				margin-right: 5px;
+				padding: 5px;
+	
+				&#cancel-event-button {
+					background-color: $gris-clair;
+				}
+	
+				&#delete-event-button {
+					background-color: lightcoral;
+				}
+	
+				&#submit-event-button {
+					background-color: $vert;
+				}
+			}
+		}
+	}
+}
+
+/* PERSONNALISATION DU CALENDRIER */
+:root {
+	--fc-border-color: #fefefe;
+	--fc-daygrid-event-dot-width: 9px;
+}
+
+.fc {
+	& .fc-daygrid-body {
+	  position: relative;
+	  z-index: 1;
+	  background-color: rgba($bleu-fonce, $alpha: .9);
+	}
+
+	&-daygrid-event {
+		background-color: $bleu-turquoise;
+	}
+	&-daygrid-event:hover {
+		background-color: rgba($bleu-turquoise, $alpha: .6);
+	}
+
+	&-event-title, &-event-time {
+		color: $blanc;
+	}
+}

@@ -1,0 +1,105 @@
+@import '../utils/_variables.scss';
+
+.user-infos {
+	display: none;
+
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	box-sizing: border-box;
+	width: max-content;
+	max-width: 80%;
+	max-height: 90%;
+	padding: 1.5rem 1rem 1rem;
+
+	border-radius: 18px;
+	background-color: rgba($bleu-fonce, .9);
+	color: $blanc;
+
+	overflow-y: scroll;
+
+	@media screen and (min-height: 500px) {
+		// Hide scrollbar but still able to scroll
+		-ms-overflow-style: none;
+		/* Internet Explorer 10+ */
+		scrollbar-width: none;
+		/* Firefox */
+	}
+
+	@media screen and (min-width: 768px) {
+		left: 65%;
+	}
+
+	@media screen and (min-width: 1024px) {
+		left: 60%;
+	}
+
+	& &-header {
+		display: flex;
+		align-items: center;
+		margin-bottom: 5px;
+
+		img {
+			width: 3rem;
+		}
+
+		span {
+			font-size: 1.2rem;
+			margin: auto 25px auto 10px;
+		}
+	}
+
+	& &-separator {
+		display: flex;
+		width: 100%;
+		box-sizing: border-box;
+		margin-bottom: 1rem;
+
+		hr {
+			border: 2px solid $vert-tres-clair;
+			border-radius: 5px;
+			margin: auto 0;
+			flex: 1;
+		}
+
+		span {
+			color: $vert-tres-clair;
+			text-transform: uppercase;
+			margin: 0 1rem;
+		}
+	}
+
+	& &-roles {
+		width: 85%;
+		margin: auto;
+
+		@media screen and (min-width: 768px) {
+			width: 75%;
+		}
+
+		.role {
+			display: flex;
+			align-items: center;
+			margin-bottom: 10px;
+
+			.role-badge {
+				width: 1.7rem;
+				margin-right: 5px;
+			}
+
+			span {
+				font-size: 1.1rem;
+			}
+		}
+	}
+
+	#conversation-button {
+		width: 100%;
+		margin: 10px 0 0;
+		padding: 5px;
+		border-color: $vert-tres-clair;
+		color: $vert-tres-clair;
+	}
+}

@@ -101,23 +101,8 @@ export function startParticleAnimation(event, color) {
 function getRandomColor(color) {
     let colors = [];
     switch (color) {
-        case "discord":
-            colors = ['#5865f2'];
-            break;
-        case "instagram":
-            colors = ['#fdbe57', '#ac34ac', '#ffffff'];
-            break;
-        case "tik-tok":
-            colors = ['#ee1e52', '#69c9d0', '#ffffff'];
-            break;
         case "cotillons":
             colors = ["#f9c23c", "#3f5fff", "#00a6ed", "#f70a8d"];
-            break;
-        case "fc-metz":
-            colors = ["#731013"];
-            break;
-        case "arrow-down":
-            colors = ["#1e4940"];
             break;
         default:
             colors = ['#ffffff'];
@@ -125,4 +110,381 @@ function getRandomColor(color) {
     }
     const randomIndex = Math.floor(Math.random() * colors.length);
     return colors[randomIndex];
+}
+
+
+/* ==================== REMOVE ALL CHILD ==================== */
+export function removeChild(container) {
+    while (container.hasChildNodes()) {
+        container.removeChild(container.lastChild);
+    }
+}
+
+export async function getActualChannelId() {
+    return new Promise((resolve, reject) => {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    var channelId = response.channelId;
+                    resolve(channelId);
+                } else {
+                    reject("Erreur lors de la récupération de la valeur de la variable de session");
+                }
+            }
+        };
+        xhr.open("GET", "/public/scripts/getChannelId.php", true);
+        xhr.send();
+    });
+}
+
+export async function getUserId() {
+    return new Promise((resolve, reject) => {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    var userId = response.userId;
+                    resolve(userId);
+                } else {
+                    reject("Erreur lors de la récupération de la valeur de la variable de session");
+                }
+            }
+        };
+        xhr.open("GET", "/public/scripts/getUserId.php", true);
+        xhr.send();
+    });
+}
+
+export function getChannels(type) {
+    return new Promise((resolve, reject) => {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    var channels = JSON.parse(xhr.responseText);
+                    resolve(channels); // Résoudre la promesse avec les données des canaux
+                } else {
+                    reject("Erreur lors de la récupération des canaux");
+                }
+            }
+        };
+        if (type == "public") {
+            xhr.open("GET", "/public/scripts/getPublicChannels.php", true);
+        } else if (type == "private") {
+            xhr.open("GET", "/public/scripts/getPrivateChannels.php", true);
+        }
+        xhr.send();
+    });
+}
+
+export function renderPublicChannels(channels) {
+    var channelsContainer = document.querySelector('.channels');
+    removeChild(channelsContainer);
+    var count = 0; // Variable de comptage pour suivre le nombre de canaux ajoutés
+
+    channels.forEach(channel => {
+        var channelDiv = document.createElement('div');
+        channelDiv.classList.add('channel', 'public-channel');
+        channelDiv.title = channel.channel_name;
+
+        // Ajouter un attribut de données avec l'ID du canal
+        channelDiv.setAttribute('data-channel-id', channel.channel_id);
+
+        // Créer un conteneur pour le point
+        var dotContainer = document.createElement('div');
+        dotContainer.classList.add('dot-container');
+        var dot = document.createElement('span');
+        dot.classList.add('dot');
+        dotContainer.appendChild(dot);
+
+        // Créer une balise img pour l'icône
+        var iconImg = document.createElement('img');
+        iconImg.src = '/images/channel/' + channel.channel_icon;
+        iconImg.alt = channel.channel_name; // Correction de la concaténation erronée ici
+
+        // Créer une balise span pour le tiret
+        var dashSpan = document.createElement('span');
+        dashSpan.classList.add('dash');
+        dashSpan.textContent = '–';
+
+        // Créer une balise span pour le nom du canal
+        var nameSpan = document.createElement('span');
+        nameSpan.classList.add('name');
+        nameSpan.textContent = channel.channel_name;
+
+        // Ajouter les éléments au canal
+        channelDiv.appendChild(dotContainer);
+        channelDiv.appendChild(iconImg);
+        channelDiv.appendChild(dashSpan);
+        channelDiv.appendChild(nameSpan);
+
+        // Ajouter le canal au conteneur des canaux
+        channelsContainer.appendChild(channelDiv);
+
+        // Incrémenter le compteur
+        count++;
+
+        // Après le troisième canal, ajout d'un séparateur
+        if (count == 3) {
+            var separator = document.createElement('hr');
+            separator.classList.add('separator');
+            channelsContainer.appendChild(separator);
+        }
+    });
+}
+
+export function renderPrivateChannels(channels) {
+    return new Promise((resolve, reject) => {
+        var channelsContainer = document.querySelector('.channels');
+        removeChild(channelsContainer);
+
+        var promises = [];
+
+        channels.forEach(channel => {
+            var promise = new Promise((innerResolve, innerReject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "/public/scripts/getOtherUserInfo.php");
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            const otherUserInfo = JSON.parse(xhr.responseText);
+
+                            var channelDiv = document.createElement('div');
+                            channelDiv.classList.add('channel', 'private-channel');
+                            channelDiv.title = `${otherUserInfo.user_firstname} ${otherUserInfo.user_lastname}`;
+
+                            // Ajouter un attribut de données avec l'ID du canal
+                            channelDiv.setAttribute('data-channel-id', channel.channel_id);
+
+                            // Créer une balise img pour l'icône
+                            var iconImg = document.createElement('img');
+                            var userPicture = otherUserInfo.user_picture;
+                            if (userPicture != "") {
+                                iconImg.src = '/upload/sm_' + userPicture;
+                            } else {
+                                iconImg.src = "/images/profile-user.png";
+                                iconImg.style.filter = "invert(1)";
+                            }
+                            iconImg.alt = `${otherUserInfo.user_firstname} ${otherUserInfo.user_lastname}`;
+
+                            // Créer une balise span pour le nom du canal
+                            var nameSpan = document.createElement('span');
+                            nameSpan.classList.add('name');
+                            nameSpan.textContent = `${otherUserInfo.user_firstname} ${otherUserInfo.user_lastname}`;
+
+                            // Ajouter les éléments au canal
+                            channelDiv.appendChild(iconImg);
+                            channelDiv.appendChild(nameSpan);
+
+                            // Ajouter le canal au conteneur des canaux
+                            channelsContainer.appendChild(channelDiv);
+
+                            innerResolve(); // Résoudre la promesse interne une fois que le rendu du canal est terminé
+                        } else {
+                            console.error("Erreur lors de la session channel ID");
+                            innerReject("Erreur lors de la session channel ID");
+                        }
+                    }
+                };
+                xhr.send("channelName=" + channel.channel_name);
+            });
+            promises.push(promise);
+        });
+
+        // Attendre que toutes les promesses de rendu des canaux soient résolues
+        Promise.all(promises)
+            .then(() => {
+                resolve(); // Résoudre la promesse principale une fois que tous les rendus sont terminés
+            })
+            .catch(error => {
+                reject(error); // Rejeter la promesse principale en cas d'erreur
+            });
+    });
+}
+
+export function renderMessages(messages, userId) {
+    const messageContainer = document.querySelector('.message-container');
+    messageContainer.innerHTML = ''; // Effacer les anciens messages
+
+    messages.forEach(message => {
+        const messageDiv = document.createElement('div');
+
+        if (userId == message.message_user_id) {
+            messageDiv.classList.add('my-message');
+        } else {
+            messageDiv.classList.add('others-message');
+        }
+
+        const profilePictureImg = document.createElement('img');
+        const userPicture = message.user_picture;
+        if (userPicture != "") {
+            profilePictureImg.src = '/upload/sm_' + message.user_picture;
+        } else {
+            profilePictureImg.src = "/images/profile-user.png";
+            profilePictureImg.style.filter = "invert(1)";
+        }
+        profilePictureImg.alt = `photo de profil ${message.user_firstname} ${message.user_lastname}`;
+        profilePictureImg.classList.add('user-profile-picture');
+        profilePictureImg.setAttribute('data-user-id', message.message_user_id);
+
+        const messageContentDiv = document.createElement('div');
+        messageContentDiv.classList.add('message');
+
+        const infoDiv = document.createElement('div');
+        infoDiv.classList.add('info');
+
+        if (message.message_user_id === userId) {
+            const dateParagraph = document.createElement('p');
+            dateParagraph.classList.add('date');
+            dateParagraph.textContent = message.message_date;
+            infoDiv.appendChild(dateParagraph);
+        } else {
+            const nameParagraph = document.createElement('p');
+            nameParagraph.classList.add('name');
+            nameParagraph.textContent = message.user_firstname + " " + message.user_lastname;
+            infoDiv.appendChild(nameParagraph);
+
+            const dateParagraph = document.createElement('p');
+            dateParagraph.classList.add('date');
+            dateParagraph.textContent = message.message_date;
+            infoDiv.appendChild(dateParagraph);
+        }
+
+        const contentParagraph = document.createElement('p');
+        contentParagraph.classList.add('content');
+        contentParagraph.textContent = message.message_content;
+
+        messageContentDiv.appendChild(infoDiv);
+        messageContentDiv.appendChild(contentParagraph);
+
+        messageDiv.appendChild(profilePictureImg);
+        messageDiv.appendChild(messageContentDiv);
+
+        messageContainer.appendChild(messageDiv);
+    });
+}
+
+export function getMembers() {
+    return new Promise((resolve, reject) => {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    var members = JSON.parse(xhr.responseText);
+                    resolve(members);
+                } else {
+                    reject("Erreur lors de la récupération des membres");
+                }
+            }
+        };
+        xhr.open("GET", "/public/scripts/getChannelMembers.php", true);
+        xhr.send();
+    });
+}
+
+export function renderMembers(members) {
+    var MembersContainer = document.querySelector('#members-container');
+
+    // Détruit tous les membres qui avaient déjà été affichés pour mettre les bons membres
+    removeChild(MembersContainer);
+
+    members.forEach(member => {
+        var memberDiv = document.createElement('div');
+        memberDiv.classList.add('channel', 'member-channel', 'user-profile-picture');
+        memberDiv.title = `${member.user_firstname} ${member.user_lastname}`;
+
+        // Créer un conteneur pour le point
+        // Pour l'instant hidden jusqu'à ce qu'on implémente la fonctionnalité qui regarde si un utilisateur est connecté ou pas
+        var dotContainer = document.createElement('div');
+        dotContainer.classList.add('dot-container');
+        dotContainer.style.display = 'none';
+        var dot = document.createElement('span');
+        dot.classList.add('dot');
+        dotContainer.appendChild(dot);
+
+        // Créer une balise img pour la photo de profil
+        const userPicture = member.user_picture;
+        var userImg = document.createElement('img');
+        if (userPicture != "") {
+            userImg.src = '/upload/sm_' + member.user_picture;
+        } else {
+            userImg.src = "/images/profile-user.png";
+            userImg.style.filter = "invert(1)";
+        }
+        userImg.alt = `photo de profil ${member.user_firstname} ${member.user_lastname}`;
+
+        // Ajouter un attribut de données avec l'ID du membre
+        userImg.setAttribute('data-user-id', member.user_id);
+
+        // Créer une balise span pour le nom/prénom du membre
+        var nameSpan = document.createElement('span');
+        nameSpan.classList.add('name');
+        nameSpan.textContent = `${member.user_firstname} ${member.user_lastname}`;
+
+        // Ajouter les éléments au membre
+        memberDiv.appendChild(dotContainer);
+        memberDiv.appendChild(userImg);
+        memberDiv.appendChild(nameSpan);
+
+        // Ajouter le membre au conteneur des membres
+        MembersContainer.appendChild(memberDiv);
+    });
+}
+
+export function renderSearchMessages(messages) {
+    const searchMessageContainer = document.querySelector('#search-messages-list');
+    searchMessageContainer.innerHTML = ''; // Effacer les anciens messages
+
+    messages.forEach(message => {
+        const searchMessageBlock = document.createElement('div');
+		searchMessageBlock.classList.add('search-message-block');
+
+		const pictureDiv = document.createElement('div');
+		pictureDiv.classList.add('user-picture');
+
+        const profilePictureImg = document.createElement('img');
+        const userPicture = message.user_picture;
+        if (userPicture != "") {
+            profilePictureImg.src = '/upload/sm_' + message.user_picture;
+			} else {
+				profilePictureImg.src = "/images/profile-user.png";
+			profilePictureImg.style.filter = "invert(1)";
+			}
+		profilePictureImg.alt = `photo de profil ${message.user_firstname} ${message.user_lastname}`;
+		profilePictureImg.classList.add('user-profile-picture');
+		profilePictureImg.setAttribute('data-user-id', message.message_user_id);
+		pictureDiv.appendChild(profilePictureImg);
+
+
+        const searchMessageBlockContentDiv = document.createElement('div');
+        searchMessageBlockContentDiv.classList.add('search-message');
+
+        const infoDiv = document.createElement('div');
+        infoDiv.classList.add('infos');
+
+		const nameFisrtName = document.createElement('p');
+		nameFisrtName.textContent = message.user_firstname + " " + message.user_lastname;
+
+		const date = document.createElement('p');
+		date.textContent = message.message_date;
+
+		infoDiv.appendChild(nameFisrtName);
+		infoDiv.appendChild(date);
+
+        const contentParagraph = document.createElement('p');
+        contentParagraph.classList.add('content');
+        contentParagraph.textContent = message.message_content;
+
+        searchMessageBlockContentDiv.appendChild(infoDiv);
+        searchMessageBlockContentDiv.appendChild(contentParagraph);
+
+        searchMessageBlock.appendChild(pictureDiv);
+        searchMessageBlock.appendChild(searchMessageBlockContentDiv);
+
+        searchMessageContainer.appendChild(searchMessageBlock);
+    });
 }
