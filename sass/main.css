@@ -1617,6 +1617,12 @@ emoji-picker {
 .parameters-content .channel-content .problem-suggestion form label {
   margin-bottom: 10px;
 }
+.parameters-content .channel-content .faq {
+  display: none;
+}
+.parameters-content .channel-content .rgpd {
+  display: none;
+}
 
 .menu-parameters {
   width: 100vw;
